@@ -54,41 +54,42 @@ const loadTemplate = async () => {
     } else {
         // Se agrega el encabezado de la página web antes del contenido principal.
         MAIN.insertAdjacentHTML('beforebegin', `
-            <header>
-                <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
-                    <div class="container">
-                        <a class="navbar-brand" href="index.html"><img src="../../resources/img/logo.png" height="50" alt="CoffeeShop"></a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div class="navbar-nav ms-auto">
-                                <a class="nav-link" href="index.html"><i class="bi bi-shop"></i> Inicio</a>
-                                <a class="nav-link" href="signup.html"><i class="bi bi-person"></i> Usuario</a>
-                                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i> Tienda</a>
-                                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i> Carrito</a>
-                            </div>
+        <header>
+            <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html"><i class="bi bi-info-circle"></i><span>&nbsp; Información</span></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav ms-auto">
+                            <a class="nav-link" href="index.html"><i class="bi bi-house-door"></i> Inicio</a>
+                            <a class="nav-link" href="signup.html"><i class="bi bi-person"></i> Usuario</a>
+                            <a class="nav-link" href="login.html"><i class="bi bi-shop"></i> Tienda</a>
+                            <a class="nav-link" href="login.html"><i class="bi bi-cart4"></i> Carrito</a>
                         </div>
                     </div>
-                </nav>
-            </header>
+                </div>
+            </nav>
+        </header>
         `);
     }
     // Se agrega el pie de la página web después del contenido principal.
     MAIN.insertAdjacentHTML('afterend', `
-        <footer>
-            <nav class="navbar fixed-bottom bg-body-tertiary">
-                <div class="container">
-                    <div>
-                        <h6>CoffeeShop</h6>
-                        <p><i class="bi bi-c-square"></i> 2018-2024 Todos los derechos reservados</p>
+    <footer>
+        <nav class="navbar fixed-bottom bg-body-tertiary">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div  class="col-md-6">
+                        <img src="../../resources/img/terminos.png" alt="Image" style="width: 50px; height: 50px;">
+                        <span>Términos y condiciones</span>
                     </div>
-                    <div>
-                        <h6>Contáctanos</h6>
-                        <p><i class="bi bi-envelope"></i> kenneth@outlook.com</p>
+                    <div class="col center-text">
+                        <p>Derechos Reservados © [Año] Infernus Gym Shop. Todos los derechos están reservados.</p>
                     </div>
                 </div>
-            </nav>
-        </footer>
+            </div>
+        </nav>
+    </footer>
     `);
 }
