@@ -22,10 +22,16 @@ if (isset($_GET['action'])) {
     }
     // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
     $result['exception'] = Database::getException();
+    // Allow requests from localhost:3000 (adjust the origin accordingly)
+    header("Access-Control-Allow-Origin: http://localhost:3000");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
     // Se indica el tipo de contenido a mostrar y su respectivo conjunto de caracteres.
     header('Content-type: application/json; charset=utf-8');
     // Se imprime el resultado en formato JSON y se retorna al controlador.
     print(json_encode($result));
 } else {
+    // Allow requests from localhost:3000 (adjust the origin accordingly)
+    header("Access-Control-Allow-Origin: http://localhost:3000");
     print(json_encode('Recurso no disponible'));
 }

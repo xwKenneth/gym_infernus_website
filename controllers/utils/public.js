@@ -11,7 +11,7 @@ MAIN.style.paddingTop = '75px';
 MAIN.style.paddingBottom = '100px';
 MAIN.classList.add('container');
 // Se establece el título de la página web.
-document.querySelector('title').textContent = 'CoffeeShop - Store';
+document.querySelector('title').textContent = 'InfernusGym - Shop';
 // Constante para establecer el elemento del título principal.
 const MAIN_TITLE = document.getElementById('mainTitle');
 MAIN_TITLE.classList.add('text-center', 'py-3');
@@ -24,7 +24,8 @@ const loadTemplate = async () => {
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const DATA = await fetchData(USER_API, 'getUser');
     // Se comprueba si el usuario está autenticado para establecer el encabezado respectivo.
-    if (DATA.session) {
+    if (DATA && DATA.session) {
+
         // Se verifica si la página web no es el inicio de sesión, de lo contrario se direcciona a la página web principal.
         if (!location.pathname.endsWith('login.html')) {
             // Se agrega el encabezado de la página web antes del contenido principal.
@@ -62,9 +63,10 @@ const loadTemplate = async () => {
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav ms-auto">
-                                <a class="nav-link" href="index.html"><i class="bi bi-shop"></i> Catálogo</a>
-                                <a class="nav-link" href="signup.html"><i class="bi bi-person"></i> Crear cuenta</a>
-                                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i> Iniciar sesión</a>
+                                <a class="nav-link" href="index.html"><i class="bi bi-shop"></i> Inicio</a>
+                                <a class="nav-link" href="signup.html"><i class="bi bi-person"></i> Usuario</a>
+                                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i> Tienda</a>
+                                <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-right"></i> Carrito</a>
                             </div>
                         </div>
                     </div>
@@ -83,7 +85,7 @@ const loadTemplate = async () => {
                     </div>
                     <div>
                         <h6>Contáctanos</h6>
-                        <p><i class="bi bi-envelope"></i> dacasoft@outlook.com</p>
+                        <p><i class="bi bi-envelope"></i> kenneth@outlook.com</p>
                     </div>
                 </div>
             </nav>
