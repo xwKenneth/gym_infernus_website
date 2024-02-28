@@ -1,0 +1,11 @@
+.btn-custom {
+    background-color: #D9D9D9;
+    color: #000000; /* Change text color if needed */
+    font-size: 11px; /* Change font size as needed */
+    padding: 6px 11px; /* Adjust padding as needed */
+}
+
+.btn-custom:hover {
+    background-color: #D9D9D9; /* Change hover color if needed */
+    color: #000000; /* Change text color if needed */
+}
