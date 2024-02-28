@@ -1,0 +1,38 @@
+/* Custom styles for the terms and conditions section */
+body {
+    background: linear-gradient(rgb(250, 94, 94), rgb(98, 56, 56), rgb(151 63 90 / 21%), rgb(153 140 141 / 39%));
+}
+
+
+.terms-section {
+    padding: 30px;
+
+    border-radius: 10px;
+}
+
+.term {
+    margin-bottom: 30px;
+}
+
+.term h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+}
+
+.term p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+
+}
+
+.accept-terms {
+    font-size: 1rem;
+
+}
+
+.read-terms {
+    font-size: 1rem;
+
+    text-align: justify;
+}

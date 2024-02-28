@@ -31,7 +31,7 @@ const loadTemplate = async () => {
             // Se agrega el encabezado de la página web antes del contenido principal.
             MAIN.insertAdjacentHTML('beforebegin', `
                 <header>
-                    <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+                    <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(201 88 88 / 46%)">
                         <div class="container">
                             <a class="navbar-brand" href="index.html"><img src="../../resources/img/logo.png" height="50" alt="CoffeeShop"></a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,7 @@ const loadTemplate = async () => {
         // Se agrega el encabezado de la página web antes del contenido principal.
         MAIN.insertAdjacentHTML('beforebegin', `
         <header>
-            <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+            <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(201 88 88 / 46%)">
                 <div class="container">
                     <a class="navbar-brand" href="index.html"><i class="bi bi-info-circle"></i><span>&nbsp; Información</span></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,7 @@ const loadTemplate = async () => {
     // Se agrega el pie de la página web después del contenido principal.
     MAIN.insertAdjacentHTML('afterend', `
     <footer>
-        <nav class="navbar fixed-bottom bg-body-tertiary">
+        <nav class="navbar fixed-bottom" style="background-color: rgb(201 88 88 / 46%)">
             <div class="container">
                 <div class="row align-items-center">
                     <div  class="col-md-6">
