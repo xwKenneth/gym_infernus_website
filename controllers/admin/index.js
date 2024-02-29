@@ -5,26 +5,34 @@ const LOGIN_FORM = document.getElementById('loginForm');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-    // Llamada a la función para mostrar el encabezado y pie del documento.
-    loadTemplate();
-    // Petición para consultar los usuarios registrados.
-    const DATA = await fetchData(USER_API, 'readUsers');
-    // Se comprueba si existe una sesión, de lo contrario se sigue con el flujo normal.
-    if (DATA.session) {
-        // Se direcciona a la página web de bienvenida.
-        location.href = 'dashboard.html';
-    } else if (DATA.status) {
-        // Se establece el título del contenido principal.
-        MAIN_TITLE.textContent = 'Iniciar sesión';
-        // Se muestra el formulario para iniciar sesión.
-        LOGIN_FORM.classList.remove('d-none');
-        sweetAlert(4, DATA.message, true);
-    } else {
-        // Se establece el título del contenido principal.
-        MAIN_TITLE.textContent = 'Registrar primer usuario';
-        // Se muestra el formulario para registrar el primer usuario.
-        SIGNUP_FORM.classList.remove('d-none');
-        sweetAlert(4, DATA.error, true);
+    try {
+        // Load template
+        loadTemplate();
+
+        // Fetch user data
+        const DATA = await fetchData(USER_API, 'readUsers');
+
+        // Handle response
+        if (DATA && DATA.session) {
+            location.href = 'dashboard.html'; // Redirect to dashboard if session exists
+        } else if (DATA && DATA.status) {
+            // Show login form
+            MAIN_TITLE.textContent = 'Iniciar sesión';
+            LOGIN_FORM.classList.remove('d-none');
+            sweetAlert(4, DATA.message, true);
+        } else if (DATA && !DATA.status) {
+            // Show signup form
+            MAIN_TITLE.textContent = 'Registrar primer usuario';
+            SIGNUP_FORM.classList.remove('d-none');
+            sweetAlert(4, DATA.error, true);
+        } else {
+            // Handle unexpected response
+            sweetAlert(3, "Unexpected response from server", false);
+        }
+    } catch (error) {
+        // Handle fetch error
+        console.error("Error fetching user data:", error);
+        sweetAlert(3, "Error fetching user data", false);
     }
 });
 

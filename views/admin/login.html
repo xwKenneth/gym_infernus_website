@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Título del documento -->
+    <title></title>
+    <!-- Metadatos de la página web -->
+    <meta charset="utf-8">
+    <meta name="author" content="Daniel Carranza">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/style-login-admin.css">
+</head>
+
+<body >
+
+    <!-- Contenido principal del documento -->
+    <main>
+        <!-- Título del contenido principal -->
+        <h3 id="mainTitle"></h3>
+        <form class="row g-3" id="sessionForm" style="margin-top: 250px;"> <!-- Add margin-top -->
+            <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                <div class="input-group"> <!-- Add input group -->
+                    <span class="input-group-text">
+                        <i class="bi bi-person"></i> <!-- Bootstrap user icon -->
+                    </span>
+                    <input type="email" id="correo" name="correo" class="form-control" required placeholder="Usuario">
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                <div class="input-group"> <!-- Add input group -->
+                    <span class="input-group-text">
+                        <i class="bi bi-lock-fill"></i> <!-- Bootstrap lock icon -->
+                    </span>
+                    <input type="password" id="clave" name="clave" class="form-control" placeholder="Contraseña">
+                </div>
+            </div>
+            <div class="col-12 text-center"> <!-- Center the button -->
+                <button type="submit" class="btn btn-danger">Login</button>
+            </div>
+        </form>
+    </main>
+    
+
+
+
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <!-- Llamada al controlador del sitio privado -->
+    <script type="text/javascript" src="../../controllers/utils/admin-header.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/admin/login.js"></script>
+</body>
+
+</html>
