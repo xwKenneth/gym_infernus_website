@@ -31,6 +31,8 @@ const loadTemplate = async () => {
             // Se agrega el encabezado de la página web antes del contenido principal.
             MAIN.insertAdjacentHTML('beforebegin', `
             <header>
+            <link type="text/css" rel="stylesheet" href="../../resources/css/style-index.css">
+
             <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(201 88 88 / 46%)">
                 <div class="container">
                     <a class="navbar-brand" href="dashboard.html">
@@ -43,7 +45,7 @@ const loadTemplate = async () => {
                     <div class="collapse navbar-collapse" id="navbarContent">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="producto.html">Productos</a>
+                                <a style="color: white;" class="nav-link disabled" href="producto.html">Productos</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="categoria.html">Categorías</a>
