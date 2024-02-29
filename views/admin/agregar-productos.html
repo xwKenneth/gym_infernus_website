@@ -22,8 +22,7 @@
 
     <!-- Contenido principal del documento -->
     <main>
-        <!-- Título del contenido principal -->
-        <h3 id="mainTitle">Agregar Categoria</h3>
+        <h3 id="mainTitle">Agregar Productos</h3>
         <form>
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
@@ -31,22 +30,39 @@
             </div>
             
             <div class="form-group">
-                <label for="foto">Subir Foto:</label>
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" name="precio" class="form-control" step=".01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="foto">Foto:</label>
                 <input type="file" id="foto" name="foto" class="form-control">
             </div>
-            
-            <!-- Add margin to create space below the last fields -->
-            <div class="form-group mt-4">
-                <!-- Empty div to create space -->
+    
+            <div class="form-group">
+                <label for="proveedor">Proveedor:</label>
+                <input type="text" id="proveedor" name="proveedor" class="form-control">
             </div>
-            
-            <div class="form-group d-flex">
-                <button type="button" class="btn btn-secondary mr-2" onclick="cancelar()">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+    
+            <div class="form-group">
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" name="marca" class="form-control">
             </div>
+    
+            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <input type="text" id="categoria" name="categoria" class="form-control">
+            </div>
+    
+            <button type= "button"class= "btn btn-secondary onclick= cancelar()">Cancelar</button> 
+            <button type= "submit"class= "btn btn-primary onclick= guardar()">Guardar</button> 
         </form>
     </main>
-    
     
 
 

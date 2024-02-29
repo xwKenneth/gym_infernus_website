@@ -22,31 +22,37 @@
 
     <!-- Contenido principal del documento -->
     <main>
-        <!-- Título del contenido principal -->
-        <h3 id="mainTitle">Agregar Categoria</h3>
+        <h3 id="mainTitle">Agregar Valoración</h3>
         <form>
             <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" class="form-control" required>
+                <label for="idProducto">Id Producto:</label>
+                <input type="text" id="idProducto" name="idProducto" class="form-control" required>
             </div>
             
             <div class="form-group">
-                <label for="foto">Subir Foto:</label>
-                <input type="file" id="foto" name="foto" class="form-control">
+                <label for="idCliente">Id Cliente:</label>
+                <input type="text" id="idCliente" name="idCliente" class="form-control" required>
             </div>
             
-            <!-- Add margin to create space below the last fields -->
-            <div class="form-group mt-4">
-                <!-- Empty div to create space -->
+            <div class="form-group">
+                <label for="calificacion">Calificación:</label>
+                <input type="number" id="calificacion" name="calificacion" class="form-control" required>
             </div>
             
-            <div class="form-group d-flex">
-                <button type="button" class="btn btn-secondary mr-2" onclick="cancelar()">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+            <div class="form-group">
+                <label for="comentario">Comentario:</label>
+                <textarea id="comentario" name="comentario" class="form-control"></textarea>
             </div>
+    
+            <div class="form-group">
+                <label for="fechaValoracion">Fecha de Valoración:</label>
+                <input type="date" id="fechaValoracion" name="fechaValoracion" class="form-control">
+            </div>
+    
+            <button type="button" class="btn btn-secondary" onclick="cancelar()">Cancelar</button>
+            <button type="submit" class="btn btn-primary" onclick="guardar()">Guardar</button>
         </form>
     </main>
-    
     
 
 
