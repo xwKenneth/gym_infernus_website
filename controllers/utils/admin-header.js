@@ -20,6 +20,7 @@ MAIN_TITLE.classList.add('text-center', 'py-3');
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
+//cambios
 const loadTemplate = async () => {
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const DATA = await fetchData(USER_API, 'getUser');
@@ -43,7 +44,7 @@ const loadTemplate = async () => {
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarContent">
-                        <ul class="navbar-nav ms-auto">
+                        <ul class="navbar-nav ms-auto">    
                             <li class="nav-item">
                                 <a style="color: white;" class="nav-link disabled" href=../../views/admin/administrar_productos.html">Productos</a>
                             </li>
@@ -98,7 +99,7 @@ const loadTemplate = async () => {
                             <a class="nav-link" href="../../views/admin/administrar_productos.html"><i class="bi bi-cart-fill"></i> Productos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../views/admin/administrar_categoria.html"><i class="bi bi-bag-fill"></i> Categorías</a>
+                            <a class="nav-link" href="../../views/admin/administrar_categorias.html"><i class="bi bi-bag-fill"></i> Categorías</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../../views/admin/administrar_clientes.html"><i class="bi bi-person"></i> Clientes</a>
@@ -113,23 +114,23 @@ const loadTemplate = async () => {
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false"><i class="bi bi-three-dots"></i> Más<b></b></a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="profile.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
+                                <li><a class="dropdown-item" href="../../../views/admin/administrar_empleados.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
+                                <li><a class="dropdown-item" href="../../../views/admin/administrar_empleados.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
+                                <li><a class="dropdown-item" href="../../../views/admin/agregar-valoracion.html" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
+                                <li><a class="dropdown-item" href="../../../views/admin/agregar-marca.html" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#" onclick=""><img src="../../resources/img/icons/cargo.png" width="20"> Cargo</a></li>
+                                <li><a class="dropdown-item" href="../../../views/admin/agregar-cargo.html" onclick=""><img src="../../resources/img/icons/cargo.png" width="20"> Cargo</a></li>
                             </ul>
                         </li>
                     </ul>
