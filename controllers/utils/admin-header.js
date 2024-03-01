@@ -45,16 +45,16 @@ const loadTemplate = async () => {
                     <div class="collapse navbar-collapse" id="navbarContent">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a style="color: white;" class="nav-link disabled" href="producto.html">Productos</a>
+                                <a style="color: white;" class="nav-link disabled" href=../../views/admin/administrar_productos.html">Productos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="categoria.html">Categorías</a>
+                                <a class="nav-link" href="../../views/admin/administrar_categorias.html">Categorías</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Clientes</a>
+                                <a class="nav-link" href="../../views/admin/administrar_clientes.html">Clientes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Empleados</a>
+                                <a class="nav-link" href="../../views/admin/administrar_empleados.html">Empleados</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="">Cuenta: Admnistrador</a>
@@ -95,19 +95,19 @@ const loadTemplate = async () => {
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="producto.html"><i class="bi bi-cart-fill"></i> Productos</a>
+                            <a class="nav-link" href="../../views/admin/administrar_productos.html"><i class="bi bi-cart-fill"></i> Productos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="categoria.html"><i class="bi bi-bag-fill"></i> Categorías</a>
+                            <a class="nav-link" href="../../views/admin/administrar_categoria.html"><i class="bi bi-bag-fill"></i> Categorías</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href=""><i class="bi bi-person"></i> Clientes</a>
+                            <a class="nav-link" href="../../views/admin/administrar_clientes.html"><i class="bi bi-person"></i> Clientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href=""><i class="bi bi-people"></i> Empleados</a>
+                            <a class="nav-link" href="../../views/admin/administrar_empleados.html"><i class="bi bi-people"></i> Empleados</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href=""><i class="bi bi-shield-shaded"></i> Cuenta: Admin</a>
+                            <a class="nav-link" href="../../views/admin/administrar_empleados.html"><i class="bi bi-shield-shaded"></i> Cuenta: Admin</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"

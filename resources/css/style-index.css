@@ -101,3 +101,35 @@ margin-left: 0%;
 .btn10{
     margin-left: 15%;
 }
+
+.name1{
+    font-size: 210%;
+    margin-left: 5%;
+
+}
+.name2{
+    font-size: 210%;
+    margin-top: -100%;
+    margin-left: 5%;
+}
+
+.call1{
+    font-size: 150%;
+    margin-left: 90%;
+
+}
+.call2{
+    font-size: 150%;
+    margin-left: 100%;
+}
+
+.Precio{
+    margin-left: -100%;
+}
+
+.Existencias{
+    margin-left: -20%;
+}
+.proteina1{
+    margin-left: 5%;
+}

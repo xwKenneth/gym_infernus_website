@@ -4,7 +4,7 @@
 
 <head>
     <!-- Título del documento -->
-    <title>Administrar Proveedores</title>
+    <title>Administrar Empleados</title>
     <!-- Metadatos de la página web -->
     <meta charset="utf-8">
     <meta name="author" content="CesarYKenneth">
@@ -22,13 +22,13 @@
     <!-- Contenido principal del documento -->
     <main>
         <!-- Título del contenido principal -->
-        <h3 id="mainTitle">Proveedor</h3>
+        <h3 id="mainTitle">Empleados</h3>
         <div class="row">
             <!-- Formulario de búsqueda -->
             <form class="col-sm-12 col-md-6" id="searchForm">
                 <div class="row">
                     <div class="col-6">
-                        <h2>Proveedor</h2>
+                        <h2>Empleados</h2>
                         <input type="search" class="form-control" name="search" placeholder="" required>
                     </div>
                     <div class="col-6">
@@ -58,7 +58,9 @@
                 </tr>
                 <tr>
                     <th>Nombre</th>
+                    <th>Apellido</th>
                     <th>Telefono</th>
+                    <th>Correo Electronico</th>
                     <th>Direccion</th>
                     <th>Acciones</th>
 
@@ -73,8 +75,15 @@
             <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
             <thead>
                 <tr>
-                    <th><h3>Precor</h3></th>
-                    <th><h4>+31 5896-9687</h4></th>
+                    <th><h3 class="name1">Miguel</h3></th>
+                    <th><h4 class="name1">Ortiz</h4></th>
+                    <th><h4 class="call1">+503 56899878</h4></th>
+                    <th><h3>miguelortiz@gmail.com</h3></th>
+                    <th><h4>El salvador, San Salvador, Mexicanos</h4></th>
+                    <th><button  type="button"  class="btn10"><img src="edit.png" height="40" width="40"/></button></th>
+                    <th><button  type="button"  class="btn10"><img src="delete.png" height="40" width="40"/></button></th>
+                    <th><button  type="button"  class="btn10"><img src="document.png" height="40" width="40"/></button></th>
+
                 </tr>
            
             <!-- Cuerpo de la tabla para mostrar un registro por fila -->
@@ -89,7 +98,15 @@
                     <td colspan="5" id="rowsFound"></td>
                 </tr>
                 <tr>
-                    <th><h3>Rocfit</h3></th>
+                    <th><h3 class="name2">Luis</h3></th>
+                    <th><h4 class="name2">Perez</h4></th>
+                    <th><h4 class="call2">+503 8989-988</h4></th>
+                    <th><h3>luisperez@fitness.com</h3></th>
+                    <th><h4>El salvador, San Salvador</h4></th>
+                    <th><button  type="button"  class="btn10"><img src="edit.png" height="40" width="40"/></button></th>
+                    <th><button  type="button"  class="btn10"><img src="delete.png" height="40" width="40"/></button></th>
+                    <th><button  type="button"  class="btn10"><img src="document.png" height="40" width="40"/></button></th>
+
                     
                 </tr>
             </thead>
@@ -104,7 +121,14 @@
                     <td colspan="5" id="rowsFound"></td>
                 </tr>
                 <tr>
-                    <th><h3>Bodytone</h3></th>
+                    <th><h3 class="name3">Juan</h3></th>
+                    <th><h3 class="name3">Valdez</h3></th>
+                    <th><h4 class="call3">+256 8989-988</h4></th>
+                    <th><h3>juanvaldez.carlos@sports.com</h3></th>
+                    <th><h4>Uganda, Plot 5, George Street Georgian House</h4></th>
+                    <th><button  type="button"  class="btn10"><img src="edit.png" height="40" width="40"/></button></th>
+                    <th><button  type="button"  class="btn10"><img src="delete.png" height="40" width="40"/></button></th>
+                    <th><button  type="button"  class="btn10"><img src="document.png" height="40" width="40"/></button></th>
                 
                     
                 </tr>
@@ -113,22 +137,7 @@
             <tbody id="tableBody"></tbody>
         </table>
 
-
-
-
-
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                
-                <tr>
-                   
-                </tr>
-            </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-
+        
         <table class="table table-hover">
             <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
             <thead>
@@ -136,14 +145,28 @@
                     <td colspan="5" id="rowsFound"></td>
                 </tr>
                 <tr>
-                  
+                    <th><h3 class="name4">Rodrigo</h3></th>
+                    <th><h3 class="name4">Martinez</h3></th>
+                    <th><h4 class="call4">+53 8989-988</h4></th>
+                    <th><h3>rodrigooo@fitsquat.com</h3></th>
+                    <th><h4>Chile, Santiago de chile</h4></th>
+                    <th><button  type="button"  class="btn10"><img src="edit.png" height="40" width="40"/></button></th>
+                    <th><button  type="button"  class="btn10"><img src="delete.png" height="40" width="40"/></button></th>
+                    <th><button  type="button"  class="btn10"><img src="document.png" height="40" width="40"/></button></th>
+                
                     
                 </tr>
             </thead>
             <!-- Cuerpo de la tabla para mostrar un registro por fila -->
             <tbody id="tableBody"></tbody>
         </table>
+        
 
+
+
+
+
+     
 
 
 
@@ -209,9 +232,9 @@
     <!-- Llamada al controlador general de la aplicación -->
     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
     <!-- Llamada al controlador del sitio privado -->
-    <script type="text/javascript" src="../../controllers/utils/admin.js"></script>
+    <script type="text/javascript" src="../../../controllers/utils/admin-header.js"></script>
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/admin/administrador.js"></script>
+    <script type="text/javascript" src="../../../controllers/admin/login.js"></script>
 </body>
 
 </html>

@@ -4,10 +4,10 @@
 
 <head>
     <!-- Título del documento -->
-    <title></title>
+    <title>Administrar Productos</title>
     <!-- Metadatos de la página web -->
     <meta charset="utf-8">
-    <meta name="author" content="Daniel Carranza">
+    <meta name="author" content="CesarYKenneth">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
     <!-- Llamada al icono de la página web -->
@@ -15,20 +15,20 @@
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/style-index.css">
 </head>
-    <!-- Contenido principal del documento -->
 
 <body>
     <!-- Contenido principal del documento -->
     <main>
         <!-- Título del contenido principal -->
-        <h3 id="mainTitle"></h3>
         <div class="row">
             <!-- Formulario de búsqueda -->
             <form class="col-sm-12 col-md-6" id="searchForm">
                 <div class="row">
                     <div class="col-6">
-                        <input type="search" class="form-control" name="search" placeholder="Buscar" required>
+                        <h2>Productos</h2>
+                        <input type="search" class="form-control" name="search" placeholder="" required>
                     </div>
                     <div class="col-6">
                         <button type="submit" class="btn btn-success">
@@ -56,16 +56,66 @@
                     <td colspan="5" id="rowsFound"></td>
                 </tr>
                 <tr>
-                    <th>APELLIDO</th>
-                    <th>NOMBRE</th>
-                    <th>CORREO</th>
-                    <th>ALIAS</th>
-                    <th>ACCIONES</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                    <th>Foto</th>
+                    <th>Existencias</th>
                 </tr>
             </thead>
             <!-- Cuerpo de la tabla para mostrar un registro por fila -->
             <tbody id="tableBody"></tbody>
         </table>
+
+        <table class="table table-hover">
+            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+            <thead>
+                
+                <tr>
+                    <th><h3>Proteina</h3></th>
+                    <th><h3 class="Precio">15$</h3></th>
+                    <th><buttonb class="proteina1"><img src="suplementos.png" height="40" width="40"/></button></th>
+                    <th><h3 class="Existencias">100</h3></th>
+
+                    
+                </tr>
+
+                <tr>
+                    <th><h4>Maquina de pull over</h4></th>
+                    <th><h3 class="Precio">15$</h3></th>
+                    <th><buttonb class="proteina1"><img src="suplementos.png" height="40" width="40"/></button></th>
+                    <th><h3 class="Existencias">100</h3></th>
+                </tr>
+            </thead>
+           
+            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+            <tbody id="tableBody"></tbody>
+        </table>
+
+
+
+
+
+
+        <table class="table table-hover">
+            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
+            <thead>
+                <tr>
+                    <td colspan="5" id="rowsFound"></td>
+                </tr>
+                <tr>
+                  
+                    
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
+            <tbody id="tableBody"></tbody>
+        </table>
+
+
+
+
+
 
         <!-- Componente Modal para guardar un registro -->
         <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
