@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Daniel Carranza">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link type="image/png" rel="icon" href="../../../resources/img/icon.png">
+    <link type="text/css" rel="stylesheet" href="../../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../../resources/css/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../../../resources/css/style-agregar-general.css">
+</head>
+
+<body>
+    <main>
+        <h3 id="mainTitle" class="text-center mb-4">Agregar Categoria</h3>
+        <form>
+            <div class="row mb-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <img src="../../../resources/img/icons/agreado/nombre.png" width="40" height="40">
+                            </div>
+                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre"
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <img src="../../../resources/img/icons/agreado/foto.png" width="40" height="40">
+                                <label for="fileInput" class="custom-file-upload">
+                                    Subir Foto
+                                </label>
+                                <input id="fileInput" type="file" style="display:none;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mt-4"></div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <button type="button" class="btn btn-secondary mr-2" onclick="cancelar()">
+                        <img src="../../../resources/img/Close.png" alt="Cancelar" width="60" height="60">
+                    </button>
+                    <button type="submit" class="btn btn-primary ml-2" onclick="guardar()">
+                        <img src="../../../resources/img/Save.png" alt="Guardar" width="60" height="58">
+                    </button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script type="text/javascript" src="../../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../../resources/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="../../../controllers/utils/components.js"></script>
+    <script type="text/javascript" src="../../../controllers/utils/admin-header.js"></script>
+    <script type="text/javascript" src="../../../controllers/admin/login.js"></script>
+</body>
+
+</html>
