@@ -11,7 +11,7 @@ MAIN.style.paddingTop = '75px';
 MAIN.style.paddingBottom = '100px';
 MAIN.classList.add('container');
 // Se establece el título de la página web.
-document.querySelector('title').textContent = 'CoffeeShop - Dashboard';
+document.querySelector('title').textContent = 'GymInfernus - Dashboard';
 // Constante para establecer el elemento del título principal.
 const MAIN_TITLE = document.getElementById('mainTitle');
 MAIN_TITLE.classList.add('text-center', 'py-3');
@@ -114,23 +114,23 @@ const loadTemplate = async () => {
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false"><i class="bi bi-three-dots"></i> Más<b></b></a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../../../views/admin/administrar_empleados.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/administrar_empleados.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../../views/admin/administrar_empleados.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/administrar_empleados.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../../views/admin/agregar-valoracion.html" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/agregar/agregar-valoracion.html" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../../views/admin/agregar-marca.html" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/agregar/agregar-marca.html" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../../views/admin/agregar-cargo.html" onclick=""><img src="../../resources/img/icons/cargo.png" width="20"> Cargo</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/agregar/agregar-cargo.html" onclick=""><img src="../../resources/img/icons/cargo.png" width="20"> Cargo</a></li>
                             </ul>
                         </li>
                     </ul>
