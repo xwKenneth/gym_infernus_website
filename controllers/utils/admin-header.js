@@ -122,15 +122,15 @@ const loadTemplate = async () => {
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../views/admin/agregar/agregar-valoracion.html" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/agregar-valoracion.html" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../views/admin/agregar/agregar-marca.html" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/agregar-marca.html" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../views/admin/agregar/agregar-cargo.html" onclick=""><img src="../../resources/img/icons/cargo.png" width="20"> Cargo</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/agregar-cargo.html" onclick=""><img src="../../resources/img/icons/cargo.png" width="20"> Cargo</a></li>
                             </ul>
                         </li>
                     </ul>
