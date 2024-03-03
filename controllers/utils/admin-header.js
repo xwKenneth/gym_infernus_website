@@ -114,11 +114,11 @@ const loadTemplate = async () => {
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false"><i class="bi bi-three-dots"></i> Más<b></b></a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../../views/admin/administrar_empleados.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/agregar-venta.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../views/admin/administrar_empleados.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/agregar-detalle-venta.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
