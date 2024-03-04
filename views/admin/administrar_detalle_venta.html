@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="author" content="CesarYKenneth">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrar Categorias</title>
+    <title>Administrar Clientes</title>
     <link type="image/png" rel="icon" href="../../resources/img/icon.png">
     <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
@@ -14,7 +14,7 @@
 
 <body>
     <main>
-        <h3 id="mainTitle">Categorias</h3>
+        <h3 id="mainTitle">Detalle Venta</h3>
         <div class="row">
             <form class="col-sm-12 col-md-6" id="searchForm">
                 <div class="row">
@@ -32,7 +32,7 @@
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 text-end">
-                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-categoria.html'">
+                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-detalle-venta.html'">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
@@ -42,18 +42,24 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="3" class="rowsFound"></td>
+                    <td colspan="6" class="rowsFound"></td>
                 </tr>
                 <tr>
-                    <th>Imagen</th>
-                    <th class="text-center">Nombre</th>
+                    <th>Venta Id</th>
+                    <th class="text-center">Producto Id</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Precio unitario</th>
+                    <th class="text-center">Valoracion Id</th>
                     <th class="text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody class="tableBody">
                 <tr>
-                    <td><img src="../../resources/img/dumbbell.png" width="150px" height="150px"></td>
-                    <td class="Mancuernas1 align-middle text-center">Mancuernas</td>
+                    <td class="VentaId1 align-middle text-center">VNT-83745</td>
+                    <td class="ProductoId1 align-middle text-center">PRDCT-83745</td>
+                    <td class="Cantidad1 align-middle text-center">10</td>
+                    <td class="PrecioUnitario1 align-middle text-center"style="max-width: 150px;">$25</td>
+                    <td class="ValoracionId1 align-middle text-center" style="max-width: 150px;">VLRN-4245</td>
                     <td class="align-middle text-center">
                         <div class="row">
                             <div class="col">
@@ -65,11 +71,13 @@
                     </td>
                 </tr>  
             </tbody>
-
             <tbody class="tableBody">
                 <tr>
-                    <td><img src="../../resources/img/maquina.png" width="150px" height="150px"></td>
-                    <td class="Mancuernas1 align-middle text-center">Maquinas</td>
+                    <td class="VentaId1 align-middle text-center">VNT-83749</td>
+                    <td class="ProductoId1 align-middle text-center">PRDCT-83742</td>
+                    <td class="Cantidad1 align-middle text-center">4</td>
+                    <td class="PrecioUnitario1 align-middle text-center"style="max-width: 150px;">$42</td>
+                    <td class="ValoracionId1 align-middle text-center" style="max-width: 150px;">VLRN-4241</td>
                     <td class="align-middle text-center">
                         <div class="row">
                             <div class="col">
@@ -79,12 +87,15 @@
                             </div>
                         </div>
                     </td>
-                </tr>
+                </tr>  
             </tbody>
             <tbody class="tableBody">
                 <tr>
-                    <td><img src="../../resources/img/suplementos.png" width="150px" height="150px"></td>
-                    <td class="Mancuernas1 align-middle text-center">Suplementos</td>
+                    <td class="VentaId1 align-middle text-center">VNT-83725</td>
+                    <td class="ProductoId1 align-middle text-center">PRDCT-83795</td>
+                    <td class="Cantidad1 align-middle text-center">8</td>
+                    <td class="PrecioUnitario1 align-middle text-center"style="max-width: 150px;">$18</td>
+                    <td class="ValoracionId1 align-middle text-center" style="max-width: 150px;">VLRN-3454</td>
                     <td class="align-middle text-center">
                         <div class="row">
                             <div class="col">
@@ -94,11 +105,9 @@
                             </div>
                         </div>
                     </td>
-                </tr>
+                </tr>  
             </tbody>
-            
         </table>
-
     </main>
 
     <!-- JavaScript imports -->

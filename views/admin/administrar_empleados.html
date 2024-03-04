@@ -1,35 +1,25 @@
 <!DOCTYPE html>
-<!-- Declaración del idioma para el documento -->
 <html lang="es">
 
 <head>
-    <!-- Título del documento -->
-    <title>Administrar Empleados</title>
-    <!-- Metadatos de la página web -->
     <meta charset="utf-8">
     <meta name="author" content="CesarYKenneth">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
-    <!-- Llamada al icono de la página web -->
+    <title>Administrar Empleados</title>
     <link type="image/png" rel="icon" href="../../resources/img/icon.png">
-    <!-- Llamada a las hojas de estilos del framework e iconos -->
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
-    <link type="text/css" rel="stylesheet" href="../../resources/css/style-index.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../resources/css/style-index.css">
 </head>
 
 <body>
-    <!-- Contenido principal del documento -->
     <main>
-        <!-- Título del contenido principal -->
         <h3 id="mainTitle">Empleados</h3>
         <div class="row">
-            <!-- Formulario de búsqueda -->
             <form class="col-sm-12 col-md-6" id="searchForm">
                 <div class="row">
                     <div class="col-6">
-                        <h2>Empleados</h2>
-                        <input type="search" class="form-control" name="search" placeholder="" required>
+                        <input type="search" class="form-control" name="search" required>
                     </div>
                     <div class="col-6">
                         <button type="submit" class="btn btn-success">
@@ -42,199 +32,114 @@
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 text-end">
-                <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
-                <button type="button" class="btn btn-primary" onclick="openCreate()">
+                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-empleado.html'">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Tabla para mostrar los registros existentes -->
+        <!-- Tables -->
         <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
             <thead>
                 <tr>
-                    <td colspan="5" id="rowsFound"></td>
+                    <td colspan="6" class="rowsFound"></td>
                 </tr>
                 <tr>
                     <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Telefono</th>
-                    <th>Correo Electronico</th>
-                    <th>Direccion</th>
-                    <th>Acciones</th>
-
-
+                    <th class="text-center">Apellido</th>
+                    <th class="text-center">Telefono</th>
+                    <th class="text-center">Correo_electronico</th>
+                    <th class="text-center">Cargo</th>
+                    <th class="text-center">Acciones</th>
                 </tr>
             </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
+            <tbody class="tableBody">
                 <tr>
-                    <th><h3 class="name1">Miguel</h3></th>
-                    <th><h4 class="name1">Ortiz</h4></th>
-                    <th><h4 class="call1">+503 56899878</h4></th>
-                    <th><h3>miguelortiz@gmail.com</h3></th>
-                    <th><h4>El salvador, San Salvador, Mexicanos</h4></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/edit.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/delete.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/document.png" height="40" width="40"/></button></th>
-
-                </tr>
-           
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-    </thead>
-
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                <tr>
-                    <td colspan="5" id="rowsFound"></td>
-                </tr>
-                <tr>
-                    <th><h3 class="name2">Luis</h3></th>
-                    <th><h4 class="name2">Perez</h4></th>
-                    <th><h4 class="call2">+503 8989-988</h4></th>
-                    <th><h3>luisperez@fitness.com</h3></th>
-                    <th><h4>El salvador, San Salvador</h4></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/edit.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/delete.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/document.png" height="40" width="40"/></button></th>
-
+                    <td class="Nombre1 align-middle text-center">Miguel</td>
+                    <td class="Apellido1 align-middle text-center">Ortiz</td>
+                    <td class="Telefono1 align-middle text-center">+503 5689-9878</td>
+                    <td class="CorreoElectronico1 align-middle text-center"style="max-width: 250px;"><p class="text-break">miguelortiz@gmail.com</p></td>
+                    <td class="Cargo2 align-middle text-center">
+                        <select class="form-select" id="cargoSelect">
+                            <option selected disabled>Seleccionar Cargo</option>
+                            <option value="administrador">Administrador</option>
+                            <option value="empleado">Empleado</option>
+                        </select>
+                    </td>
                     
-                </tr>
-            </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                <tr>
-                    <td colspan="5" id="rowsFound"></td>
-                </tr>
-                <tr>
-                    <th><h3 class="name3">Juan</h3></th>
-                    <th><h3 class="name3">Valdez</h3></th>
-                    <th><h4 class="call3">+256 8989-988</h4></th>
-                    <th><h3>juanvaldez.carlos@sports.com</h3></th>
-                    <th><h4>Uganda, Plot 5, George Street Georgian House</h4></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/edit.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/delete.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/document.png" height="40" width="40"/></button></th>
-                
                     
-                </tr>
-            </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-
-        
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                <tr>
-                    <td colspan="5" id="rowsFound"></td>
-                </tr>
-                <tr>
-                    <th><h3 class="name4">Rodrigo</h3></th>
-                    <th><h3 class="name4">Martinez</h3></th>
-                    <th><h4 class="call4">+53 8989-988</h4></th>
-                    <th><h3>rodrigooo@fitsquat.com</h3></th>
-                    <th><h4>Chile, Santiago de chile</h4></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/edit.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/delete.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/document.png" height="40" width="40"/></button></th>
-                
-                    
-                </tr>
-            </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-        
-
-
-
-
-
-     
-
-
-
-
-
-        <!-- Componente Modal para guardar un registro -->
-        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="modalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <!-- Formulario para guardar un registro -->
-                    <form id="saveForm">
-                        <div class="modal-body row g-3">
-                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                            <input type="hidden" id="idAdministrador" name="idAdministrador">
-                            <div class="col-sm-12 col-md-6">
-                                <label for="nombreAdministrador" class="form-label">Nombre</label>
-                                <input id="nombreAdministrador" type="text" name="nombreAdministrador"
-                                    class="form-control" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="apellidoAdministrador" class="form-label">Apellido</label>
-                                <input id="apellidoAdministrador" type="text" name="apellidoAdministrador"
-                                    class="form-control" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="correoAdministrador" class="form-label">Correo</label>
-                                <input id="correoAdministrador" type="email" name="correoAdministrador"
-                                    class="form-control" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="aliasAdministrador" class="form-label">Alias</label>
-                                <input id="aliasAdministrador" type="text" name="aliasAdministrador"
-                                    class="form-control" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="claveAdministrador" class="form-label">Contraseña</label>
-                                <input id="claveAdministrador" type="password" name="claveAdministrador"
-                                    class="form-control" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
-                                <input id="confirmarClave" type="password" name="confirmarClave" class="form-control"
-                                    required>
+                    <td class="align-middle text-center">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
+                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
+                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                    </td>
+                </tr>  
+            </tbody>
+            <tbody class="tableBody">
+                <tr>
+                    <td class="Nombre2 align-middle text-center">Luis</td>
+                    <td class="Apellido2 align-middle text-center">Perez</td>
+                    <td class="Telefono2 align-middle text-center">+503 8989-988</td>
+                    <td class="CorreoElectronico2 align-middle text-center"style="max-width: 250px;"><p class="text-break">luisperez@fitness.com</p></td>
+                    <td class="Cargo2 align-middle text-center">
+                        <select class="form-select" id="cargoSelect">
+                            <option selected disabled>Seleccionar Cargo</option>
+                            <option value="administrador">Administrador</option>
+                            <option value="empleado">Empleado</option>
+                        </select>
+                    </td>
+                    
+                    
+                    <td class="align-middle text-center">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
+                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
+                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
+                            </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                    </td>
+                </tr>  
+            </tbody>
+            <tbody class="tableBody">
+                <tr>
+                    <td class="Nombre2 align-middle text-center">Juan</td>
+                    <td class="Apellido2 align-middle text-center">Valdez</td>
+                    <td class="Telefono2 align-middle text-center">+256 8989-988</td>
+                    <td class="CorreoElectronico2 align-middle text-center" style="max-width: 250px;"><p class="text-break">juanvaldez.carlos@sports.com</p></td>
+                    <td class="Cargo3 align-middle text-center">
+                        <select class="form-select" id="cargoSelect">
+                            <option selected disabled>Seleccionar Cargo</option>
+                            <option value="administrador">Administrador</option>
+                            <option value="empleado">Empleado</option>
+                        </select>
+                    </td>
+                    
+                    <td class="align-middle text-center">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
+                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
+                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
     </main>
-    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
-    <!-- Llamada al framework y librería de mensajes -->
-    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <!-- Llamada al controlador general de la aplicación -->
-    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <!-- Llamada al controlador del sitio privado -->
-    <script type="text/javascript" src="../../../controllers/utils/admin-header.js"></script>
-    <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../../controllers/admin/login.js"></script>
+    
+    
+    <!-- JavaScript imports -->
+    <script src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script src="../../resources/js/sweetalert.min.js"></script>
+    <script src="../../controllers/utils/components.js"></script>
+    <script src="../../../controllers/utils/admin-header.js"></script>
+    <script src="../../../controllers/admin/login.js"></script>
 </body>
 
 </html>

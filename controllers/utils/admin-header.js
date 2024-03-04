@@ -84,7 +84,7 @@ const loadTemplate = async () => {
         // Se agrega el encabezado de la página web antes del contenido principal.
         MAIN.insertAdjacentHTML('beforebegin', `
         <header>
-        <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(201 88 88 / 46%)">
+        <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(249 96 96 / 100%)">
             <div class="container">
                 <a class="navbar-brand" href="dashboard.html">
                     <img src="../../resources/img/logo.png" alt="CoffeeShop" width="50">
@@ -114,19 +114,19 @@ const loadTemplate = async () => {
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false"><i class="bi bi-three-dots"></i> Más<b></b></a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../../views/admin/agregar-venta.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/administrar_venta.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../views/admin/agregar-detalle-venta.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/administrar_detalle_venta.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../views/admin/agregar-valoracion.html" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/administrar_valoracion.html" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="../../views/admin/agregar-marca.html" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
+                                <li><a class="dropdown-item" href="../../views/admin/administrar_marcas.html" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -144,7 +144,7 @@ const loadTemplate = async () => {
     // Se agrega el pie de la página web después del contenido principal.
     MAIN.insertAdjacentHTML('afterend', `
     <footer>
-        <nav class="navbar fixed-bottom" style="background-color: rgb(201 88 88 / 46%)">
+        <nav class="navbar fixed-bottom" style="background-color: rgb(249 96 96 / 100%)">
             <div class="container">
                 <div class="row justify-content-center"> <!-- Center the content horizontally -->
                     <div class="col-md-6 center-text"> <!-- Adjust the column width as needed -->
