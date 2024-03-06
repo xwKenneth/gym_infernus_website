@@ -15,51 +15,76 @@
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
-    <link type="text/css" rel="stylesheet" href="../../resources/css/style-login-admin.css">
+    <style>
+        /* Custom CSS to adjust image size and position */
+        .left-image {
+            width: 100%;
+            height: 100vh; /* Adjusts the height to fill the viewport */
+            object-fit: cover;
+        }
+
+        /* Custom CSS to remove padding from left column */
+        .left-column {
+            padding-right: 0 !important;
+        }
+
+        /* Custom CSS to add space between icon and main title */
+        .big-icon {
+            margin-right: 15px;
+            margin-bottom: 15px;
+            /* Added to move the icon below the main title */
+        }
+
+ 
+    </style>
 </head>
 
-<body >
-
+<body>
     <!-- Contenido principal del documento -->
-    <main>
-        <!-- Título del contenido principal -->
-        <h3 id="mainTitle"></h3>
-        <form class="row g-3" id="sessionForm" style="margin-top: 250px;"> <!-- Add margin-top -->
-            <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                <div class="input-group"> <!-- Add input group -->
-                    <span class="input-group-text">
-                        <i class="bi bi-person"></i> <!-- Bootstrap user icon -->
-                    </span>
-                    <input type="email" id="correo" name="correo" class="form-control" required placeholder="Usuario">
-                </div>
+    <main class="container-fluid">
+        <div class="row">
+            <!-- Columna para la imagen -->
+            <div class="col-lg-6 p-0 left-column">
+                <img src="../../resources/img/baka.jpg" alt="Image" class="left-image">
             </div>
-            <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                <div class="input-group"> <!-- Add input group -->
-                    <span class="input-group-text">
-                        <i class="bi bi-lock-fill"></i> <!-- Bootstrap lock icon -->
-                    </span>
-                    <input type="password" id="clave" name="clave" class="form-control" placeholder="Contraseña">
-                </div>
+            <!-- Columna para el formulario de inicio de sesión -->
+            <div class="col-lg-6 position-relative form-container">
+                <!-- Formulario para iniciar sesión -->
+                <form class="row g-3 w-75 position-absolute top-50 start-50 translate-middle">
+                    <div class="col-12 d-flex flex-column align-items-center">
+                        <!-- Changed justify-content to align-items -->
+                        <!-- Image before mainTitle -->
+                        <img src="../../resources/img/icon.png" width="300px" height="300px" alt="Icon"
+                            class="big-icon">
+                        <!-- Título del contenido principal -->
+                        <h4 class="text-center mb-4" id="mainTitle"></h4>
+                        <!-- Added margin-bottom to create space below main title -->
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="correo" class="form-label">Correo electrónico:</label>
+                        <input type="email" id="correo" name="correo" class="form-control" placeholder="Ingresa tu correo electronico" required>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="clave" class="form-label">Contraseña:</label>
+                        <input type="password" id="clave" name="clave" class="form-control" placeholder="Ingresa tu contrasena" required>
+                    </div>
+                    <div class="text-center col-12">
+                        <button type="submit" class="btn btn-dark rounded-pill w-75">Ingresar</button>
+                    </div>
+                </form>
             </div>
-            <div class="col-12 text-center"> <!-- Center the button -->
-                <button type="submit" class="btn btn-danger">Login</button>
-            </div>
-        </form>
+        </div>
     </main>
-    
-
-
-
     <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
     <!-- Llamada al framework y librería de mensajes -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
     <!-- Llamada al controlador general de la aplicación -->
     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <!-- Llamada al controlador del sitio privado -->
-    <script type="text/javascript" src="../../controllers/utils/admin-header.js"></script>
+    <!-- Llamada al controlador del sitio público -->
+    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/admin/login.js"></script>
+    <script type="text/javascript" src="../../controllers/public/login.js"></script>
 </body>
 
 </html>
