@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+<head>
+    <!-- Título del documento -->
+    <title></title>
+    <!-- Metadatos de la página web -->
+    <meta charset="utf-8">
+    <meta name="author" content="Kenneth & Cesar">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/style-novedades.css">
+</head>
+<body>
+
+<!-- Contenido principal del documento -->
+<main>
+    <h3 id="mainTitle"></h3>
+    <!-- Container for the cards -->
+    <div class="container mt-3"> <!-- Adjusted top margin -->
+        <div class="row justify-content-center"> <!-- Center the content horizontally -->
+            <!-- First card -->
+            <div class="col-sm-6 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top" src="../../resources/img/icons/clasificacion/mancuernas.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Mancuernas</h5>
+                        
+                        <a href="#" class="btn btn-custom">Ver más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-1 mb-3"></div> <!-- Empty column for spacing -->
+            <!-- Second card -->
+            <div class="col-sm-6 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top" src="../../resources/img/icons/clasificacion/maquinas.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Maquinas</h5>
+                        <a href="#" class="btn btn-custom">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4"> <!-- Added mt-4 class for top margin between rows -->
+            <!-- Third card -->
+            <div class="col-sm-6 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top" src="../../resources/img/icons/clasificacion/suplementos.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Suplementos</h5>
+                        <a href="#" class="btn btn-custom">Ver más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-1 mb-3"></div> <!-- Empty column for spacing -->
+            <!-- Fourth card -->
+            <div class="col-sm-6 col-md-3 mb-3">
+                <div class="card">
+                    <img class="card-img-top" src="../../resources/img/icons/clasificacion/ropa.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Ropa</h5>
+                        <a href="#" class="btn btn-custom">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+<!-- Llamada al framework y librería de mensajes -->
+<script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+<!-- Llamada al controlador general de la aplicación -->
+<script type="text/javascript" src="../../controllers/utils/components.js"></script>
+<!-- Llamada al controlador del sitio público -->
+<script type="text/javascript" src="../../controllers/utils/public.js"></script>
+<!-- Llamada al controlador de la página web -->
+<script type="text/javascript" src="../../controllers/public/clasificacion.js"></script>
+</body>
+</html>

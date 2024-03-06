@@ -55,7 +55,7 @@ const loadTemplate = async () => {
         // Se agrega el encabezado de la página web antes del contenido principal.
         MAIN.insertAdjacentHTML('beforebegin', `
         <header>
-            <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(201 88 88 / 46%)">
+            <nav class="navbar fixed-top navbar-expand-lg" style="background-color: #F96060">
                 <div class="container">
                     <a class="navbar-brand" href="index.html"><i class="bi bi-info-circle"></i><span>&nbsp; Información</span></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,8 +76,8 @@ const loadTemplate = async () => {
     }
     // Se agrega el pie de la página web después del contenido principal.
     MAIN.insertAdjacentHTML('afterend', `
-    <footer>
-        <nav class="navbar fixed-bottom" style="background-color: rgb(201 88 88 / 46%)">
+    <footer id="footer">
+        <nav class="navbar fixed-bottom" style="background-color: #F96060">
             <div class="container">
                 <div class="row align-items-center">
                     <div  class="col-md-6">
@@ -92,4 +92,34 @@ const loadTemplate = async () => {
         </nav>
     </footer>
     `);
+        // Call the toggleFooterVisibility function to initially hide the footer
+        toggleFooterVisibility();
 }
+ 
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', async () => {
+    // Llamada a la función para mostrar el encabezado y pie del documento.
+    loadTemplate();
+
+    // Event listener for scroll event to toggle footer visibility
+    window.addEventListener('scroll', toggleFooterVisibility);
+});
+
+// Function to toggle footer visibility based on scroll position
+function toggleFooterVisibility() {
+    const footer = document.querySelector('#footer');
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.body.clientHeight;
+
+    // Calculate the maximum scroll position for the scrollbar
+    const maxScroll = documentHeight - windowHeight;
+
+    // Show footer only when scrollbar is at the bottom
+    if (scrollPosition >= maxScroll) {
+        footer.style.display = 'block';
+    } else {
+        footer.style.display = 'none';
+    }
+}
+
