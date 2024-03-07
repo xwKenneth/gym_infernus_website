@@ -15,30 +15,61 @@
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <style>
+
+        .left-image {
+            width: 100%;
+            height: 100vh; 
+            object-fit: cover;
+        }
+
+
+        .left-column {
+            padding-right: 0 !important;
+        }
+
+        .big-icon {
+            margin-right: 15px;
+            margin-bottom: 15px;
+        }
+
+ 
+    </style>
 </head>
 
 <body>
     <!-- Contenido principal del documento -->
-    <main>
-        <!-- Título del contenido principal -->
-        <h4 id="mainTitle"></h4>
-        <!-- Formulario para iniciar sesión -->
-        <form class="row g-3" id="sessionForm">
-            <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                <label for="correo" class="form-label">Correo electrónico</label>
-                <input type="email" id="correo" name="correo" class="form-control" required>
+    <main class="container-fluid">
+        <div class="row">
+            <!-- Columna para la imagen -->
+            <div class="col-lg-6">
+                <img src="../../resources/img/baka.jpg" alt="Image" class="img-responsive">
             </div>
-            <div class="col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                <label for="clave" class="form-label">Contraseña</label>
-                <input type="password" id="clave" name="clave" class="form-control" required>
+            <!-- Columna para el formulario de inicio de sesión -->
+            <div class="col-lg-6">
+                <!-- Formulario para iniciar sesión -->
+                <form class="row g-3" id="sessionForm">
+                    <div class="col-12 d-flex flex-column align-items-center">
+
+                        <img src="../../resources/img/icon.png" width="300px" height="300px" alt="Icon"
+                            class="">
+                        <!-- Título del contenido principal -->
+                        <h4 class="text-center mb-4" id="mainTitle"></h4>
+                        <!-- Added margin-bottom to create space below main title -->
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="correo" class="form-label">Correo electrónico:</label>
+                        <input type="email" id="correo" name="correo" class="form-control" placeholder="Ingresa tu correo electronico" required>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="clave" class="form-label">Contraseña:</label>
+                        <input type="password" id="clave" name="clave" class="form-control" placeholder="Ingresa tu contrasena" required>
+                    </div>
+                    <div class="text-center col-12">
+                        <button type="submit" class="btn btn-dark rounded-pill w-75">Ingresar</button>
+                    </div>
+                </form>
             </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary"><i class="bi bi-send-fill"></i> Enviar</button>
-            </div>
-        </form>
-        <div class="text-center p-3">
-            <!-- Enlace para crear una cuenta de usuario -->
-            <a href="signup.html" class="btn btn-secondary"><i class="bi bi-person-fill"></i> Registrarme</a>
         </div>
     </main>
     <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->

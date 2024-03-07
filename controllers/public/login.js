@@ -1,6 +1,9 @@
 // Constante para establecer el formulario de iniciar sesión.
 const SESSION_FORM = document.getElementById('sessionForm');
-
+MAIN.style.paddingTop = '55px';
+MAIN.style.paddingBottom = '75px';
+MAIN.style.paddingLeft = '0px';
+MAIN.classList.remove('container');
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
