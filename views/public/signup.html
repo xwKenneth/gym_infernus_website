@@ -7,7 +7,7 @@
     <title></title>
     <!-- Metadatos de la página web -->
     <meta charset="utf-8">
-    <meta name="author" content="Daniel Carranza">
+    <meta name="author" content="CesarYkenneth">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
     <!-- Llamada al icono de la página web -->
@@ -15,61 +15,86 @@
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/style-index.css">
+
 </head>
 
 <body>
+    
+
     <!-- Contenido principal del documento -->
     <main>
+        
         <!-- Título del contenido principal -->
         <h4 id="mainTitle"></h4>
         <!-- Formulario para crear cuenta -->
         <form class="row g-3" id="signupForm">
             <!-- Campo oculto para asignar el token del reCAPTCHA -->
-            <input type="hidden" id="gRecaptchaResponse" name="gRecaptchaResponse">
-            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
-                <label for="nombreCliente" class="form-label">Nombre</label>
-                <input type="text" id="nombreCliente" name="nombreCliente" class="form-control" required>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <label for="apellidoCliente" class="form-label">Apellido</label>
-                <input type="text" id="apellidoCliente" name="apellidoCliente" class="form-control" required>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
-                <label for="correoCliente" class="form-label">Correo electrónico</label>
-                <input type="email" id="correoCliente" name="correoCliente" maxlength="100" class="form-control" required>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <label for="duiCliente" class="form-label">DUI</label>
-                <input type="text" id="duiCliente" name="duiCliente" placeholder="00000000-0" class="form-control" required>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
-                <label for="telefonoCliente" class="form-label">Teléfono</label>
-                <input type="text" id="telefonoCliente" name="telefonoCliente" placeholder="0000-0000" class="form-control" required>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <label for="nacimientoCliente" class="form-label">Nacimiento</label>
-                <input type="date" id="nacimientoCliente" name="nacimientoCliente" class="form-control" required>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-2">
-                <label for="claveCliente" class="form-label">Contraseña</label>
-                <input type="password" id="claveCliente" name="claveCliente" class="form-control" required>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-4">
-                <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
-                <input type="password" id="confirmarClave" name="confirmarClave" class="form-control" required>
-            </div>
-            <div class="col-sm-12 col-lg-8 offset-lg-2">
-                <label for="direccionCliente" class="form-label">Dirección</label>
-                <input type="text" id="direccionCliente" name="direccionCliente" maxlength="250" class="form-control" required>
-            </div>
-            <div class="form-check d-flex justify-content-center">
-                <input type="checkbox" class="form-check-input" id="condicion" name="condicion" required>
-                <label class="form-check-label" for="condicion">Acepto términos y condiciones</label>
-            </div>
-            <div class="text-center">
-                <button type="reset" class="btn btn-secondary"><i class="bi bi-x-square-fill"></i> Cancelar</button>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-person-fill"></i> Registrar</button>
-            </div>
+
+                <div class="row g-2">
+                    <img class="icono1" src="../../resources/img/icon.png" width="40px" height="50px">
+                     <h4 class="cuenta">Crear Cuenta</h4>
+                  <div class="col-md-4">
+                    
+                    <img src="../../resources/img/images.png" width="500" height="500" class="img-fluid rounded-start" alt="..."> 
+                  </div>
+
+                
+                  <div class="col-md-8">
+                    <div class="card-body">
+                        <input type="hidden" id="gRecaptchaResponse" name="gRecaptchaResponse">
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <label for="nombreCliente" class="form-label">Nombre</label>
+                            <input type="text" id="nombreCliente" name="nombreCliente" class="form-control" required>
+                        </div>
+                        <div class="col-sm-12 col-md-8 col-lg-8" >
+                            <label for="apellidoCliente" class="form-label">Apellido</label>
+                            <input type="text" id="apellidoCliente" name="apellidoCliente" class="form-control" required>
+                        </div>
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                            <label for="correoCliente" class="form-label">Correo electrónico</label>
+                            <input type="email" id="correoCliente" name="correoCliente" maxlength="100" class="form-control" required>
+                        </div>
+            
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                            <label for="claveCliente" class="form-label">Contraseña</label>
+                            <input type="password" id="claveCliente" name="claveCliente" class="form-control" required>
+                        </div>
+                       <br>
+                        <div class="text-center">
+                        
+                            <div class="d-grid gap-2 d-md-block">
+                                <button type="submit" style="border: none; background: none; padding: 0; margin: 0;">
+                                  <a href="index.html">
+                                    <img class="signup1" src="../../resources/img/btnregistro.png" alt="Texto alternativo de la imagen" style="width: 300px; height: 100px;">
+                                  </a>
+                                </button>
+                              </div>
+                            
+
+                              </div>
+                            </div>
+                    </thead>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+                  
+             
+                    
+               
+         
+           
         </form>
         <!-- Inclusión de la librería de mascaras. Para más información https://github.com/text-mask/text-mask -->
         <script type="text/javascript" src="../../resources/js/vanillaTextMask.js"></script>
