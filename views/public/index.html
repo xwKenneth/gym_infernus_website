@@ -1,77 +1,113 @@
 <!DOCTYPE html>
-<!-- Declaración del idioma para el documento -->
 <html lang="es">
 
 <head>
-    <!-- Título del documento -->
-    <title></title>
-    <!-- Metadatos de la página web -->
     <meta charset="utf-8">
     <meta name="author" content="Kenneth & Cesar">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de la página</title>
+
     <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
-    <!-- Llamada al icono de la página web -->
     <link type="image/png" rel="icon" href="../../resources/img/icon.png">
-    <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/style-index.css">
+    
+    <style>
+        /* CSS for background images */
+        .custom-section {
+            background-size: cover;
+            background-position: center;
+            padding: 50px;
+        }
+        
+        #MainSection {
+            background-image: url('../../resources/img/index1.jpg');
+            /* Add any additional styles you need */
+        }
+        
+        #Support {
+            background-image: url('../../resources/img//index2.png');
+            /* Add any additional styles you need */
+        }
+        
+        /* Add more sections if needed */
+        
+        /* Additional CSS to center the form */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- Contenido principal del documento -->
-    <main class="container d-flex justify-content-center align-items-center vh-100">
-        <h4 class="mb-4" id="mainTitle"></h4>
+ 
+    <main class="container">
         <!-- Sección principal -->
-        <section id="MainSection">
-            <!-- Aquí puedes agregar contenido principal si lo necesitas -->
-        </section>
-        <!-- Sección de soporte -->
-        <section id="Support" class="p-4">
-            <!-- Formulario para soporte -->
-            <h4 class="text-center mb-4">Canales de comunicación</h4>
-            <form class="row g-3 border w-100">
-                <div class="col-sm-12">
-                    <label for="nombre" class="form-label">
-                        <i class="bi bi-person-fill"></i> Nombre
-                    </label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
+        <h4 id="mainTitle"></h4>
+        <section id="MainSection" class="mb-0  p-5 text-white custom-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 order-1 order-lg-1" data-aos="fade-left">
+                        <div class="image-container d-flex align-items-center justify-content-center">
+                            <img src="../../resources/img/icon.png" width="300px" height="100px" class="img-fluid" alt="About Us Image">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-2 content" data-aos="fade-right">
+                        <p>
+                            "Infernus Gym Shop es tu destino para encontrar todo lo necesario para potenciar tu rutina
+                            de entrenamiento. Descubre nuestra amplia selección que incluye mancuernas, pesas, ropa
+                            deportiva, suplementos nutricionales y accesorios así como equipamiento para entrenar en
+                            casa. Nuestros productos de alta calidad están diseñados para mejorar tu rendimiento y
+                            ayudarte a alcanzar tus metas fitness. ¡Explora el catálogo y lleva tu entrenamiento al
+                            siguiente nivel con Infernus Gym Shop!"
+                        </p>
+                    </div>
                 </div>
-                <div class="col-sm-12">
-                    <label for="correo" class="form-label">
-                        <i class="bi bi-envelope-fill"></i> Correo
-                    </label>
-                    <input type="email" id="correo" name="correo" class="form-control" placeholder="Correo electrónico"
-                        required>
-                </div>
-                <div class="col-sm-12">
-                    <label for="descripcion" class="form-label">
-                        <i class="bi bi-chat-left-text-fill"></i> Descripción
-                    </label>
-                    <textarea id="descripcion" name="descripcion" class="form-control" rows="5"
-                        placeholder="Descripción larga" required></textarea>
-                </div>
-                <div class="col-sm-12 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary rounded-pill">Enviar</button>
-                </div>
-            </form>
+            </div>
         </section>
 
+<!-- Sección de soporte -->
+<section id="Support" class="p-5 custom-section mb-0">
+    <!-- Formulario para soporte -->
+    <div class="form-container">
+        <form class="row g-3 border w-50" style="background-color: #D9D9D9; opacity: 0.8;">
+            <div class="col-sm-12">
+                <label for="nombre" class="form-label">
+                    <i class="bi bi-person-fill"></i> Nombre
+                </label>
+                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
+            </div>
+            <div class="col-sm-12">
+                <label for="correo" class="form-label">
+                    <i class="bi bi-envelope-fill"></i> Correo
+                </label>
+                <input type="email" id="correo" name="correo" class="form-control" placeholder="Correo electrónico" required>
+            </div>
+            <div class="col-sm-12">
+                <label for="descripcion" class="form-label">
+                    <i class="bi bi-chat-left-text-fill"></i> Descripción
+                </label>
+                <textarea id="descripcion" name="descripcion" class="form-control" rows="5" placeholder="Escribe tu mensaje aquí.." required></textarea>
+            </div>
+            <div class="col-sm-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary rounded-pill">Enviar</button>
+            </div>
+        </form>
+    </div>
+</section>
 
 
     </main>
 
 
     <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
-    <!-- Llamada al framework y librería de mensajes -->
     <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
-    <!-- Llamada al controlador general de la aplicación -->
     <script type="text/javascript" src="../../controllers/utils/components.js"></script>
-    <!-- Llamada al controlador del sitio público -->
     <script type="text/javascript" src="../../controllers/utils/public.js"></script>
-    <!-- Llamada al controlador de la página web -->
     <script type="text/javascript" src="../../controllers/public/index.js"></script>
 </body>
 
