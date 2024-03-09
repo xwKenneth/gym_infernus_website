@@ -40,7 +40,7 @@ const loadTemplate = async () => {
                             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                                 <div class="navbar-nav ms-auto">
                                     <a class="nav-link" href="index.html"><i class="bi bi-shop"></i> Catálogo</a>
-                                    <a class="nav-link" href="cart.html"><i class="bi bi-cart"></i> Carrito</a>
+                                    <a class="nav-link" href="carrito.html"><i class="bi bi-cart"></i> Carrito</a>
                                     <a class="nav-link" href="#" onclick="logOut()"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a>
                                 </div>
                             </div>
@@ -65,8 +65,8 @@ const loadTemplate = async () => {
                         <div class="navbar-nav ms-auto">
                             <a class="nav-link" href="index.html"><i class="bi bi-house-door"></i> Inicio</a>
                             <a class="nav-link" href="signup.html"><i class="bi bi-person"></i> Usuario</a>
-                            <a class="nav-link" href="login.html"><i class="bi bi-shop"></i> Tienda</a>
-                            <a class="nav-link" href="login.html"><i class="bi bi-cart4"></i> Carrito</a>
+                            <a class="nav-link" href="clasificacion.html"><i class="bi bi-shop"></i> Tienda</a>
+                            <a class="nav-link" href="carrito.html"><i class="bi bi-cart4"></i> Carrito</a>
                         </div>
                     </div>
                 </div>
@@ -74,24 +74,30 @@ const loadTemplate = async () => {
         </header>
         `);
     }
-    // Se agrega el pie de la página web después del contenido principal.
-    MAIN.insertAdjacentHTML('afterend', `
-    <footer id="footer">
-        <nav class="navbar fixed-bottom" style="background-color: #F96060">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div  class="col-md-6">
+// Se agrega el pie de la página web después del contenido principal.
+MAIN.insertAdjacentHTML('afterend', `
+<footer id="footer">
+    <nav class="navbar fixed-bottom" style="background-color: #F96060">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <a class="nav-link" href="terminos.html">  
                         <img src="../../resources/img/terminos.png" alt="Image" style="width: 50px; height: 50px;">
                         <span>Términos y condiciones</span>
-                    </div>
-                    <div class="col center-text">
-                        <p>Derechos Reservados © [Año] Infernus Gym Shop. Todos los derechos están reservados.</p>
-                    </div>
+                    </a>
+                </div>
+                <div class="col center-text">
+                    <p>Derechos Reservados © [Año] Infernus Gym Shop. Todos los derechos están reservados.</p>
                 </div>
             </div>
-        </nav>
-    </footer>
-    `);
+        </div>
+    </nav>
+</footer>
+`);
+
+// Call the toggleFooterVisibility function to initially hide the footer
+toggleFooterVisibility();
+
         // Call the toggleFooterVisibility function to initially hide the footer
         toggleFooterVisibility();
 }
