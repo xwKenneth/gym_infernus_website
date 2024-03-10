@@ -27,10 +27,11 @@
     <!-- Contenido principal del documento -->
     <main>
         <h3 id="mainTitle"></h3>
-        <!-- Container for the cards -->
-        <div class="container mt-3" id="cardContainer"> <!-- Adjusted top margin -->
-            <div class="row justify-content-center card-row"> <!-- Center the content horizontally -->
-                <!-- First card -->
+        <div class="col-12 text-center mt-5"> <!-- Centering the text -->
+            <h4>Mancuernas</h4>
+        </div>
+        <div class="container mt-3" id="cardContainer">
+            <div class="row justify-content-center card-row">
                 <div class="col-sm-6 col-md-3 mb-3 card-item">
                     <div class="card" style="background-color: #EDEDED;">
                         <img class="card-img-top" src="../../resources/img/mancuernas/mancuerna1.png"
@@ -43,12 +44,13 @@
                                 Estas pesas de entrenamiento son de metal y te permiten un mejor agarre para evitar
                                 deslizamientos. Combínalas con tu rutina de ejercicios favorita.
                             </p>
-                            <a href="#" class="btn btn-custom" style="background-color: #FFFFFF; width: 200px;">Ver producto</a>
+                            <a href="#" class="btn btn-custom" style="background-color: #FFFFFF; width: 200px;">Ver
+                                producto</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-1 mb-3"></div> <!-- Empty column for spacing -->
-                <!-- Second card -->
+                <div class="col-sm-6 col-md-1 mb-3"></div>
+
                 <div class="col-sm-6 col-md-3 mb-3 card-item">
                     <div class="card" style="background-color: #EDEDED;">
                         <img class="card-img-top" src="../../resources/img/mancuernas/mancuerna2.png"
@@ -61,13 +63,14 @@
                                 primero en el que invertiría. Puedes irte a lo más ligero o moderado hasta lo más
                                 pesado, según las opciones para comprar.
                             </p>
-                            <a href="#" class="btn btn-custom" style="background-color: #FFFFFF; width: 200px;">Ver producto</a>
+                            <a href="#" class="btn btn-custom" style="background-color: #FFFFFF; width: 200px;">Ver
+                                producto</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center mt-4 card-row"> <!-- Added mt-4 class for top margin between rows -->
-                <!-- Third card -->
+            <div class="row justify-content-center mt-4 card-row">
+
                 <div class="col-sm-6 col-md-3 mb-3 card-item">
                     <div class="card" style="background-color: #EDEDED;">
                         <img class="card-img-top" src="../../resources/img/mancuernas/mancuerna3.png"
@@ -80,12 +83,13 @@
                                 10 pares de mancuernas ergonómicas que van desde los 2,5 kg hasta los 25 kg, así que son
                                 ideales para usuarios de poco nivel y para usuarios avanzados.
                             </p>
-                            <a href="#" class="btn btn-custom" style="background-color: #FFFFFF; width: 200px;">Ver producto</a>
+                            <a href="#" class="btn btn-custom" style="background-color: #FFFFFF; width: 200px;">Ver
+                                producto</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-1 mb-3"></div> <!-- Empty column for spacing -->
-                <!-- Fourth card -->
+                <div class="col-sm-6 col-md-1 mb-3"></div>
+
                 <div class="col-sm-6 col-md-3 mb-3 card-item">
                     <div class="card" style="background-color: #EDEDED;">
                         <img class="card-img-top" src="../../resources/img/mancuernas/mancuerna4.png"
@@ -96,29 +100,30 @@
                                 Las mancuernas de peso fijo son herramientas de entrenamiento versátiles y eficaces
                                 diseñadas para fortalecer y tonificar los músculos de todo el cuerpo.
                             </p>
-                            <a href="#" class="btn btn-custom" style="background-color: #FFFFFF; width: 200px;">Ver producto</a>
+                            <a href="#" class="btn btn-custom" style="background-color: #FFFFFF; width: 200px;">Ver
+                                producto</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
- 
-<!-- Pagination -->
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
-        <li class="page-item" id="previousButton">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#" onclick="showPage(1)">1</a></li>
-        <li class="page-item"><a class="page-link" href="#" onclick="showPage(2)">2</a></li>
-        <li class="page-item"><a class="page-link" href="#" onclick="showPage(3)">3</a></li>
-        <li class="page-item"><a class="page-link" href="#" onclick="showPage(4)">4</a></li>
-        <li class="page-item"><a class="page-link" href="#" onclick="showPage(5)">5</a></li>
-        <li class="page-item" id="nextButton">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" id="previousButton">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#" onclick="showPage(1)">1</a></li>
+                <li class="page-item"><a class="page-link" href="#" onclick="showPage(2)">2</a></li>
+                <li class="page-item"><a class="page-link" href="#" onclick="showPage(3)">3</a></li>
+                <li class="page-item"><a class="page-link" href="#" onclick="showPage(4)">4</a></li>
+                <li class="page-item"><a class="page-link" href="#" onclick="showPage(5)">5</a></li>
+                <li class="page-item" id="nextButton">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </main>
 
 
@@ -133,7 +138,7 @@
     <!-- Llamada al controlador del sitio público -->
     <script type="text/javascript" src="../../controllers/utils/public.js"></script>
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/public/mancuernas.js"></script>
+    <script type="text/javascript" src="../../controllers/public/pagination-handler.js"></script>
 </body>
 
 </html>
