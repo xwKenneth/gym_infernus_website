@@ -45,3 +45,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         MAIN_TITLE.textContent = DATA.error;
     }
 });
+
+function calculateTotal() {
+    const cantidad = parseFloat(document.getElementById('cantidad').value) || 0; // Ensure a default value of 0 if input is empty or not a valid number
+    const precio = parseFloat(document.getElementById('precio').value.replace(/[,$]/g, '')) || 0; // Remove "$" and "," symbols before converting to number
+
+    const total = cantidad * precio;
+
+    const formattedTotal = '$' + total.toLocaleString('en-US', { maximumFractionDigits: 2 });
+
+    document.getElementById('total').value = isNaN(total) ? '$0' : formattedTotal;
+}
+
+function formatDollars(input) {
+    const numericValue = input.value.replace(/[^\d.]/g, ''); // Remove all non-numeric characters, except the dot (.)
+
+    const formattedValue = '$' + parseFloat(numericValue).toLocaleString('en-US', { maximumFractionDigits: 2 });
+
+    input.value = formattedValue;
+
+    calculateTotal();  
+}

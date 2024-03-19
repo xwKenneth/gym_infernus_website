@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- Declaración del idioma para el documento -->
+<html lang="es">
+
+<head>
+    <!-- Título del documento -->
+    <title></title>
+    <!-- Metadatos de la página web -->
+    <meta charset="utf-8">
+    <meta name="author" content="Daniel Carranza">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- IMPORTACIÓN DE RECURSOS EXTERNOS -->
+    <!-- Llamada al icono de la página web -->
+    <link type="image/png" rel="icon" href="../../resources/img/icon.png">
+    <!-- Llamada a las hojas de estilos del framework e iconos -->
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/style-compras.css">
+</head>
+
+<body>
+
+    <!-- Contenido principal del documento -->
+    <main>
+        <!-- Título del contenido principal -->
+        <h4 id="mainTitle"></h4>
+        <div class="row">
+            <div class="col-6">
+                <div class="card" style="background-color: #EDEDED; width: 500px;">
+                    <img class="card-img-top" src="../../resources/img/mancuernas/mancuerna1.png" alt="Card image cap">
+                    <div class="card-body card-body-custom">
+                        <h5 class="card-title">Rober Hegaxon 4KG</h5>
+                        <p class="card-text text-break">
+                            Mancuerna Gym Power Rober Hegaxon 4KG
+                            Con las Mancuernas Gym Power podrás tonificar tus músculos y aumentar tu resistencia.
+                            Estas pesas de entrenamiento son de metal y te permiten un mejor agarre para evitar
+                            deslizamientos. Combínalas con tu rutina de ejercicios favorita.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 mt-5">
+                <div class="row">
+                    <!-- Primera fila -->
+                    <div class="col-6">
+                        <!-- Campo: Precio -->
+                        <label for="precio">Precio:</label>
+                        <input type="text" id="precio" class="form-control" placeholder="$10" onchange="calculateTotal()" oninput="formatDollars(this)">
+                    </div>
+                    <div class="col-6">
+                        <!-- Campo: Cantidades disponibles -->
+                        <label for="cantidades-disponibles">Cantidades disponibles:</label>
+                        <input  id="cantidades-disponibles" class="form-control" placeholder="20" readonly isabled style="cursor: not-allowed;">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <!-- Segunda fila -->
+                    <div class="col-6">
+                        <!-- Campo: Cantidad a comprar -->
+                        <label for="cantidad-comprar">Cantidad a comprar:</label>
+                        <input type="number" id="cantidad" class="form-control" placeholder="2" onchange="calculateTotal()">
+                    </div>                
+                    <div class="col-6">
+                        <!-- Campo: Total -->
+                        <label for="total">Total:</label>
+                        <input type="text" id="total" class="form-control" placeholder="$0" readonly isabled style="cursor: not-allowed;">
+                    </div>
+                </div>
+            </div>
+            <div class="row my-4"></div>
+            <div class="col-6">
+                <img src="../../resources/img/icons/compras/carrito.png" width="50px" height="50px"
+                    alt="Carrito de compras">
+                <a href="#" style="font-weight: bold; font-style: italic; color: black;">Agregar al carrito</a>
+                <img src="../../resources/img/icons/compras/favoritos.png" width="50px" height="50px"
+                    alt="Ícono de lista de deseos">
+                <a href="#" style="font-weight: bold; font-style: italic; color: black;;">Agregar a la lista de
+                    deseos</a>
+            </div>
+            <div class="row my-4"></div>
+            <div class="col-6">
+                <a href="#" style="font-weight: bold; font-style: italic; color: black;">Valorar el producto:</a>
+                <!-- Bootstrap Star Rating Component -->
+                <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                    <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio"
+                        name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating"
+                        value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1"
+                        id="1"><label for="1">☆</label>
+                </div>
+            </div>
+        </div>
+        <div class="row my-4"></div>
+        <!-- Sección de reseña -->
+        <div class="form-container">
+            <form class="row g-3 border w-50" style="background-color: #D9D9D9; opacity: 0.8;">
+                <div class="col-sm-12 d-flex align-items-center"> <!-- Added d-flex and align-items-center -->
+                    <img src="../../resources/img/icons/usuario.png" width="50px" height="50px"
+                        style="margin-right: 10px;"> <!-- Added margin-right for spacing -->
+                    <textarea id="descripcion" name="descripcion" class="form-control" rows="5"
+                        placeholder="Escribe una reseña.." maxlength="600" required></textarea>
+                </div>
+                <div class="col-sm-12 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary rounded-pill">Enviar</button>
+                </div>
+            </form>
+        </div>
+
+
+
+
+    </main>
+    <!-- IMPORTACIÓN DE ARCHIVOS JAVASCRIPT -->
+    <!-- Llamada al framework y librería de mensajes -->
+    <script type="text/javascript" src="../../resources/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../../resources/js/sweetalert.min.js"></script>
+    <!-- Llamada al controlador general de la aplicación -->
+    <script type="text/javascript" src="../../controllers/utils/components.js"></script>
+    <!-- Llamada al controlador del sitio público -->
+    <script type="text/javascript" src="../../controllers/utils/public.js"></script>
+    <!-- Llamada al controlador de la página web -->
+    <script type="text/javascript" src="../../controllers/public/products.js"></script>
+</body>
+
+</html>
