@@ -53,7 +53,7 @@
                     <th class="text-center">Acciones</th>
                 </tr>
             </thead>
-            <tbody class="tableBody">
+            <tbody id="3" class="tableBody">
                 <tr>
                     <td class="ProductoId1 align-middle text-center">PRDCT-20523</td>
                     <td class="ClienteId1 align-middle text-center">CLNT-83745</td>
@@ -63,19 +63,20 @@
                             <p class="text-break text-center">Buen producto</p>
                         </div>
                     </td>
+                   
                     <td class="ValoracionId align-middle text-center">2022/10/2</td>
                     <td class="align-middle text-center">
                         <div class="row">
                             <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
+                                <button type="button" class="btn-editar mt-3 mx-1 btn-editar" data-producto-id="PRDCT-20523"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
+                                <button type="button" class="btn-eliminar mt-3 mx-1 btn-eliminar" data-producto-id="PRDCT-1007"><img src="../../resources/img/delete.png" height="50" width="50"></button>
                                 <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
                             </div>
                         </div>
                     </td>
                 </tr>  
             </tbody>
-            <tbody class="tableBody">
+            <tbody id="1" class="tableBody">
                 <tr>
                     <td class="ProductoId1 align-middle text-center">PRDCT-20513</td>
                     <td class="ClienteId1 align-middle text-center">CLNT-84745</td>
@@ -89,15 +90,15 @@
                     <td class="align-middle text-center">
                         <div class="row">
                             <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
+                                <button type="button" class= "btn-editar mt-3 mx-1 btn-editar"data-producto-id="PRDCT-20523"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
+                                <button type="button" class="btn-eliminar mt-3 mx-1 btn-eliminar" data-producto-id="PRDCT-1007"><img src="../../resources/img/delete.png" height="50" width="50"></button>
                                 <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
                             </div>
                         </div>
                     </td>
                 </tr>  
             </tbody>
-            <tbody class="tableBody">
+            <tbody id="2" class="tableBody">
                 <tr>
                     <td class="ProductoId1 align-middle text-center">PRDCT-23251</td>
                     <td class="ClienteId1 align-middle text-center">CLNT-83745</td>
@@ -111,8 +112,8 @@
                     <td class="align-middle text-center">
                         <div class="row">
                             <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
+                                <button type="button" class="btn btn1 mt-3 mx-1 btn-editar" data-producto-id="PRDCT-20523"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
+                                <button type="button" class="btn btn1 mt-3 mx-1 btn-eliminar" data-producto-id="PRDCT-1007"><img src="../../resources/img/delete.png" height="50" width="50"></button>
                                 <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
                             </div>
                         </div>
@@ -121,8 +122,8 @@
             </tbody>
         </table>
     </main>
+ 
 
-    <!-- JavaScript imports -->
     <script src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
