@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     MAIN_TITLE.textContent = 'Iniciar sesión';
 });
 
+
 // Método del evento para cuando se envía el formulario de iniciar sesión.
 SESSION_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
