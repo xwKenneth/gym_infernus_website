@@ -1,0 +1,97 @@
+DROP DATABASE IF EXISTS gyminfernus_db;
+CREATE DATABASE gyminfernus_db;
+USE gyminfernus_db;
+CREATE TABLE cargo (
+    cargo_id INT PRIMARY KEY,
+    cargo VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE empleado (
+    empleado_id INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    correo_electronico VARCHAR(100) NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+    cargo_id INT,
+    CONSTRAINT fk_cargo_empleado FOREIGN KEY (cargo_id) REFERENCES cargo(cargo_id)
+);
+
+
+CREATE TABLE cliente (
+    cliente_id INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    telefono VARCHAR(15) NOT NULL,
+    correo_electronico VARCHAR(100) NOT NULL,
+    direccion VARCHAR(255) NOT NULL,
+    contrasena VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE proveedor (
+    proveedor_id INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    telefono VARCHAR(15) NOT NULL,
+    direccion VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE marcas (
+    marca_id INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    foto VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE categoria (
+    categoria_id INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    foto VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE producto (
+    producto_id INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) NOT NULL,
+    foto VARCHAR(255) NOT NULL,
+    proveedor_id INT,
+    marca_id INT,
+    categoria_id INT,
+    existencias INT NOT NULL,
+    CONSTRAINT fk_proveedor_producto FOREIGN KEY (proveedor_id) REFERENCES proveedor(proveedor_id),
+    CONSTRAINT fk_marca_producto FOREIGN KEY (marca_id) REFERENCES marcas(marca_id),
+    CONSTRAINT fk_categoria_producto FOREIGN KEY (categoria_id) REFERENCES categoria(categoria_id)
+);
+
+CREATE TABLE ventas (
+    venta_id INT PRIMARY KEY,
+    fecha DATE NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    cliente_id INT,
+    CONSTRAINT fk_cliente_ventas FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
+);
+
+CREATE TABLE valoracion (
+    valoracion_id INT PRIMARY KEY,
+    producto_id INT,
+    cliente_id INT,
+    calificacion DECIMAL(3, 1) NOT NULL,
+    comentario TEXT,
+    fecha_valoracion DATE NOT NULL,
+    CONSTRAINT fk_producto_valoracion FOREIGN KEY (producto_id) REFERENCES producto(producto_id),
+    CONSTRAINT fk_cliente_valoracion FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
+);
+
+CREATE TABLE detalle_ventas (
+    detalle_venta_id INT PRIMARY KEY,
+    venta_id INT,
+    producto_id INT,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    valoracion_id INT, 
+    CONSTRAINT fk_ventas_detalle FOREIGN KEY (venta_id) REFERENCES ventas(venta_id),
+    CONSTRAINT fk_producto_detalle FOREIGN KEY (producto_id) REFERENCES producto(producto_id),
+    CONSTRAINT fk_valoracion_detalle FOREIGN KEY (valoracion_id) REFERENCES valoracion(valoracion_id),
+    CONSTRAINT fk_precio_unitario FOREIGN KEY (producto_id) REFERENCES producto(producto_id)
+
+);
+
+

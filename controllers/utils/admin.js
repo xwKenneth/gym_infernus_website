@@ -30,57 +30,47 @@ const loadTemplate = async () => {
         if (DATA.status) {
             // Se agrega el encabezado de la página web antes del contenido principal.
             MAIN.insertAdjacentHTML('beforebegin', `
-                <header>
-                    <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
-                        <div class="container">
-                            <a class="navbar-brand" href="dashboard.html">
-                                <img src="../../resources/img/logo.png" alt="CoffeeShop" width="50">
-                            </a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarContent">
-                                <ul class="navbar-nav ms-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="producto.html">Productos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="categoria.html">Categorías</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="administrador.html">Administradores</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Cuenta: <b>${DATA.username}</b></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="profile.html">Editar perfil</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="#" onclick="logOut()">Cerrar sesión</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
+            <header>
+            <nav class="navbar fixed-top navbar-expand-lg" style="background-color: #F96060">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html"><i class="bi bi-info-circle"></i><span>&nbsp; Información</span></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav ms-auto">
+                            <a class="nav-link" href="index.html"><i class="bi bi-house-door"></i> Inicio</a>
+                            <a class="nav-link" href="signup.html"><i class="bi bi-person"></i> Usuario</a>
+                            <a class="nav-link" href="clasificacion.html"><i class="bi bi-shop"></i> Tienda</a>
+                            <a class="nav-link" href="carrito.html"><i class="bi bi-cart4"></i> Carrito</a>
                         </div>
-                    </nav>
-                </header>
+                    </div>
+                </div>
+            </nav>
+        </header>
             `);
             // Se agrega el pie de la página web después del contenido principal.
             MAIN.insertAdjacentHTML('afterend', `
-                <footer>
-                    <nav class="navbar fixed-bottom bg-body-tertiary">
-                        <div class="container">
-                            <div>
-                                <p><a class="nav-link" href="https://github.com/dacasoft/coffeeshop" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
-                                <p><i class="bi bi-c-square-fill"></i> 2018-2024 Todos los derechos reservados</p>
-                            </div>
-                            <div>
-                                <p><a class="nav-link" href="../public/" target="_blank"><i class="bi bi-cart-fill"></i> Sitio público</a></p>
-                                <p><i class="bi bi-envelope-fill"></i> dacasoft@outlook.com</p>
-                            </div>
+            <footer id="footer">
+            <nav class="navbar fixed-bottom" style="background-color: #F96060">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <a class="nav-link" href="terminos.html">  
+                                <img src="../../resources/img/terminos.png" alt="Image" style="width: 50px; height: 50px;">
+                                <span>Términos y condiciones</span>
+                            </a>
                         </div>
-                    </nav>
-                </footer>
+                        <div class="col center-text">
+                            <p>Derechos Reservados © [Año] Infernus Gym Shop. Todos los derechos están reservados.</p>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </footer>
             `);
+            // Call the toggleFooterVisibility function to initially hide the footer
+toggleFooterVisibility();
         } else {
             sweetAlert(3, DATA.error, false, 'index.html');
         }
@@ -114,4 +104,31 @@ const loadTemplate = async () => {
             location.href = 'index.html';
         }
     }
+    
 }
+// Método del evento para cuando el documento ha cargado.
+document.addEventListener('DOMContentLoaded', async () => {
+    // Llamada a la función para mostrar el encabezado y pie del documento.
+    loadTemplate();
+
+    // Event listener for scroll event to toggle footer visibility
+    window.addEventListener('scroll', toggleFooterVisibility);
+});
+// Function to toggle footer visibility based on scroll position
+function toggleFooterVisibility() {
+    const footer = document.querySelector('#footer');
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.body.clientHeight;
+
+    // Calculate the maximum scroll position for the scrollbar
+    const maxScroll = documentHeight - windowHeight;
+
+    // Show footer only when scrollbar is at the bottom
+    if (scrollPosition >= maxScroll) {
+        footer.style.display = 'block';
+    } else {
+        footer.style.display = 'none';
+    }
+}
+

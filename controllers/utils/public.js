@@ -98,8 +98,6 @@ MAIN.insertAdjacentHTML('afterend', `
 // Call the toggleFooterVisibility function to initially hide the footer
 toggleFooterVisibility();
 
-        // Call the toggleFooterVisibility function to initially hide the footer
-        toggleFooterVisibility();
 }
  
 // Método del evento para cuando el documento ha cargado.
