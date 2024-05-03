@@ -15,28 +15,7 @@
     <!-- Llamada a las hojas de estilos del framework e iconos -->
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
-    <style>
-        /* Custom CSS to adjust image size and position */
-        .left-image {
-            width: 100%;
-            height: 100vh; /* Adjusts the height to fill the viewport */
-            object-fit: cover;
-        }
-
-        /* Custom CSS to remove padding from left column */
-        .left-column {
-            padding-right: 0 !important;
-        }
-
-        /* Custom CSS to add space between icon and main title */
-        .big-icon {
-            margin-right: 15px;
-            margin-bottom: 15px;
-            /* Added to move the icon below the main title */
-        }
-
- 
-    </style>
+    <link type="text/css" rel="stylesheet" href="../../resources/css/login-admin.css">
 </head>
 
 <body>
@@ -50,7 +29,7 @@
             <!-- Columna para el formulario de inicio de sesión -->
             <div class="col-lg-6 position-relative form-container">
                 <!-- Formulario para iniciar sesión -->
-                <form  id="sessionForm"  class="row g-3 w-75 position-absolute top-50 start-50 translate-middle">
+                <form method="post" id="sessionForm" class="row g-3 w-75 position-absolute top-50 start-50 translate-middle">
                     <div class="col-12 d-flex flex-column align-items-center">
                         <!-- Changed justify-content to align-items -->
                         <!-- Image before mainTitle -->
@@ -62,11 +41,13 @@
                     </div>
                     <div class="col-sm-12">
                         <label for="correo" class="form-label">Correo electrónico:</label>
-                        <input type="email" id="correo" name="correo" class="form-control" placeholder="Ingresa tu correo electronico" required>
+                        <input type="email" id="correo" name="correo" class="form-control"
+                            placeholder="Ingresa tu correo electronico" required>
                     </div>
                     <div class="col-sm-12">
                         <label for="clave" class="form-label">Contraseña:</label>
-                        <input type="password" id="clave" name="clave" class="form-control" placeholder="Ingresa tu contrasena" required>
+                        <input type="password" id="clave" name="clave" class="form-control"
+                            placeholder="Ingresa tu contrasena" required>
                     </div>
                     <div class="text-center col-12">
                         <button type="submit" class="btn btn-dark rounded-pill w-75">Ingresar</button>
@@ -84,7 +65,7 @@
     <!-- Llamada al controlador del sitio público -->
     <script type="text/javascript" src="../../controllers/utils/public.js"></script>
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../controllers/public/login.js"></script>
+    <script type="text/javascript" src="../../controllers/admin/login.js"></script>
 </body>
 
 </html>

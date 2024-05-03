@@ -1,0 +1,15 @@
+
+.left-image {
+    width: 100%;
+    height: 100vh; 
+    object-fit: fill;
+}
+
+.right-column {
+    padding-left: 0 !important;
+}
+
+.big-icon {
+    margin-right: 15px;
+    margin-bottom: 15px;
+}

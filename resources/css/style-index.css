@@ -1,157 +1,184 @@
-.Mancuernas1{
-margin-top: -30%;
-margin-left: 0%;
+.Mancuernas1 {
+    margin-top: -30%;
+    margin-left: 0%;
 }
-.Maquinas1{
+
+.Maquinas1 {
     margin-top: -30%;
     margin-left: -1%;
 }
 
-.Suplementos1{
+.Suplementos1 {
     margin-top: -23%;
     margin-left: 5%;
 }
 
-.btn1{
-   margin-top: -100%;
-   margin-left: 35%;
+.btn1 {
+    margin-top: -100%;
+    margin-left: 35%;
 }
 
-.btn2{
+.btn2 {
     margin-top: -100%;
     margin-left: -30%;
 }
 
-.btn3{
+.btn3 {
     margin-top: -150%;
     margin-left: -90%;
 }
 
-.btn4{
+.btn4 {
     margin-top: -150%;
     margin-left: 55%;
 }
 
-.btn5{
+.btn5 {
     margin-top: -150%;
     margin-left: -10%;
 }
 
-.btn6{
+.btn6 {
     margin-top: -150%;
     margin-left: -75%;
 }
 
-.btn7{
+.btn7 {
     margin-top: -150%;
     margin-left: 40%;
 }
 
-.btn9{
+.btn9 {
     margin-top: -150%;
     margin-left: -90%;
 }
 
 
-.btn8{
+.btn8 {
     margin-top: -150%;
     margin-left: -25%;
 }
 
-.Telefono{
+.Telefono {
     font-size: 150%;
     margin-left: 40%;
     margin-top: -5%;
 
 }
-.Telefono2{
+
+.Telefono2 {
     margin-left: 20%;
     margin-top: -5%;
 
 }
 
-.Telefono3{
+.Telefono3 {
     margin-left: -10%;
     margin-top: -5%;
 
 }
 
-.direccion1{
+.direccion1 {
     font-size: 80%;
-    margin-left:20%;
+    margin-left: 20%;
 }
 
-.direccion2{
+.direccion2 {
     margin-top: -5%;
     font-size: 80%;
     margin-left: 15%;
 }
 
-.direccion3{
+.direccion3 {
     margin-top: -5%;
     font-size: 80%;
     margin-left: -5%;
 }
 
-.btn9{
+.btn9 {
     margin-top: -40%;
     margin-left: -10%;
 }
 
-.btn10{
+.btn10 {
     margin-left: 15%;
 }
 
-.name1{
+.name1 {
     font-size: 210%;
     margin-left: 5%;
 
 }
-.name2{
+
+.name2 {
     font-size: 210%;
     margin-top: -100%;
     margin-left: 5%;
 }
 
-.call1{
+.call1 {
     font-size: 150%;
     margin-left: 90%;
 
 }
-.call2{
+
+.call2 {
     font-size: 150%;
     margin-left: 100%;
 }
 
-.Precio{
+.Precio {
     margin-left: -100%;
 }
 
-.Existencias{
+.Existencias {
     margin-left: -20%;
 }
-.proteina1{
+
+.proteina1 {
     margin-left: 5%;
 }
 
-.cuenta{
+.cuenta {
     margin-left: 49%;
 }
-.icono1{
+
+.icono1 {
     height: 250px;
     width: 250px;
     margin-left: 45%;
 }
 
-.signup1{
+.signup1 {
     margin-left: -70%;
 }
 
-.pesas{
+.pesas {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 
-.precio1{
+.precio1 {
     margin-right: -20%;
+}
+
+.custom-section {
+    background-size: cover;
+    background-position: center;
+    padding: 50px;
+}
+
+#MainSection {
+    background-image: url('../../resources/img/index1.jpg');
+}
+
+#Support {
+    background-image: url('../../resources/img//index2.png');
+}
+
+/* Additional CSS to center the form */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

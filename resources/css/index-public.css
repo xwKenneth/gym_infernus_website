@@ -1,0 +1,25 @@
+        /* CSS for background images */
+        .custom-section {
+            background-size: cover;
+            background-position: center;
+            padding: 50px;
+        }
+        
+        #MainSection {
+            background-image: url('../../resources/img/index1.jpg');
+            /* Add any additional styles you need */
+        }
+        
+        #Support {
+            background-image: url('../../resources/img//index2.png');
+            /* Add any additional styles you need */
+        }
+        
+        /* Add more sections if needed */
+        
+        /* Additional CSS to center the form */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }

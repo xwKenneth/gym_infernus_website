@@ -1,0 +1,17 @@
+.left-image {
+    width: 100%;
+    height: 100vh; /* Adjusts the height to fill the viewport */
+    object-fit: cover;
+}
+
+/* Custom CSS to remove padding from left column */
+.left-column {
+    padding-right: 0 !important;
+}
+
+/* Custom CSS to add space between icon and main title */
+.big-icon {
+    margin-right: 15px;
+    margin-bottom: 15px;
+    /* Added to move the icon below the main title */
+}
