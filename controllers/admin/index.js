@@ -5,34 +5,24 @@ const LOGIN_FORM = document.getElementById('loginForm');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        // Load template
-        loadTemplate();
+    // Load template
+    loadTemplate();
 
-        // Fetch user data
-        const DATA = await fetchData(USER_API, 'readUsers');
+    // Fetch user data
+    const DATA = await fetchData(USER_API, 'readUsers');
 
-        // Handle response
-        if (DATA && DATA.session) {
-            location.href = 'dashboard.html'; // Redirect to dashboard if session exists
-        } else if (DATA && DATA.status) {
-            // Show login form
-            MAIN_TITLE.textContent = 'Iniciar sesión';
-            LOGIN_FORM.classList.remove('d-none');
-            sweetAlert(4, DATA.message, true);
-        } else if (DATA && !DATA.status) {
-            // Show signup form
-            MAIN_TITLE.textContent = 'Registrar primer usuario';
-            SIGNUP_FORM.classList.remove('d-none');
-            sweetAlert(4, DATA.error, true);
-        } else {
-            // Handle unexpected response
-            sweetAlert(3, "Unexpected response from server", false);
-        }
-    } catch (error) {
-        // Handle fetch error
-        console.error("Error fetching user data:", error);
-        sweetAlert(3, "Error fetching user data", false);
+    // Handle response
+    if (DATA.session) {
+        location.href = 'dashboard.html'; // Redirect to dashboard if session exists
+    } else if (DATA.status) {
+        // Show login form
+        MAIN_TITLE.textContent = 'Iniciar sesión';
+        LOGIN_FORM.classList.remove('d-none');
+        sweetAlert(4, DATA.message, true);
+    } else {
+        MAIN_TITLE.textContent = 'Registrar primer usuario';
+        SIGNUP_FORM.classList.remove('d-none');
+        sweetAlert(4, DATA.error, true);
     }
 });
 
