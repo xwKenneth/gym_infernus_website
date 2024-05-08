@@ -1,7 +1,4 @@
-<<<<<<< Updated upstream
 // Constante para establecer el formulario de iniciar sesión.
-=======
->>>>>>> Stashed changes
 const SESSION_FORM = document.getElementById('sessionForm');
 MAIN.style.paddingTop = '55px';
 MAIN.style.paddingBottom = '75px';
@@ -12,7 +9,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
     // Se establece el título del contenido principal.
-<<<<<<< Updated upstream
     // Se establece el título del contenido principal.
     MAIN_TITLE.textContent = 'Iniciar sesión';
     
@@ -20,13 +16,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-=======
-    MAIN_TITLE.textContent = 'Iniciar sesión';
-});
-
-
-
->>>>>>> Stashed changes
 // Método del evento para cuando se envía el formulario de iniciar sesión.
 SESSION_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -37,7 +26,7 @@ SESSION_FORM.addEventListener('submit', async (event) => {
     const DATA = await fetchData(USER_API, 'logIn', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
-        sweetAlert(1, DATA.message, true, 'index.html');
+        sweetAlert(1, DATA.message, true, 'login.html');
     } else {
         sweetAlert(2, DATA.error, false);
     }

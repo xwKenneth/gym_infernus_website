@@ -3,6 +3,8 @@ const PRODUCTO_API = 'services/admin/producto.php';
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
+    // Llamada a la función para mostrar el encabezado y pie del documento.
+    loadTemplate();
     // Constante para obtener el número de horas.
     const HOUR = new Date().getHours();
     // Se define una variable para guardar un saludo.
@@ -15,8 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (HOUR <= 23) {
         greeting = 'Buenas noches';
     }
-    // Llamada a la función para mostrar el encabezado y pie del documento.
-    loadTemplate();
+
     // Se establece el título del contenido principal.
     MAIN_TITLE.textContent = `${greeting}, bienvenido`;
     // Llamada a la funciones que generan los gráficos en la página web.

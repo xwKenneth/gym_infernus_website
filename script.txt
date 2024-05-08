@@ -15,8 +15,17 @@ CREATE TABLE empleado (
     cargo_id INT,
     CONSTRAINT fk_cargo_empleado FOREIGN KEY (cargo_id) REFERENCES cargo(cargo_id)
 );
+INSERT INTO cargo
+VALUES
+(1, 'Administrador'),
+(2, 'Empleado');
 
 
+
+INSERT INTO empleado
+VALUES(1, 'kenneth', 'ram', 'admin@gmail.com', '12345678', 1)
+
+SELECT * FROM empleado;
 CREATE TABLE cliente (
     cliente_id INT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,

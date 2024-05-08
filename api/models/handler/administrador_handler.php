@@ -21,14 +21,14 @@ class AdministradorHandler
      */
     public function checkUser($username, $password)
     {
-        $sql = 'SELECT id_administrador, alias_administrador, clave_administrador
-                FROM administrador
-                WHERE  alias_administrador = ?';
+        $sql = 'SELECT empleado_id, correo_electronico, contrasena
+                FROM empleado
+                WHERE  correo_electronico  = ?';
         $params = array($username);
         $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave_administrador'])) {
-            $_SESSION['idAdministrador'] = $data['id_administrador'];
-            $_SESSION['aliasAdministrador'] = $data['alias_administrador'];
+        if (password_verify($password, $data['contrasena'])) {
+            $_SESSION['idAdministrador'] = $data['empleado_id'];
+            $_SESSION['aliasAdministrador'] = $data['correo_electronico'];
             return true;
         } else {
             return false;
@@ -37,13 +37,13 @@ class AdministradorHandler
 
     public function checkPassword($password)
     {
-        $sql = 'SELECT clave_administrador
-                FROM administrador
-                WHERE id_administrador = ?';
-        $params = array($_SESSION['idAdministrador']);
+        $sql = 'SELECT contrasena
+                FROM empleado
+                WHERE empleado_id = ?';
+        $params = array($_SESSION['empleado_id']);
         $data = Database::getRow($sql, $params);
         // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
-        if (password_verify($password, $data['clave_administrador'])) {
+        if (password_verify($password, $data['contrasena'])) {
             return true;
         } else {
             return false;
@@ -93,17 +93,17 @@ class AdministradorHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO administrador(nombre_administrador, apellido_administrador, correo_administrador, alias_administrador, clave_administrador)
-                VALUES(?, ?, ?, ?, ?)';
-        $params = array($this->nombre, $this->apellido, $this->correo, $this->alias, $this->clave);
+        $sql = 'INSERT INTO empleado(nombre, apellido, correo_electronico, contrasena, cargo_id)
+                VALUES(?, ?, ?, ?, 1)';
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->clave);
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT id_administrador, nombre_administrador, apellido_administrador, correo_administrador, alias_administrador
-                FROM administrador
-                ORDER BY apellido_administrador';
+        $sql = 'SELECT empleado_id, nombre, apellido, correo_electronico
+                FROM empleado
+                ORDER BY apellido';
         return Database::getRows($sql);
     }
 

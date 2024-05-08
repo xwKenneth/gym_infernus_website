@@ -30,20 +30,58 @@ const loadTemplate = async () => {
         if (DATA.status) {
             // Se agrega el encabezado de la página web antes del contenido principal.
             MAIN.insertAdjacentHTML('beforebegin', `
+            <link type="text/css" rel="stylesheet" href="../../resources/css/style-index.css">
             <header>
-            <nav class="navbar fixed-top navbar-expand-lg" style="background-color: #F96060">
+            <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(249 96 96 / 100%)">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html"><i class="bi bi-info-circle"></i><span>&nbsp; Información</span></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <a class="navbar-brand" href="dashboard.html">
+                        <img src="../../resources/img/logo.png" alt="CoffeeShop" width="50">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav ms-auto">
-                            <a class="nav-link" href="index.html"><i class="bi bi-house-door"></i> Inicio</a>
-                            <a class="nav-link" href="signup.html"><i class="bi bi-person"></i> Usuario</a>
-                            <a class="nav-link" href="clasificacion.html"><i class="bi bi-shop"></i> Tienda</a>
-                            <a class="nav-link" href="carrito.html"><i class="bi bi-cart4"></i> Carrito</a>
-                        </div>
+                    <div class="collapse navbar-collapse" id="navbarContent">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../views/admin/administrar_productos.html"><i class="bi bi-cart-fill"></i> Productos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../views/admin/administrar_categorias.html"><i class="bi bi-bag-fill"></i> Categorías</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../views/admin/administrar_clientes.html"><i class="bi bi-person"></i> Clientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../views/admin/administrar_empleados.html"><i class="bi bi-people"></i> Empleados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../views/admin/administrar_empleados.html"><i class="bi bi-shield-shaded"></i> Cuenta: Admin</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                                    aria-expanded="false"><i class="bi bi-three-dots"></i> Más<b></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="../../views/admin/administrar_venta.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="../../views/admin/administrar_detalle_venta.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="../../views/admin/administrar_valoracion.html" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="../../views/admin/administrar_marcas.html" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="../../views/admin/agregar-cargo.html" onclick=""><img src="../../resources/img/icons/cargo.png" width="20"> Cargo</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -51,18 +89,12 @@ const loadTemplate = async () => {
             `);
             // Se agrega el pie de la página web después del contenido principal.
             MAIN.insertAdjacentHTML('afterend', `
-            <footer id="footer">
-            <nav class="navbar fixed-bottom" style="background-color: #F96060">
+            <footer>
+            <nav class="navbar fixed-bottom" style="background-color: rgb(249 96 96 / 100%)">
                 <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <a class="nav-link" href="terminos.html">  
-                                <img src="../../resources/img/terminos.png" alt="Image" style="width: 50px; height: 50px;">
-                                <span>Términos y condiciones</span>
-                            </a>
-                        </div>
-                        <div class="col center-text">
-                            <p>Derechos Reservados © [Año] Infernus Gym Shop. Todos los derechos están reservados.</p>
+                    <div class="row justify-content-center"> <!-- Center the content horizontally -->
+                        <div class="col-md-6 center-text"> <!-- Adjust the column width as needed -->
+                            <p style=" white-space: nowrap; text-overflow: ellipsis;">Derechos Reservados © [Año] Infernus Gym Shop. Todos los derechos están reservados.</p>
                         </div>
                     </div>
                 </div>
@@ -70,7 +102,7 @@ const loadTemplate = async () => {
         </footer>
             `);
             // Call the toggleFooterVisibility function to initially hide the footer
-toggleFooterVisibility();
+            toggleFooterVisibility();
         } else {
             sweetAlert(3, DATA.error, false, 'index.html');
         }
@@ -80,7 +112,7 @@ toggleFooterVisibility();
             // Se agrega el encabezado de la página web antes del contenido principal.
             MAIN.insertAdjacentHTML('beforebegin', `
                 <header>
-                    <nav class="navbar fixed-top bg-body-tertiary">
+                    <nav class="navbar fixed-top" style="background-color: rgb(201 88 88 / 46%)" >
                         <div class="container">
                             <a class="navbar-brand" href="index.html">
                                 <img src="../../resources/img/logo.png" alt="inventory" width="50">
@@ -92,10 +124,9 @@ toggleFooterVisibility();
             // Se agrega el pie de la página web después del contenido principal.
             MAIN.insertAdjacentHTML('afterend', `
                 <footer>
-                    <nav class="navbar fixed-bottom bg-body-tertiary">
+                    <nav class="navbar fixed-bottom" style="background-color: rgb(201 88 88 / 46%)">
                         <div class="container">
-                            <p><a class="nav-link" href="https://github.com/dacasoft/coffeeshop" target="_blank"><i class="bi bi-github"></i> CoffeeShop</a></p>
-                            <p><i class="bi bi-envelope-fill"></i> dacasoft@outlook.com</p>
+                            <p><i class="bi bi-envelope-fill"></i> kenzz@gyminfernus.com</p>
                         </div>
                     </nav>
                 </footer>
@@ -104,7 +135,7 @@ toggleFooterVisibility();
             location.href = 'index.html';
         }
     }
-    
+
 }
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
