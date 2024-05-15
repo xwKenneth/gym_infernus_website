@@ -72,6 +72,20 @@ class Validator
         }
     }
 
+    public static function validateDateSQL($date)
+    {
+        // Verificar si la fecha tiene el formato correcto de SQL (YYYY-MM-DD)
+        if (preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", $date, $matches)) {
+            // Verificar si la fecha es válida
+            if (checkdate($matches[2], $matches[3], $matches[1])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     /*
     *   Método para validar un archivo de imagen.
     *   Parámetros: $file (archivo de un formulario) y $dimension (medida mínima para la imagen).
@@ -285,17 +299,38 @@ class Validator
         if (trim($value) == '') {
             self::$search_error = 'Ingrese un valor para buscar';
             return false;
-        } elseif(str_word_count($value) > 3) {
+        } elseif (str_word_count($value) > 3) {
             self::$search_error = 'La búsqueda contiene más de 3 palabras';
             return false;
         } elseif (self::validateString($value)) {
             self::$search_value = $value;
             return true;
+        } elseif (self::validateDateForMySQL($value)) {
+            self::$search_value = $value;
+            return true;
         } else {
-            self::$search_error = 'La búsqueda contiene caracteres prohibidos';
+            self::$search_error = 'La búsqueda contiene caracteres prohibidos o no es una fecha válida';
             return false;
         }
     }
+
+    public static function validateDateForMySQL($value)
+    {
+        // Intenta crear un objeto DateTime con la fecha proporcionada
+        try {
+            $dateTime = new DateTime($value);
+            // Formatea la fecha y compara si coincide con la fecha original
+            if ($dateTime->format('Y-m-d') === $value) {
+                return true; // La fecha es válida para MySQL
+            } else {
+                return false; // La fecha no coincide con el formato esperado
+            }
+        } catch (Exception $ex) {
+            return false; // Error al crear el objeto DateTime, la fecha no es válida
+        }
+    }
+
+
 
     /*
     *   Método para validar un archivo al momento de subirlo al servidor.

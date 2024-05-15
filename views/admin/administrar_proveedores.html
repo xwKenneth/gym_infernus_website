@@ -42,8 +42,7 @@
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 text-end">
-                <!-- Botón para abrir una caja de diálogo al momento de crear un nuevo registro -->
-                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-proveedor.html'">
+                <button type="button" class="btn btn-primary" onclick="openCreate()">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
@@ -54,124 +53,17 @@
             <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
             <thead>
                 <tr>
-                    <td colspan="5" id="rowsFound"></td>
+                    <td colspan="4" id="rowsFound"></td>
                 </tr>
                 <tr>
                     <th>Nombre</th>
                     <th>Telefono</th>
                     <th>Direccion</th>
                     <th>Acciones</th>
-
-
                 </tr>
             </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
             <tbody id="tableBody"></tbody>
         </table>
-
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                <tr>
-                    <th><h3>Precor</h3></th>
-                    <th><h4 class="Telefono">+31 5896-9687</h4></th>
-                    <th><h4 class="direccion1">Holanda Meridional, Goeree-Overflakkee, Oude-Tonge</h4></th>
-                    <th><button  type="button"  class="btn9"><img src="../../resources/img/edit.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn9"><img src="../../resources/img/delete.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn9"><img src="../../resources/img/document.png" height="40" width="40"/></button></th>
-                </tr>
-                
-                
-           
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-    </thead>
-
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                <tr>
-                    <td colspan="5" id="rowsFound"></td>
-                </tr>
-                <tr>
-                    <th><h3>Rocfit</h3></th>
-                    <th><h4 class="Telefono2">+503 5896-8956</h4></th>
-                    <th><h4 class="direccion2">El salvador, San Salvador, Mexicanos</h4></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/edit.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/delete.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/document.png" height="40" width="40"/></button></th>
-                </tr>
-                
-            
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-    </thead>
-
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                <tr>
-                    <td colspan="5" id="rowsFound"></td>
-                </tr>
-                <tr>
-                    <th><h3>Bodytone</h3></th>
-                    <th><h4 class="Telefono3">+503 5889-9688</h4></th>
-                    <th><h4 class="direccion3">El salvador, Antiguo Cuscatlan</h4></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/edit.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/delete.png" height="40" width="40"/></button></th>
-                    <th><button  type="button"  class="btn10"><img src="../../resources/img/document.png" height="40" width="40"/></button></th>
-                </tr>
-            </thead>
-
-
-            
-               
-
-                
-            
-            
-
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-
-
-
-
-
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                
-                <tr>
-                   
-                </tr>
-            </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-
-        <table class="table table-hover">
-            <!-- Encabezado de la tabla para mostrar la cantidad de registros y los títulos de las columnas -->
-            <thead>
-                <tr>
-                    <td colspan="5" id="rowsFound"></td>
-                </tr>
-                <tr>
-                  
-                    
-                </tr>
-            </thead>
-            <!-- Cuerpo de la tabla para mostrar un registro por fila -->
-            <tbody id="tableBody"></tbody>
-        </table>
-
-
-
-
-
 
         <!-- Componente Modal para guardar un registro -->
         <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -186,36 +78,25 @@
                     <form id="saveForm">
                         <div class="modal-body row g-3">
                             <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                            <input type="hidden" id="idAdministrador" name="idAdministrador">
+                            <input type="hidden" id="idProveedor" name="idProveedor">
                             <div class="col-sm-12 col-md-6">
-                                <label for="nombreAdministrador" class="form-label">Nombre</label>
-                                <input id="nombreAdministrador" type="text" name="nombreAdministrador"
+                                <label for="nombreProveedor" class="form-label">Nombre</label>
+                                <input id="nombreProveedor" type="text" name="nombreProveedor"
                                     class="form-control" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="apellidoAdministrador" class="form-label">Apellido</label>
-                                <input id="apellidoAdministrador" type="text" name="apellidoAdministrador"
-                                    class="form-control" required>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="telefonoProveedor" class="form-label">Teléfono</label>
+                                    <input id="telefonoProveedor" type="text" name="telefonoProveedor"
+                                        class="form-control" required maxlength="9">
+                                    <small id="telefonoHelp" class="form-text text-muted">Ingrese un número de teléfono
+                                        válido (ejemplo: 8986-9899).</small>
+                                </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="correoAdministrador" class="form-label">Correo</label>
-                                <input id="correoAdministrador" type="email" name="correoAdministrador"
-                                    class="form-control" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="aliasAdministrador" class="form-label">Alias</label>
-                                <input id="aliasAdministrador" type="text" name="aliasAdministrador"
-                                    class="form-control" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="claveAdministrador" class="form-label">Contraseña</label>
-                                <input id="claveAdministrador" type="password" name="claveAdministrador"
-                                    class="form-control" required>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
-                                <input id="confirmarClave" type="password" name="confirmarClave" class="form-control"
-                                    required>
+                                <label for="direccionProveedor">Dirección:</label>
+                                <input type="text" class="form-control" id="direccionProveedor" name="direccionProveedor"
+                                    placeholder="Ingrese su dirección">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -235,7 +116,7 @@
     <!-- Llamada al controlador del sitio privado -->
     <script src="../../controllers/utils/admin.js"></script>
     <!-- Llamada al controlador de la página web -->
-    <script type="text/javascript" src="../../../controllers/admin/login.js"></script>
+    <script type="text/javascript" src="../../controllers/admin/proveedor.js"></script>
 </body>
 
 </html>

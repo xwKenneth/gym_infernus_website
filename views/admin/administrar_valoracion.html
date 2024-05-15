@@ -32,7 +32,7 @@
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 text-end">
-                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-valoracion.html'">
+                <button type="button" class="btn btn-primary" onclick="openCreate()">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
@@ -42,93 +42,75 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="6" class="rowsFound"></td>
+                    <td colspan="6" id="rowsFound"></td>
                 </tr>
                 <tr>
-                    <th>Producto Id</th>
-                    <th class="text-center">Cliente Id</th>
-                    <th class="text-center">Calificacion</th>
-                    <th class="text-center">Comentario</th>
-                    <th class="text-center">Fecha Valoracion</th>
-                    <th class="text-center">Acciones</th>
+                    <th>Producto</th>
+                    <th>Cliente</th>
+                    <th>Calificacion</th>
+                    <th>Comentario</th>
+                    <th>Fecha Valoracion</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="3" class="tableBody">
+            <tbody id="tableBody">
                 <tr>
-                    <td class="ProductoId1 align-middle text-center">PRDCT-20523</td>
-                    <td class="ClienteId1 align-middle text-center">CLNT-83745</td>
-                    <td class="CalificacionId1 align-middle text-center">5</td>
-                    <td class="Comentario1 align-middle">
-                        <div style="max-width: 434.58px;">
-                            <p class="text-break text-center">Buen producto</p>
-                        </div>
-                    </td>
-                   
-                    <td class="ValoracionId align-middle text-center">2022/10/2</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn-editar mt-3 mx-1 btn-editar" data-producto-id="PRDCT-20523"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn-eliminar mt-3 mx-1 btn-eliminar" data-producto-id="PRDCT-1007"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
-            </tbody>
-            <tbody id="1" class="tableBody">
-                <tr>
-                    <td class="ProductoId1 align-middle text-center">PRDCT-20513</td>
-                    <td class="ClienteId1 align-middle text-center">CLNT-84745</td>
-                    <td class="CalificacionId1 align-middle text-center">2</td>
-                    <td class="Comentario1 align-middle">
-                        <div style="max-width: 434.58px;">
-                            <p class="text-break text-center">Mal producto exploto al abrirlo</p>
-                        </div>
-                    </td>
-                    <td class="ValoracionId align-middle text-center">2020/8/2</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class= "btn-editar mt-3 mx-1 btn-editar"data-producto-id="PRDCT-20523"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn-eliminar mt-3 mx-1 btn-eliminar" data-producto-id="PRDCT-1007"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
-            </tbody>
-            <tbody id="2" class="tableBody">
-                <tr>
-                    <td class="ProductoId1 align-middle text-center">PRDCT-23251</td>
-                    <td class="ClienteId1 align-middle text-center">CLNT-83745</td>
-                    <td class="CalificacionId1 align-middle text-center">4</td>
-                    <td class="Comentario1 align-middle">
-                        <div style="max-width: 434.58px;">
-                            <p class="text-break text-center">Un producto decente</p>
-                        </div>
-                    </td>
-                    <td class="ValoracionId align-middle text-center">2024/09/12</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1 btn-editar" data-producto-id="PRDCT-20523"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1 btn-eliminar" data-producto-id="PRDCT-1007"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
+                </tr>
             </tbody>
         </table>
+
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario para crear o actualizar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                            <input type="hidden" id="idValoracion" name="idValoracion">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="calificacionValoracion" class="form-label">Calificación</label>
+                                <input id="calificacionValoracion" type="number" name="calificacionValoracion" min="0" max="10" step="0.1"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="comentarioValoracion">Comentario</label>
+                                <textarea class="form-control" name="comentarioValoracion" id="comentarioValoracion" rows="3"></textarea>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="fechaValoracion" class="form-label">Fecha de valoracion</label>
+                                <input id="fechaValoracion" type="date" name="fechaValoracion" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="clienteValoracion" class="form-label">Cliente</label>
+                                <select id="clienteValoracion" name="clienteValoracion" class="form-select" required>
+                                </select>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="productoValoracion" class="form-label">Producto</label>
+                                <select id="productoValoracion" name="productoValoracion" class="form-select" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
- 
+
 
     <script src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
     <script src="../../controllers/utils/admin.js"></script>
-    <script src="../../../controllers/admin/login.js"></script>
+    <script src="../../controllers/admin/valoracion.js"></script>
 </body>
 
 </html>

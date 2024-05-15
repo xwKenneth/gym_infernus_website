@@ -42,7 +42,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="6" class="rowsFound"></td>
+                    <td colspan="5" id="rowsFound"></td>
                 </tr>
                 <tr>
                     <th>Nombre</th>
@@ -52,96 +52,76 @@
                     <th class="text-center">Acciones</th>
                 </tr>
             </thead>
-            
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre1 align-middle text-center">Miguel</td>
-                    <td class="Apellido1 align-middle text-center">Ortiz</td>
 
-                    <td class="CorreoElectronico1 align-middle text-center"style="max-width: 250px;"><p class="text-break">miguelortiz@gmail.com</p></td>
-                    <td class="Cargo align-middle text-center"><p class="text-break">Administrador</p></td>
-                    </td>
-                    
-                    
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
+            <tbody id="tableBody">
+ 
             </tbody>
         </table>
 
+        <!-- Componente Modal para guardar un registro -->
         <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="modalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalTitle"></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario para guardar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                            <input type="hidden" id="idAdministrador" name="idAdministrador">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="nombreAdministrador" class="form-label">Nombre</label>
+                                <input id="nombreAdministrador" type="text" name="nombreAdministrador"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="apellidoAdministrador" class="form-label">Apellido</label>
+                                <input id="apellidoAdministrador" type="text" name="apellidoAdministrador"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="correoAdministrador" class="form-label">Correo</label>
+                                <input id="correoAdministrador" type="email" name="correoAdministrador"
+                                    class="form-control" required>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <label for="claveAdministrador" class="form-label">Contraseña</label>
+                                <input id="claveAdministrador" type="password" name="claveAdministrador"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
+                                <input id="confirmarClave" type="password" name="confirmarClave" class="form-control"
+                                    required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="idCargo" class="form-label">Cargo</label>
+                                <select id="idCargo" name="idCargo" class="form-select" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
                 </div>
-                <!-- Formulario para crear o actualizar un registro -->
-                <form id="saveForm">
-                    <div class="modal-body row g-3">
-                        <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                        <input type="hidden" id="idProducto" name="idProducto">
-                        <div class="col-sm-12 col-md-6">
-                            <label for="nombreProducto" class="form-label">Nombre</label>
-                            <input id="nombreProducto" type="text" name="nombreProducto" class="form-control"
-                                required>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <label for="descripcionProducto" class="form-label">Descripción</label>
-                            <input id="descripcionProducto" type="text" name="descripcionProducto"
-                                class="form-control" required>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <label for="precioProducto" class="form-label">Precio (US$)</label>
-                            <input id="precioProducto" type="number" name="precioProducto" min="0.01" step="0.01"
-                                class="form-control" required>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <label for="existenciasProducto" class="form-label">Existencias</label>
-                            <input id="existenciasProducto" type="number" name="existenciasProducto" min="1"
-                                step="1" class="form-control" required>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <label for="categoriaProducto" class="form-label">Categoría</label>
-                            <select id="categoriaProducto" name="categoriaProducto" class="form-select" required>
-                            </select>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <label for="imagenProducto" class="form-label">Imagen</label>
-                            <input id="imagenProducto" type="file" name="imagenProducto" class="form-control"
-                                accept=".png, .jpg">
-                        </div>
-                        <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" type="checkbox" id="estadoProducto"
-                                name="estadoProducto" checked>
-                            <label class="form-check-label" for="estadoProducto">Estado</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
+
     </main>
-    
-    
+
+
     <!-- JavaScript imports -->
     <script src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
     <script src="../../controllers/utils/admin.js"></script>
-    <script src="../../controllers/admin/general.js"></script>
-    <script src="../../controllers/admin/administrar_empleados.js"></script>
+    <script src="../../controllers/admin/empleados.js"></script>
+
 </body>
 
 </html>

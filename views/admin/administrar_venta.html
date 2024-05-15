@@ -1,6 +1,6 @@
+<!-- administrar_venta.html -->
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta name="author" content="CesarYKenneth">
@@ -11,17 +11,19 @@
     <link rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../resources/css/style-index.css">
 </head>
-
 <body>
     <main>
         <h3 id="mainTitle">Ventas</h3>
         <div class="row">
             <form class="col-sm-12 col-md-6" id="searchForm">
                 <div class="row">
-                    <div class="col-6">
-                        <input type="search" class="form-control" name="search" required>
+                    <div class="col-5">
+                        <input type="date" class="form-control" name="startDate" required>
                     </div>
-                    <div class="col-6">
+                    <div class="col-5">
+                        <input type="date" class="form-control" name="endDate" required>
+                    </div>
+                    <div class="col row-5">
                         <button type="submit" class="btn btn-success">
                             <i class="bi bi-search"></i>
                         </button>
@@ -32,7 +34,7 @@
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 text-end">
-                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-venta.html'">
+                <button type="button" class="btn btn-primary" onclick="openCreate()">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
@@ -42,76 +44,63 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="5" class="rowsFound"></td>
+                    <td colspan="4" id="rowsFound"></td>
                 </tr>
                 <tr>
-                    <th>Venta Id</th>
-                    <th class="text-center">Fecha</th>
-                    <th class="text-center">Total</th>
-                    <th class="text-center">Cliente Id</th>
-                    <th class="text-center">Acciones</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Cliente</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre1 align-middle text-center">VNT-83745</td>
-                    <td class="Apellido1 align-middle text-center">2022/02/12</td>
-                    <td class="Telefono1 align-middle text-center">15</td>
-                    <td class="CorreoElectronico1 align-middle text-center"style="max-width: 150px;">CLNT-83745</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
-            </tbody>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre2 align-middle text-center">VNT-83742</td>
-                    <td class="Apellido2 align-middle text-center">2023/02/12</td>
-                    <td class="Telefono2 align-middle text-center">2</td>
-                    <td class="CorreoElectronico2 align-middle text-center"style="max-width: 150px;">CLNT-83741</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
-            </tbody>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre2 align-middle text-center">VNT-83742</td>
-                    <td class="Apellido2 align-middle text-center">2023/05/12</td>
-                    <td class="Telefono2 align-middle text-center">5</td>
-                    <td class="CorreoElectronico2 align-middle text-center" style="max-width: 150px;">CLNT-83747</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
+            <tbody id="tableBody">
+                <tr></tr>
             </tbody>
         </table>
-    </main>
 
+        <!-- Componente Modal para guardar un registro -->
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario para crear o actualizar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                            <input type="hidden" id="idVenta" name="idVenta">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="fechaVenta" class="form-label">Fecha de venta</label>
+                                <input id="fechaVenta" type="date" name="fechaVenta"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="totalVenta" class="form-label">Total (US$)</label>
+                                <input id="totalVenta" type="number" name="totalVenta" min="0.01" step="0.01"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="clienteVenta" class="form-label">Cliente</label>
+                                <select id="clienteVenta" name="clienteVenta" class="form-select" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
     <!-- JavaScript imports -->
     <script src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
-    <script src="../../../controllers/utils/admin-header.js"></script>
-    <script src="../../../controllers/admin/login.js"></script>
+    <script src="../../controllers/utils/admin.js"></script>
+    <script src="../../controllers/admin/venta.js"></script>
 </body>
-
 </html>

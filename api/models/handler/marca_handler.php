@@ -4,7 +4,7 @@ require_once('../../helpers/database.php');
 /*
  *  Clase para manejar el comportamiento de los datos de la tabla CATEGORIA.
  */
-class CategoriaHandler
+class MarcaHandler
 {
     /*
      *  Declaración de atributos para el manejo de datos.
@@ -15,7 +15,7 @@ class CategoriaHandler
     protected $imagen = null;
 
     // Constante para establecer la ruta de las imágenes.
-    const RUTA_IMAGEN = '../../images/categorias/';
+    const RUTA_IMAGEN = '../../images/marcas/';
 
     /*
      *  Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
@@ -23,8 +23,8 @@ class CategoriaHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT categoria_id, nombre, foto
-                FROM categoria
+        $sql = 'SELECT marca_id, nombre, foto
+                FROM marcas
                 WHERE nombre LIKE ? 
                 ORDER BY nombre';
         $params = array($value);
@@ -33,7 +33,7 @@ class CategoriaHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO categoria(nombre, foto)
+        $sql = 'INSERT INTO marcas(nombre, foto)
                 VALUES(?, ?)';
         $params = array($this->nombre, $this->imagen);
         return Database::executeRow($sql, $params);
@@ -41,17 +41,17 @@ class CategoriaHandler
 
     public function readAll()
     {
-        $sql = 'SELECT categoria_id, nombre, foto
-                FROM categoria
+        $sql = 'SELECT marca_id, nombre, foto
+                FROM marcas
                 ORDER BY nombre';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT foto, nombre, categoria_id
-                FROM categoria
-                WHERE categoria_id = ?';
+        $sql = 'SELECT foto, nombre, marca_id
+                FROM marcas
+                WHERE marca_id = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
@@ -59,25 +59,25 @@ class CategoriaHandler
     public function readFilename()
     {
         $sql = 'SELECT foto
-                FROM categoria
-                WHERE categoria_id = ?';
+                FROM marcas
+                WHERE marca_id = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
     public function updateRow()
     {
-        $sql = 'UPDATE categoria
+        $sql = 'UPDATE marcas
                 SET foto = ?, nombre = ?
-                WHERE categoria_id = ?';
+                WHERE marca_id = ?';
         $params = array($this->imagen, $this->nombre, $this->id);
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM categoria
-                WHERE categoria_id = ?';
+        $sql = 'DELETE FROM marcas
+                WHERE marca_id = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }

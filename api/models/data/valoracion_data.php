@@ -2,11 +2,11 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handler/categoria_handler.php');
+require_once('../../models/handler/valoracion_handler.php');
 /*
- *  Clase para manejar el encapsulamiento de los datos de la tabla CATEGORIA.
+ *	Clase para manejar el encapsulamiento de los datos de la tabla PRODUCTO.
  */
-class CategoriaData extends CategoriaHandler
+class ValoracionData extends ValoracionHandler
 {
     /*
      *  Atributos adicionales.
@@ -15,7 +15,7 @@ class CategoriaData extends CategoriaHandler
     private $filename = null;
 
     /*
-     *  Métodos para validar y establecer los datos.
+     *   Métodos para validar y establecer los datos.
      */
     public function setId($value)
     {
@@ -23,7 +23,18 @@ class CategoriaData extends CategoriaHandler
             $this->id = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador de la categoría es incorrecto';
+            $this->data_error = 'El identificador de la venta es incorrecto';
+            return false;
+        }
+    }
+
+    public function setCliente($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->cliente = $value;
+            return true;
+        } else {
+            $this->data_error = 'El identificador del cliente es incorrecto';
             return false;
         }
     }
@@ -42,49 +53,68 @@ class CategoriaData extends CategoriaHandler
         }
     }
 
-    public function setImagen($file, $filename = null)
+
+
+
+
+
+
+
+
+    // Nuevo método para establecer la fecha de la venta
+    public function setFechaVenta($value)
     {
-        if (Validator::validateImageFile($file, 1000)) {
-            $this->imagen = Validator::getFilename();
-            return true;
-        } elseif (Validator::getFileError()) {
-            $this->data_error = Validator::getFileError();
-            return false;
-        } elseif ($filename) {
-            $this->imagen = $filename;
+        // Validar el formato de la fecha
+        $date = date('Y-m-d', strtotime($value));
+        if ($date && $date == $value) {
+            $this->fecha = $date;
             return true;
         } else {
-            $this->imagen = 'default.png';
-            return true;
+            $this->data_error = 'Fecha inválida';
+            return false;
         }
     }
 
-    public function setDescripcion($value, $min = 2, $max = 250)
+
+    public function setCalificacion($value)
     {
-        if (!$value) {
+        if (Validator::validateMoney($value)) {
+            $this->calificacion = $value;
             return true;
-        } elseif (!Validator::validateString($value)) {
+        } else {
+            $this->data_error = 'La calificación debe ser un valor numérico';
+            return false;
+        }
+    }
+
+    public function setComentario($value, $min = 2, $max = 250)
+    {
+        if (!Validator::validateString($value)) {
             $this->data_error = 'La descripción contiene caracteres prohibidos';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->descripcion = $value;
+            $this->comentario = $value;
             return true;
         } else {
             $this->data_error = 'La descripción debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
+
     }
 
-    public function setFilename()
+
+
+    public function setProducto($value)
     {
-        if ($data = $this->readFilename()) {
-            $this->filename = $data['foto'];
+        if (Validator::validateNaturalNumber($value)) {
+            $this->producto = $value;
             return true;
         } else {
-            $this->data_error = 'Categoría inexistente';
+            $this->data_error = 'El identificador del producto es incorrecto';
             return false;
         }
     }
+
 
     /*
      *  Métodos para obtener los atributos adicionales.

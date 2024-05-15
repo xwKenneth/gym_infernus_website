@@ -2,11 +2,11 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handler/administrador_handler.php');
+require_once('../../models/handler/proveedor_handler.php');
 /*
  *  Clase para manejar el encapsulamiento de los datos de la tabla USUARIO.
  */
-class AdministradorData extends AdministradorHandler
+class ProveedorData extends ProveedorHandler
 {
     // Atributo genérico para manejo de errores.
     private $data_error = null;
@@ -67,42 +67,33 @@ class AdministradorData extends AdministradorHandler
         }
     }
 
-
-    public function setAlias($value, $min = 6, $max = 25)
+    public function setDireccion($value, $min = 2, $max = 250)
     {
-        if (!Validator::validateAlphanumeric($value)) {
-            $this->data_error = 'El alias debe ser un valor alfanumérico';
+        if (!Validator::validateString($value)) {
+            $this->data_error = 'La dirección contiene caracteres prohibidos';
             return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->alias = $value;
+        } elseif(Validator::validateLength($value, $min, $max)) {
+            $this->direccion = $value;
             return true;
         } else {
-            $this->data_error = 'El alias debe tener una longitud entre ' . $min . ' y ' . $max;
+            $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
     }
 
-    public function setClave($value)
+
+    public function setTelefono($value)
     {
-        if (Validator::validatePassword($value)) {
-            $this->clave = password_hash($value, PASSWORD_DEFAULT);
+        if (Validator::validatePhone($value)) {
+            $this->telefono = $value;
             return true;
         } else {
-            $this->data_error = Validator::getPasswordError();
+            $this->data_error = 'El teléfono debe tener el formato (2, 6, 7)###-####';
             return false;
         }
     }
 
-    public function setRol($value)
-    {
-        if (Validator::validateNaturalNumber($value)) {
-            $this->rol = $value;
-            return true;
-        } else {
-            $this->data_error = 'El identificador del rol es incorrecto';
-            return false;
-        }
-    }
+
 
     // Método para obtener el error de los datos.
     public function getDataError()

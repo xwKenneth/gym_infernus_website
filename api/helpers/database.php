@@ -83,6 +83,7 @@ class Database
      */
     private static function setException($code, $message)
     {
+        //Comentar el codigo para poder obtener el error de la base de datos y asi poder corregirlo
         // Se asigna el mensaje del error original por si se necesita.
         self::$error = $message . PHP_EOL;
         // Se compara el código del error para establecer un error personalizado.

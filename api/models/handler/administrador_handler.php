@@ -15,6 +15,7 @@ class AdministradorHandler
     protected $correo = null;
     protected $alias = null;
     protected $clave = null;
+    protected $rol = null;
 
     /*
      *  Métodos para gestionar la cuenta del administrador.
@@ -83,52 +84,60 @@ class AdministradorHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT id_administrador, nombre_administrador, apellido_administrador, correo_administrador, alias_administrador
-                FROM administrador
-                WHERE apellido_administrador LIKE ? OR nombre_administrador LIKE ?
-                ORDER BY apellido_administrador';
+        $sql = 'SELECT empleado_id, nombre, apellido, correo_electronico
+                FROM empleado
+                WHERE apellido LIKE ? OR nombre LIKE ?
+                ORDER BY apellido';
         $params = array($value, $value);
         return Database::getRows($sql, $params);
+    }
+
+
+    public function getCargos()
+    {
+        $query = "SELECT cargo_id, cargo FROM cargo";
+        $params = array();
+        return Database::getRows($query, $params);
     }
 
     public function createRow()
     {
         $sql = 'INSERT INTO empleado(nombre, apellido, correo_electronico, contrasena, cargo_id)
-                VALUES(?, ?, ?, ?, 1)';
-        $params = array($this->nombre, $this->apellido, $this->correo, $this->clave);
+                VALUES(?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->clave, $this->rol);
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT empleado_id, nombre, apellido, correo_electronico
-                FROM empleado
+        $sql = 'SELECT empleado.empleado_id, empleado.nombre, empleado.apellido, empleado.correo_electronico, cargo.cargo
+                FROM empleado INNER JOIN cargo ON empleado.cargo_id = cargo.cargo_id
                 ORDER BY apellido';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT id_administrador, nombre_administrador, apellido_administrador, correo_administrador, alias_administrador
-                FROM administrador
-                WHERE id_administrador = ?';
+        $sql = 'SELECT empleado_id, nombre, apellido, correo_electronico, cargo_id 
+                FROM empleado
+                WHERE empleado_id = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
     public function updateRow()
     {
-        $sql = 'UPDATE administrador
-                SET nombre_administrador = ?, apellido_administrador = ?, correo_administrador = ?
-                WHERE id_administrador = ?';
-        $params = array($this->nombre, $this->apellido, $this->correo, $this->id);
+        $sql = 'UPDATE empleado
+                SET nombre = ?, apellido = ?, correo_electronico = ?, cargo_id = ?
+                WHERE empleado_id = ?';
+        $params = array($this->nombre, $this->apellido, $this->correo, $this->rol, $this->id);
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM administrador
-                WHERE id_administrador = ?';
+        $sql = 'DELETE FROM empleado
+                WHERE empleado_id = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }

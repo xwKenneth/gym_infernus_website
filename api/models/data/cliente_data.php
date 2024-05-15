@@ -53,7 +53,7 @@ class ClienteData extends ClienteHandler
         }
     }
 
-    public function setCorreo($value, $min = 8, $max = 100)
+    public function setCorreo($value, $min = 8, $max = 100, $checkDuplicate = true)
     {
         if (!Validator::validateEmail($value)) {
             $this->data_error = 'El correo no es válido';
@@ -61,7 +61,7 @@ class ClienteData extends ClienteHandler
         } elseif (!Validator::validateLength($value, $min, $max)) {
             $this->data_error = 'El correo debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
-        } elseif($this->checkDuplicate($value)) {
+        } elseif ($checkDuplicate && $this->checkDuplicate($value)) {
             $this->data_error = 'El correo ingresado ya existe';
             return false;
         } else {
@@ -69,6 +69,7 @@ class ClienteData extends ClienteHandler
             return true;
         }
     }
+    
 
     public function setTelefono($value)
     {
@@ -81,12 +82,12 @@ class ClienteData extends ClienteHandler
         }
     }
 
-    public function setDUI($value)
+    public function setDUI($value, $checkDuplicate = true)
     {
         if (!Validator::validateDUI($value)) {
             $this->data_error = 'El DUI debe tener el formato ########-#';
             return false;
-        } elseif($this->checkDuplicate($value)) {
+        } elseif ($checkDuplicate && $this->checkDuplicate($value)) {
             $this->data_error = 'El DUI ingresado ya existe';
             return false;
         } else {

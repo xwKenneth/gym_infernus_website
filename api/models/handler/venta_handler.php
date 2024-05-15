@@ -4,7 +4,7 @@ require_once('../../helpers/database.php');
 /*
 *	Clase para manejar el comportamiento de los datos de la tabla PRODUCTO.
 */
-class ProductoHandler
+class VentaHandler
 {
     /*
     *   Declaración de atributos para el manejo de datos.
@@ -19,56 +19,48 @@ class ProductoHandler
     protected $imagen = null;
     protected $categoria = null;
     protected $estado = null;
-
+    protected $fecha = null;
+    protected $total = null;
+    protected $cliente = null;
 
 
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
 
-    /*
-    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
-    */
-    public function searchRows()
+
+    public function searchRows($startDate, $endDate)
     {
-        $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT producto.producto_id, producto.nombre AS nombre_producto, descripcion, precio, producto.foto, proveedor.nombre AS nombre_proveedor, marcas.nombre AS nombre_marca, categoria.nombre AS nombre_categoria, existencias, estado
-               FROM producto
-               INNER JOIN categoria USING(categoria_id)
-                INNER JOIN proveedor USING(proveedor_id)
-                INNER JOIN marcas USING(marca_id)
-                WHERE producto.nombre LIKE ? 
-                ORDER BY nombre_producto';
-        $params = array($value);
+        
+        $sql = 'SELECT venta_id, fecha, total, CONCAT_WS(" ",cliente.nombre, cliente.apellido) AS "NombreFull"
+                 FROM ventas 
+                 INNER JOIN cliente USING(cliente_id)
+                 WHERE fecha BETWEEN ? AND ?';
+        $params = array($startDate, $endDate); 
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO producto(nombre, descripcion, precio, foto, proveedor_id, marca_id, categoria_id, existencias, estado)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array(
-            $this->nombre, $this->descripcion, $this->precio, $this->imagen, $this->proveedor, $this->marca,
-            $this->categoria,  $this->existencias, $this->estado
-        );
+        $sql = 'INSERT INTO ventas(fecha, total, cliente_id)
+                VALUES(?, ?, ?)';
+                
+        $params = array($this->fecha, $this->total, $this->cliente);
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT producto.producto_id, producto.nombre AS nombre_producto, descripcion, precio, producto.foto, proveedor.nombre AS nombre_proveedor, marcas.nombre AS nombre_marca, categoria.nombre AS nombre_categoria, existencias, estado
-        FROM producto
-        INNER JOIN categoria USING(categoria_id)
-        INNER JOIN proveedor USING(proveedor_id)
-        INNER JOIN marcas USING(marca_id)
-        ORDER BY producto.nombre';
+        $sql = 'SELECT venta_id, fecha, total, CONCAT_WS(" ",cliente.nombre, cliente.apellido) AS "NombreFull"
+        FROM ventas INNER JOIN cliente USING(cliente_id)
+        ';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT producto_id, nombre, descripcion, precio, foto, proveedor_id, marca_id, categoria_id, existencias, estado
-                FROM producto
-                WHERE producto_id = ?';
+        $sql = 'SELECT venta_id, fecha, total, cliente_id
+                FROM ventas
+                WHERE venta_id = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
@@ -84,31 +76,22 @@ class ProductoHandler
 
     public function updateRow()
     {
-        $sql = 'UPDATE producto
-                SET nombre = ?, descripcion = ?, precio = ?, foto = ?, proveedor_id = ?, marca_id = ?, categoria_id =?,
-                existencias= ?, estado= ?
-                WHERE producto_id = ?';
+        $sql = 'UPDATE ventas
+                SET fecha = ?, total = ?, cliente_id = ?
+                WHERE venta_id = ?';
         $params = array(
-            $this->nombre, $this->descripcion, $this->precio, $this->imagen, $this->proveedor, $this->marca,  $this->categoria,
-            $this->existencias, $this->estado, $this->id
+            $this->fecha, $this->total, $this->cliente, $this->id
         );
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM producto
-                WHERE producto_id = ?';
+        $sql = 'DELETE FROM ventas
+                WHERE venta_id = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-
-    public function getProductos()
-    {
-        $sql = "SELECT producto_id, CONCAT_WS(' ', producto.producto_id, producto.nombre) AS `producto_nombre` FROM producto";
-        return Database::getRows($sql);
-    }
-    
 
     public function readProductosCategoria()
     {

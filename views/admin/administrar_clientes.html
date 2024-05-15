@@ -19,9 +19,11 @@
             <form class="col-sm-12 col-md-6" id="searchForm">
                 <div class="row">
                     <div class="col-6">
-                        <input type="search" class="form-control" name="search" required>
+                        <input type="search" class="form-control" name="search" placeholder="Buscar..." required="">
+
                     </div>
                     <div class="col-6">
+                        
                         <button type="submit" class="btn btn-success">
                             <i class="bi bi-search"></i>
                         </button>
@@ -32,7 +34,7 @@
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 text-end">
-                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-cliente.html'">
+                <button type="button" class="btn btn-primary" onclick="openCreate()">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
@@ -42,80 +44,99 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="6" class="rowsFound"></td>
+                    <td colspan="5" id="rowsFound"></td>
                 </tr>
                 <tr>
                     <th>Nombre</th>
-                    <th class="text-center">Apellido</th>
-                    <th class="text-center">Telefono</th>
-                    <th class="text-center">Correo_electronico</th>
-                    <th class="text-center">Direccion</th>
-                    <th class="text-center">Acciones</th>
+                    <th>Apellido</th>
+                    <th>Correo_electronico</th>
+                    <th>DUI</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre1 align-middle text-center">Miguel</td>
-                    <td class="Apellido1 align-middle text-center">Ortiz</td>
-                    <td class="Telefono1 align-middle text-center">+503 5689-9878</td>
-                    <td class="CorreoElectronico1 align-middle text-center"style="max-width: 150px;">miguelortiz@gmail.com</td>
-                    <td class="Direccion1 align-middle text-center" style="max-width: 150px;">El salvador, San Salvador, Mexicanos</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
-            </tbody>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre2 align-middle text-center">Luis</td>
-                    <td class="Apellido2 align-middle text-center">Perez</td>
-                    <td class="Telefono2 align-middle text-center">+503 8989-988</td>
-                    <td class="CorreoElectronico2 align-middle text-center"style="max-width: 150px;">luisperez@fitness.com</td>
-                    <td class="Direccion2 align-middle text-center" style="max-width: 150px;">El salvador, San Salvador</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
-            </tbody>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre2 align-middle text-center">Juan</td>
-                    <td class="Apellido2 align-middle text-center">Valdez</td>
-                    <td class="Telefono2 align-middle text-center">+256 8989-988</td>
-                    <td class="CorreoElectronico2 align-middle text-center" style="max-width: 150px;">juanvaldez.carlos@sports.com</td>
-                    <td class="Direccion2 align-middle text-center" style="max-width: 150px;">Uganda, Plot 5, George Street Georgian House
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
+            <tbody id="tableBody">
             </tbody>
         </table>
+
+        <!-- Componente Modal para guardar un registro -->
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario para guardar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                            <input type="hidden" id="idCliente" name="idCliente">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="nombreCliente" class="form-label">Nombre</label>
+                                <input id="nombreCliente" type="text" name="nombreCliente" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="apellidoCliente" class="form-label">Apellido</label>
+                                <input id="apellidoCliente" type="text" name="apellidoCliente" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="correoCliente" class="form-label">Correo</label>
+                                <input id="correoCliente" type="email" name="correoCliente" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="telefonoCliente" class="form-label">Teléfono</label>
+                                    <input id="telefonoCliente" type="text" name="telefonoCliente" class="form-control" required maxlength="9">
+                                    <small id="telefonoHelp" class="form-text text-muted">Ingrese un número de teléfono válido (ejemplo: 8986-9899).</small>
+                                </div>         
+                            </div>                                                                  
+                            <div class="col-sm-12 col-md-6">
+                                <label for="duiCliente" class="form-label">DUI</label>
+                                <input id="duiCliente" type="text" name="duiCliente" class="form-control" required 
+                                       pattern="[0-9]{8}-[0-9]" title="Ingrese el DUI en el formato correcto (00000000-0)"
+                                       placeholder="00000000-0" maxlength="10">
+                            </div>                            
+                            <div class="col-sm-12 col-md-6">
+                                <label for="fechaNacimientoCliente" class="form-label">Fecha de nacimiento</label>
+                                <input id="fechaNacimientoCliente" type="date" name="fechaNacimientoCliente"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="direccionCliente" class="form-label">Dirección</label>
+                                <input id="direccionCliente" type="text" name="direccionCliente" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="claveAdministrador" class="form-label">Contraseña</label>
+                                <input id="claveCliente" type="password" name="claveCliente" class="form-control"
+                                    required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="confirmarClave" class="form-label">Confirmar contraseña</label>
+                                <input id="confirmarClave" type="password" name="confirmarClave" class="form-control"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
     </main>
 
     <!-- JavaScript imports -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script src="../../resources/js/bootstrap.bundle.min.js"></script>
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
     <script src="../../controllers/utils/admin.js"></script>
-    <script src="../../../controllers/admin/login.js"></script>
+    <script src="../../controllers/admin/clientes.js"></script>
+    
 </body>
 
 </html>

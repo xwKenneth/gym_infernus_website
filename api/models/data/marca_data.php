@@ -2,11 +2,11 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handler/categoria_handler.php');
+require_once('../../models/handler/marca_handler.php');
 /*
  *  Clase para manejar el encapsulamiento de los datos de la tabla CATEGORIA.
  */
-class CategoriaData extends CategoriaHandler
+class MarcaData extends MarcaHandler
 {
     /*
      *  Atributos adicionales.
@@ -23,7 +23,7 @@ class CategoriaData extends CategoriaHandler
             $this->id = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador de la categoría es incorrecto';
+            $this->data_error = 'El identificador de la marca es incorrecto';
             return false;
         }
     }
@@ -59,29 +59,13 @@ class CategoriaData extends CategoriaHandler
         }
     }
 
-    public function setDescripcion($value, $min = 2, $max = 250)
-    {
-        if (!$value) {
-            return true;
-        } elseif (!Validator::validateString($value)) {
-            $this->data_error = 'La descripción contiene caracteres prohibidos';
-            return false;
-        } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->descripcion = $value;
-            return true;
-        } else {
-            $this->data_error = 'La descripción debe tener una longitud entre ' . $min . ' y ' . $max;
-            return false;
-        }
-    }
-
     public function setFilename()
     {
         if ($data = $this->readFilename()) {
             $this->filename = $data['foto'];
             return true;
         } else {
-            $this->data_error = 'Categoría inexistente';
+            $this->data_error = 'Marca inexistente';
             return false;
         }
     }

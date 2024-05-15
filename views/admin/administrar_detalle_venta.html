@@ -32,7 +32,8 @@
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 text-end">
-                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-detalle-venta.html'">
+                <button type="button" class="btn btn-primary"
+                    onclick="openCreate()">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
@@ -42,72 +43,74 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="6" class="rowsFound"></td>
+                    <td colspan="7" id="rowsFound"></td>
                 </tr>
                 <tr>
-                    <th>Venta Id</th>
-                    <th class="text-center">Producto Id</th>
-                    <th class="text-center">Cantidad</th>
-                    <th class="text-center">Precio unitario</th>
-                    <th class="text-center">Valoracion Id</th>
-                    <th class="text-center">Acciones</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio_unitario</th>
+                    <th>Subtotal</th>
+                    <th>Dirección</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody class="tableBody">
+            <tbody id="tableBody">
                 <tr>
-                    <td class="VentaId1 align-middle text-center">VNT-83745</td>
-                    <td class="ProductoId1 align-middle text-center">PRDCT-83745</td>
-                    <td class="Cantidad1 align-middle text-center">10</td>
-                    <td class="PrecioUnitario1 align-middle text-center"style="max-width: 150px;">$25</td>
-                    <td class="ValoracionId1 align-middle text-center" style="max-width: 150px;">VLRN-4245</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
+                </tr>
             </tbody>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="VentaId1 align-middle text-center">VNT-83749</td>
-                    <td class="ProductoId1 align-middle text-center">PRDCT-83742</td>
-                    <td class="Cantidad1 align-middle text-center">4</td>
-                    <td class="PrecioUnitario1 align-middle text-center"style="max-width: 150px;">$42</td>
-                    <td class="ValoracionId1 align-middle text-center" style="max-width: 150px;">VLRN-4241</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
+            <!-- Componente Modal para guardar un registro -->
+            <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="modalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </td>
-                </tr>  
-            </tbody>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="VentaId1 align-middle text-center">VNT-83725</td>
-                    <td class="ProductoId1 align-middle text-center">PRDCT-83795</td>
-                    <td class="Cantidad1 align-middle text-center">8</td>
-                    <td class="PrecioUnitario1 align-middle text-center"style="max-width: 150px;">$18</td>
-                    <td class="ValoracionId1 align-middle text-center" style="max-width: 150px;">VLRN-3454</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
+                        <!-- Formulario para crear o actualizar un registro -->
+                        <form id="saveForm">
+                            <div class="modal-body row g-3">
+                                <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                                <input type="hidden" id="idDetalleVenta" name="idDetalleVenta">
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="ventaDetalleV" class="form-label">Venta</label>
+                                    <select id="ventaDetalleV" name="ventaDetalleV" class="form-select" required>
+                                    </select>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="productoDetalleV" class="form-label">Producto</label>
+                                    <select id="productoDetalleV" name="productoDetalleV" class="form-select" required>
+                                    </select>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="cantidadDetalleV" class="form-label">Cantidad</label>
+                                    <input id="cantidadDetalleV" type="number" name="cantidadDetalleV" min="0.01" step="0.01"
+                                        class="form-control" required>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="direccionDetalleV">Dirección</label>
+                                    <input type="text" class="form-control" name="direccionDetalleV"
+                                        id="direccionDetalleV" required>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="subtotalDetalleV" class="form-label">Subototal</label>
+                                    <input id="subtotalDetalleV" type="number" name="subtotalDetalleV" min="0.01" step="0.01"
+                                        class="form-control" required>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <label for="descuentoDetalleV" class="form-label">Descuento</label>
+                                    <input id="descuentoDetalleV" type="number" name="descuentoDetalleV" min="0.01" step="0.01"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>  
-            </tbody>
-        </table>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
     </main>
 
     <!-- JavaScript imports -->
@@ -115,7 +118,7 @@
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
     <script src="../../controllers/utils/admin.js"></script>
-    <script src="../../../controllers/admin/login.js"></script>
+    <script src="../../controllers/admin/detalle_venta.js"></script>
 </body>
 
 </html>

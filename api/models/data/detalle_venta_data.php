@@ -2,11 +2,11 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handler/producto_handler.php');
+require_once('../../models/handler/detalle_venta_handler.php');
 /*
  *	Clase para manejar el encapsulamiento de los datos de la tabla PRODUCTO.
  */
-class ProductoData extends ProductoHandler
+class DetalleVentaData extends DetalleVentaHandler
 {
     /*
      *  Atributos adicionales.
@@ -23,11 +23,32 @@ class ProductoData extends ProductoHandler
             $this->id = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador del producto es incorrecto';
+            $this->data_error = 'El identificador de la venta es incorrecto';
             return false;
         }
     }
 
+    public function setVentaId($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->venta = $value;
+            return true;
+        } else {
+            $this->data_error = 'El identificador de la venta es incorrecto';
+            return false;
+        }
+    }
+
+    public function setProductoId($value)
+    {
+        if (Validator::validateNaturalNumber($value)) {
+            $this->producto = $value;
+            return true;
+        } else {
+            $this->data_error = 'El identificador de la venta es incorrecto';
+            return false;
+        }
+    }
     public function setNombre($value, $min = 2, $max = 50)
     {
         if (!Validator::validateAlphanumeric($value)) {
@@ -67,6 +88,32 @@ class ProductoData extends ProductoHandler
         }
     }
 
+
+    public function setCantidad($value)
+    {
+        if (Validator::validateMoney($value)) {
+            $this->cantidad = $value;
+            return true;
+        } else {
+            $this->data_error = 'La cantidad debe ser un valor numérico';
+            return false;
+        }
+    }
+
+    public function setDireccion($value, $min = 2, $max = 250)
+    {
+        if (!Validator::validateString($value)) {
+            $this->data_error = 'La dirección contiene caracteres prohibidos';
+            return false;
+        } elseif(Validator::validateLength($value, $min, $max)) {
+            $this->direccion = $value;
+            return true;
+        } else {
+            $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        }
+    }
+
     public function setExistencias($value)
     {
         if (Validator::validateNaturalNumber($value)) {
@@ -95,6 +142,20 @@ class ProductoData extends ProductoHandler
         }
     }
 
+    // Nuevo método para establecer la fecha de la venta
+    public function setFechaVenta($value)
+    {
+        // Validar el formato de la fecha
+        $date = date('Y-m-d', strtotime($value));
+        if ($date && $date == $value) {
+            $this->fecha = $date;
+            return true;
+        } else {
+            $this->data_error = 'Fecha inválida';
+            return false;
+        }
+    }
+
     public function setCategoria($value)
     {
         if (Validator::validateNaturalNumber($value)) {
@@ -116,7 +177,7 @@ class ProductoData extends ProductoHandler
             return false;
         }
     }
-    
+
     public function setMarca($value)
     {
         if (Validator::validateNaturalNumber($value)) {

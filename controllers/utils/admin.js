@@ -76,7 +76,11 @@ const loadTemplate = async () => {
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="../../views/admin/agregar-cargo.html" onclick=""><img src="../../resources/img/icons/cargo.png" width="20"> Cargo</a></li>
+                                        <li><a class="dropdown-item" href="../../views/admin/administrar_proveedores.html" onclick=""><img src="../../resources/img/icons/proveedor.png" width="20"> Proveedor</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:;" onclick="logOut()"><img src="../../resources/img/icons/logout.png" width="20"> Cerrar Sesión</a></li>
                                     </ul>
                                 </li>
                             </ul>

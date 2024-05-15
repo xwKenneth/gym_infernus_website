@@ -1,5 +1,5 @@
 // Constante para completar la ruta de la API.
-const CATEGORIA_API = 'services/admin/categoria.php';
+const CLIENTE_API = 'services/admin/cliente.php';
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para establecer los elementos de la tabla.
@@ -10,19 +10,49 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
     MODAL_TITLE = document.getElementById('modalTitle');
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM = document.getElementById('saveForm'),
-    ID_CATEGORIA = document.getElementById('idCategoria'),
-    NOMBRE_CATEGORIA = document.getElementById('nombreCategoria'),
-    IMAGEN_CATEGORIA = document.getElementById('imagenCategoria');
+    ID_CLIENTE = document.getElementById('idCliente'),
+    NOMBRE_CLIENTE = document.getElementById('nombreCliente'),
+    APELLIDO_CLIENTE = document.getElementById('apellidoCliente'),
+    CORREO_CLIENTE = document.getElementById('correoCliente'),
+    CLAVE_CLIENTE = document.getElementById('claveCliente'),
+    CONFIRMAR_CLAVE = document.getElementById('confirmarClave');
+    NACIMIENTO_CLIENTE = document.getElementById('fechaNacimientoCliente');
+    DUI_CLIENTE = document.getElementById('duiCliente');
+    TELEFONO_CLIENTE = document.getElementById('telefonoCliente');
+    DIRECCION_CLIENTE = document.getElementById('direccionCliente');
+const duiInput = document.getElementById('duiCliente');
+const telefonoInput = document.getElementById('telefonoCliente');
 
-// Método del evento para cuando el documento ha cargado.
-document.addEventListener('DOMContentLoaded', () => {
-    // Llamada a la función para mostrar el encabezado y pie del documento.
-    loadTemplate();
-    // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = 'Gestionar categorías';
-    // Llamada a la función para llenar la tabla con los registros existentes.
-    fillTable();
+telefonoInput.addEventListener('input', function(event) {
+    let value = event.target.value;
+    
+    value = value.replace(/-/g, '');
+    
+    if (value.length > 4) {
+        value = value.slice(0, 4) + '-' + value.slice(4);
+    }
+    
+    event.target.value = value;
 });
+
+
+telefonoInput.addEventListener('change', function(event) {
+    if (!event.target.value.match(/^\d{4}-\d{4}$/)) { 
+        event.target.classList.add('invalid');
+        $('#telefonoHelp').text('Ingrese un número de teléfono válido (ejemplo: 8986-9899).');
+    } else {
+        event.target.classList.remove('invalid');
+        $('#telefonoHelp').text('Número de teléfono válido.');
+    }
+});
+
+ 
+document.addEventListener('DOMContentLoaded', async () => {
+    loadTemplate();
+    MAIN_TITLE.textContent = 'Gestionar clientes';
+    await fillTable();
+});
+
 
 // Método del evento para cuando se envía el formulario de buscar.
 SEARCH_FORM.addEventListener('submit', (event) => {
@@ -39,11 +69,11 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_CATEGORIA.value) ? action = 'updateRow' : action = 'createRow';
+    (ID_CLIENTE.value) ? action = 'updateRow' : action = 'createRow';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(CATEGORIA_API, action, FORM);
+    const DATA = await fetchData(CLIENTE_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
@@ -69,7 +99,7 @@ const fillTable = async (form = null) => {
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(CATEGORIA_API, action, form);
+    const DATA = await fetchData(CLIENTE_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
@@ -77,17 +107,16 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td><img src="${SERVER_URL}images/categorias/${row.foto}" height="90"></td>
                     <td>${row.nombre}</td>
+                    <td>${row.apellido}</td>
+                    <td>${row.correo_electronico}</td>
+                    <td>${row.dui}</td>  
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.categoria_id})">
+                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.cliente_id})">  
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.categoria_id})">
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.cliente_id})"> 
                             <i class="bi bi-trash-fill"></i>
-                        </button>
-                        <button type="button" class="btn btn-warning" onclick="openReport(${row.categoria_id})">
-                            <i class="bi bi-filetype-pdf"></i>
                         </button>
                     </td>
                 </tr>
@@ -100,6 +129,30 @@ const fillTable = async (form = null) => {
     }
 }
 
+
+
+
+    
+
+// Escuchar el evento input
+duiInput.addEventListener('input', function(event) {
+    // Obtener el valor actual del campo de entrada
+    let value = event.target.value;
+    
+    // Eliminar cualquier guion existente
+    value = value.replace(/-/g, '');
+    
+    // Verificar si se han ingresado los primeros ocho dígitos
+    if (value.length >= 8) {
+        // Insertar un guion después del séptimo dígito
+        value = value.slice(0, 8) + '-' + value.slice(8);
+    }
+    
+    // Asignar el valor modificado de vuelta al campo de entrada
+    event.target.value = value;
+});
+
+
 /*
 *   Función para preparar el formulario al momento de insertar un registro.
 *   Parámetros: ninguno.
@@ -108,9 +161,10 @@ const fillTable = async (form = null) => {
 const openCreate = () => {
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL.show();
-    MODAL_TITLE.textContent = 'Crear categoría';
+    MODAL_TITLE.textContent = 'Crear cliente';
     // Se prepara el formulario.
     SAVE_FORM.reset();
+ 
 }
 
 /*
@@ -121,20 +175,29 @@ const openCreate = () => {
 const openUpdate = async (id) => {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('idCategoria', id);
+    FORM.append('idCliente', id);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(CATEGORIA_API, 'readOne', FORM);
+    const DATA = await fetchData(CLIENTE_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar categoría';
+        MODAL_TITLE.textContent = 'Actualizar cliente';
         // Se prepara el formulario.
         SAVE_FORM.reset();
+        CLAVE_CLIENTE.disabled = true;
+        CONFIRMAR_CLAVE.disabled = true;
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
-        ID_CATEGORIA.value = ROW.categoria_id;
-        NOMBRE_CATEGORIA.value = ROW.nombre;
+        ID_CLIENTE.value = ROW.cliente_id;
+        NOMBRE_CLIENTE.value = ROW.nombre;
+        APELLIDO_CLIENTE.value = ROW.apellido;
+        CORREO_CLIENTE.value = ROW.correo_electronico;
+        TELEFONO_CLIENTE.value = ROW.telefono;
+        DUI_CLIENTE.value = ROW.dui;
+        NACIMIENTO_CLIENTE.value = ROW.fecha_nacimiento;
+        DIRECCION_CLIENTE.value = ROW.direccion;
+
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -147,14 +210,14 @@ const openUpdate = async (id) => {
 */
 const openDelete = async (id) => {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar la categoría de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el administrador de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('idCategoria', id);
+        FORM.append('idCliente', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(CATEGORIA_API, 'deleteRow', FORM);
+        const DATA = await fetchData(CLIENTE_API, 'deleteRow', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.
@@ -165,18 +228,4 @@ const openDelete = async (id) => {
             sweetAlert(2, DATA.error, false);
         }
     }
-}
-
-/*
-*   Función para abrir un reporte parametrizado de productos de una categoría.
-*   Parámetros: id (identificador del registro seleccionado).
-*   Retorno: ninguno.
-*/
-const openReport = (id) => {
-    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/admin/productos_categoria.php`);
-    // Se agrega un parámetro a la ruta con el valor del registro seleccionado.
-    PATH.searchParams.append('idCategoria', id);
-    // Se abre el reporte en una nueva pestaña.
-    window.open(PATH.href);
 }

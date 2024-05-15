@@ -1,6 +1,8 @@
 // Constantes para completar las rutas de la API.
 const PRODUCTO_API = 'services/admin/producto.php';
 const CATEGORIA_API = 'services/admin/categoria.php';
+const MARCA_API = 'services/admin/marca.php';
+const PROVEEDOR_API = 'services/admin/proveedor.php';
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para establecer el contenido de la tabla.
@@ -16,7 +18,13 @@ const SAVE_FORM = document.getElementById('saveForm'),
     DESCRIPCION_PRODUCTO = document.getElementById('descripcionProducto'),
     PRECIO_PRODUCTO = document.getElementById('precioProducto'),
     EXISTENCIAS_PRODUCTO = document.getElementById('existenciasProducto'),
+    CATEGORIA_PRODUCTO = document.getElementById('categoriaProducto'),
+    MARCA_PRODUCTO = document.getElementById('marcaProducto'),
+    PROVEEDOR_PRODUCTO = document.getElementById('proveedorProducto'),
+    IMAGEN_PRODUCTO = document.getElementById('imagenProducto'),
     ESTADO_PRODUCTO = document.getElementById('estadoProducto');
+
+
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -79,20 +87,23 @@ const fillTable = async (form = null) => {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
             // Se establece un icono para el estado del producto.
-            (row.estado_producto) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
+           // icon = (row.estado == 1) ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill';
+
+           (row.estado) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td><img src="${SERVER_URL}images/productos/${row.imagen_producto}" height="50"></td>
+                    <td><img src="${SERVER_URL}images/productos/${row.foto}" height="50"></td>
                     <td>${row.nombre_producto}</td>
-                    <td>${row.precio_producto}</td>
-                    <td>${row.nombre_categoria}</td>
+                    <td>${row.nombre_proveedor}</td>
+                    <td>${row.nombre_marca}</td>
+                    <td>${row.nombre_categoria}</td>                    
                     <td><i class="${icon}"></i></td>
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.id_producto})">
+                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.producto_id})">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.id_producto})">
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.producto_id})">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>
@@ -117,8 +128,10 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear producto';
     // Se prepara el formulario.
     SAVE_FORM.reset();
-    EXISTENCIAS_PRODUCTO.disabled = false;
+   // EXISTENCIAS_PRODUCTO.disabled = true;
     fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto');
+    fillSelect(MARCA_API, 'readAll', 'marcaProducto');
+    fillSelect(PROVEEDOR_API, 'readAll', 'proveedorProducto');
 }
 
 /*
@@ -139,16 +152,26 @@ const openUpdate = async (id) => {
         MODAL_TITLE.textContent = 'Actualizar producto';
         // Se prepara el formulario.
         SAVE_FORM.reset();
-        EXISTENCIAS_PRODUCTO.disabled = true;
+      //  EXISTENCIAS_PRODUCTO.disabled = false;
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
-        ID_PRODUCTO.value = ROW.id_producto;
-        NOMBRE_PRODUCTO.value = ROW.nombre_producto;
-        DESCRIPCION_PRODUCTO.value = ROW.descripcion_producto;
-        PRECIO_PRODUCTO.value = ROW.precio_producto;
-        EXISTENCIAS_PRODUCTO.value = ROW.existencias_producto;
-        ESTADO_PRODUCTO.checked = ROW.estado_producto;
-        fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.id_categoria);
+        ID_PRODUCTO.value = ROW.producto_id;
+        NOMBRE_PRODUCTO.value = ROW.nombre;
+        DESCRIPCION_PRODUCTO.value = ROW.descripcion;
+        PRECIO_PRODUCTO.value = ROW.precio;
+        if(ROW.estado == 0){
+            ESTADO_PRODUCTO.checked = false;
+        } else if(ROW.estado == 1) {
+            ESTADO_PRODUCTO.checked = true;
+        } else (
+            console.log(ROW.estado)
+        )
+        fillSelect(MARCA_API, 'readAll', 'marcaProducto', ROW.marca_id);
+        fillSelect(PROVEEDOR_API, 'readAll', 'proveedorProducto', ROW.proveedor_id);
+        fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.categoria_id);
+        EXISTENCIAS_PRODUCTO.value = ROW.existencias;
+
+
     } else {
         sweetAlert(2, DATA.error, false);
     }

@@ -4,7 +4,7 @@ require_once('../../helpers/database.php');
 /*
 *	Clase para manejar el comportamiento de los datos de la tabla PRODUCTO.
 */
-class ProductoHandler
+class DetalleVentaHandler
 {
     /*
     *   Declaración de atributos para el manejo de datos.
@@ -19,56 +19,64 @@ class ProductoHandler
     protected $imagen = null;
     protected $categoria = null;
     protected $estado = null;
+    protected $fecha = null;
+    protected $total = null;
+    protected $cliente = null;
+
+    protected $venta = null;
+    protected $producto = null;
+    protected $cantidad  = null;
+    protected $direccion = null;
+ 
+
+ 
 
 
-
-    // Constante para establecer la ruta de las imágenes.
-    const RUTA_IMAGEN = '../../images/productos/';
-
-    /*
-    *   Métodos para realizar las operaciones SCRUD (search, create, read, update, and delete).
-    */
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT producto.producto_id, producto.nombre AS nombre_producto, descripcion, precio, producto.foto, proveedor.nombre AS nombre_proveedor, marcas.nombre AS nombre_marca, categoria.nombre AS nombre_categoria, existencias, estado
-               FROM producto
-               INNER JOIN categoria USING(categoria_id)
-                INNER JOIN proveedor USING(proveedor_id)
-                INNER JOIN marcas USING(marca_id)
-                WHERE producto.nombre LIKE ? 
-                ORDER BY nombre_producto';
-        $params = array($value);
+        $sql = 'SELECT detalle_venta_id, ventas.cliente_id, cliente.nombre AS nombre_cliente, producto.nombre AS nombre_producto, cantidad, 
+        precio_unitario, subtotal, descuento, direccion_cliente
+        FROM detalle_ventas
+        INNER JOIN ventas ON detalle_ventas.venta_id = ventas.venta_id
+        INNER JOIN producto ON detalle_ventas.producto_id = producto.producto_id
+        INNER JOIN cliente ON ventas.cliente_id = cliente.cliente_id;
+        WHERE producto.nombre LIKE ? OR cliente.nombre LIKE ?';              
+        $params = array($value, $value);
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO producto(nombre, descripcion, precio, foto, proveedor_id, marca_id, categoria_id, existencias, estado)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array(
-            $this->nombre, $this->descripcion, $this->precio, $this->imagen, $this->proveedor, $this->marca,
-            $this->categoria,  $this->existencias, $this->estado
-        );
+        $sql = 'INSERT INTO detalle_ventas(venta_id, producto_id, cantidad, direccion_cliente)
+                VALUES(?, ?, ?, ?)';
+
+        $params = array($this->venta, $this->producto, $this->cantidad, $this->direccion);
         return Database::executeRow($sql, $params);
     }
+    
 
     public function readAll()
     {
-        $sql = 'SELECT producto.producto_id, producto.nombre AS nombre_producto, descripcion, precio, producto.foto, proveedor.nombre AS nombre_proveedor, marcas.nombre AS nombre_marca, categoria.nombre AS nombre_categoria, existencias, estado
-        FROM producto
-        INNER JOIN categoria USING(categoria_id)
-        INNER JOIN proveedor USING(proveedor_id)
-        INNER JOIN marcas USING(marca_id)
-        ORDER BY producto.nombre';
+        $sql = 'SELECT detalle_venta_id, ventas.cliente_id, cliente.nombre AS nombre_cliente, producto.nombre AS nombre_producto, cantidad, 
+        precio_unitario, subtotal, descuento, direccion_cliente
+        FROM detalle_ventas
+        INNER JOIN ventas ON detalle_ventas.venta_id = ventas.venta_id
+        INNER JOIN producto ON detalle_ventas.producto_id = producto.producto_id
+        INNER JOIN cliente ON ventas.cliente_id = cliente.cliente_id;
+        ';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT producto_id, nombre, descripcion, precio, foto, proveedor_id, marca_id, categoria_id, existencias, estado
-                FROM producto
-                WHERE producto_id = ?';
+        $sql = 'SELECT detalle_venta_id, ventas.cliente_id, cliente.nombre AS nombre_cliente, producto.nombre AS nombre_producto, cantidad, 
+        precio_unitario, subtotal, descuento, direccion_cliente
+        FROM detalle_ventas
+        INNER JOIN ventas ON detalle_ventas.venta_id = ventas.venta_id
+        INNER JOIN producto ON detalle_ventas.producto_id = producto.producto_id
+        INNER JOIN cliente ON ventas.cliente_id = cliente.cliente_id;
+                WHERE detalle_venta_id = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
@@ -84,31 +92,22 @@ class ProductoHandler
 
     public function updateRow()
     {
-        $sql = 'UPDATE producto
-                SET nombre = ?, descripcion = ?, precio = ?, foto = ?, proveedor_id = ?, marca_id = ?, categoria_id =?,
-                existencias= ?, estado= ?
-                WHERE producto_id = ?';
+        $sql = 'UPDATE detalle_ventas
+                SET producto_id = ?, cantidad = ?, direccion_cliente = ?
+                WHERE detalle_venta_id = ?';
         $params = array(
-            $this->nombre, $this->descripcion, $this->precio, $this->imagen, $this->proveedor, $this->marca,  $this->categoria,
-            $this->existencias, $this->estado, $this->id
+            $this->producto, $this->cantidad, $this->direccion, $this->id
         );
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM producto
-                WHERE producto_id = ?';
+        $sql = 'DELETE FROM detalle_ventas
+                WHERE detalle_venta_id = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-
-    public function getProductos()
-    {
-        $sql = "SELECT producto_id, CONCAT_WS(' ', producto.producto_id, producto.nombre) AS `producto_nombre` FROM producto";
-        return Database::getRows($sql);
-    }
-    
 
     public function readProductosCategoria()
     {

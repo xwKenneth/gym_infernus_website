@@ -32,7 +32,7 @@
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 text-end">
-                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-marca.html'">
+                <button type="button" class="btn btn-primary" onclick="openCreate()">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
@@ -42,63 +42,48 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="3" class="rowsFound"></td>
+                    <td colspan="3" id="rowsFound"></td>
                 </tr>
                 <tr>
+                    <th>Imagen</th>
                     <th>Nombre</th>
-                    <th class="text-center">Foto</th>
-                    <th class="text-center">Acciones</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Mancuernas1 align-middle">Proscience</td>
-                    <td class="align-middle text-center"><img src="../../resources/img/bestwhey.png" class="rounded mx-auto d-block" width="150" height="150"></td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Mancuernas1 align-middle">Cellucor</td>
-                    <td class="align-middle text-center"><img src="../../resources/img/c4.png" class="rounded mx-auto d-block" width="150" height="150"></td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Mancuernas1 align-middle">Gym Shark</td>
-                    <td class="align-middle text-center"><img src="../../resources/img/gymshark.png" class="rounded mx-auto d-block" width="150" height="150"></td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-
+            <tbody id="tableBody"></tbody>
         </table>
 
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario para guardar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                            <input type="hidden" id="idMarca" name="idMarca">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="nombreMarca" class="form-label">Nombre</label>
+                                <input id="nombreMarca" type="text" name="nombreMarca" class="form-control"
+                                    required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="imagenMarca" class="form-label">Imagen</label>
+                                <input id="imagenMarca" type="file" name="imagenMarca" class="form-control"
+                                    accept=".png, .jpg">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- JavaScript imports -->
@@ -106,7 +91,7 @@
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
     <script src="../../controllers/utils/admin.js"></script>
-    <script src="../../../controllers/admin/login.js"></script>
+    <script src="../../controllers/admin/marcas.js"></script>
 </body>
 
 </html>

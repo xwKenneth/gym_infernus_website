@@ -32,7 +32,8 @@
                 </div>
             </form>
             <div class="col-sm-12 col-md-6 text-end">
-                <button type="button" class="btn btn-primary" onclick="window.location.href = '../../views/admin/agregar-productos.html'">
+                <button type="button" class="btn btn-primary"
+                    onclick="openCreate()">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
@@ -42,84 +43,88 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="6" class="rowsFound"></td>
+                    <td colspan="7" id="rowsFound"></td>
                 </tr>
                 <tr>
+                    <th>Foto</th>
                     <th>Nombre</th>
-                    <th class="text-center">Descripcion</th>
-                    <th class="text-center">Precio</th>
-                    <th class="text-center">Foto</th>
+                    <th>Precio</th>
+                    <th>Categoria</th>
                     <th>Existencias</th>
-                    <th class="text-center">Acciones</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre1 align-middle">Proteina</td>
-                    <td class="Descripcion1 align-middle">
-                        <div style="max-width: 434.58px;">
-                            <p class="text-break">Suplemento de proteína: <br>polvo o barra para construir músculo y recuperación.</p>
-                        </div>
-                    </td>
-                    <td class="Precio1 align-middle text-center">$15</td>
-                    <td><img src="../../resources/img/suplementos.png" width="150px" height="150px" class="rounded mx-auto d-block"></td>
-                    <td class="Precio1 align-middle text-center">100</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
+            <tbody id="tableBody"></tbody>
+        </table>
+
+        <!-- Componente Modal para guardar un registro -->
+        <div class="modal fade" id="saveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalTitle"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!-- Formulario para crear o actualizar un registro -->
+                    <form id="saveForm">
+                        <div class="modal-body row g-3">
+                            <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                            <input type="hidden" id="idProducto" name="idProducto">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="nombreProducto" class="form-label">Nombre</label>
+                                <input id="nombreProducto" type="text" name="nombreProducto" class="form-control"
+                                    required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="descripcionProducto" class="form-label">Descripción</label>
+                                <input id="descripcionProducto" type="text" name="descripcionProducto"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="precioProducto" class="form-label">Precio (US$)</label>
+                                <input id="precioProducto" type="number" name="precioProducto" min="0.01" step="0.01"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="existenciasProducto" class="form-label">Existencias</label>
+                                <input id="existenciasProducto" type="number" name="existenciasProducto" min="1"
+                                    step="1" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="categoriaProducto" class="form-label">Categoría</label>
+                                <select id="categoriaProducto" name="categoriaProducto" class="form-select" required>
+                                </select>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="marcaProducto" class="form-label">Marca</label>
+                                <select id="marcaProducto" name="marcaProducto" class="form-select" required>
+                                </select>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="proveedorProducto" class="form-label">Proveedor</label>
+                                <select id="proveedorProducto" name="proveedorProducto" class="form-select" required>
+                                </select>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="imagenProducto" class="form-label">Imagen</label>
+                                <input id="imagenProducto" type="file" name="imagenProducto" class="form-control"
+                                    accept=".png, .jpg">
+                            </div>
+                            <div class="form-check form-switch form-check-reverse">
+                                <input class="form-check-input" type="checkbox" id="estadoProducto"
+                                    name="estadoProducto" checked>
+                                <label class="form-check-label" for="estadoProducto">Estado</label>
                             </div>
                         </div>
-                    </td>
-                </tr>  
-            </tbody>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre1 align-middle">Maquina de pull over</td>
-                    <td class="Descripcion1 align-middle">
-                        <div style="max-width: 434.58px;">
-                            <p class="text-break">Equipo de ejercicio multifuncional para fortalecer la espalda y los músculos superiores con un diseño compacto y eficiente.</p>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
-                    </td>
-                    <td class="Precio1 align-middle text-center">$36</td>
-                    <td><img src="../../resources/img/pullover-maquina.png" width="150px" height="150px" class="rounded mx-auto d-block"></td>
-                    <td class="Precio1 align-middle text-center">20</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
-            </tbody>
-            <tbody class="tableBody">
-                <tr>
-                    <td class="Nombre1 align-middle">Caminadora</td>
-                    <td class="Descripcion1 align-middle">
-                        <div style="max-width: 434.58px;">
-                            <p class="text-break">Caminadora plegable para ejercicio cardiovascular en interiores, con control de velocidad y pantalla LED para seguimiento del progreso.</p>
-                        </div>
-                    </td>
-                    <td class="Precio1 align-middle text-center">$1000</td>
-                    <td><img src="../../resources/img/caminadora.png" width="150px" height="150px" class="rounded mx-auto d-block"></td>
-                    <td class="Precio1 align-middle text-center">20</td>
-                    <td class="align-middle text-center">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/edit.png" height="50" width="50"></button>               
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/delete.png" height="50" width="50"></button>
-                                <button type="button" class="btn btn1 mt-3 mx-1"><img src="../../resources/img/document.png" height="50" width="50"></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>  
-            </tbody>
-        
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- JavaScript imports -->
@@ -127,7 +132,7 @@
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
     <script src="../../controllers/utils/admin.js"></script>
-    <script src="../../../controllers/admin/login.js"></script>
+    <script src="../../controllers/admin/producto.js"></script>
 </body>
 
 </html>
