@@ -24,8 +24,6 @@ const SAVE_FORM = document.getElementById('saveForm'),
     IMAGEN_PRODUCTO = document.getElementById('imagenProducto'),
     ESTADO_PRODUCTO = document.getElementById('estadoProducto');
 
-
-
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
@@ -87,9 +85,9 @@ const fillTable = async (form = null) => {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
             // Se establece un icono para el estado del producto.
-           // icon = (row.estado == 1) ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill';
+            // icon = (row.estado == 1) ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill';
 
-           (row.estado) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
+            (row.estado) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
@@ -128,7 +126,7 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear producto';
     // Se prepara el formulario.
     SAVE_FORM.reset();
-   // EXISTENCIAS_PRODUCTO.disabled = true;
+    // EXISTENCIAS_PRODUCTO.disabled = true;
     fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto');
     fillSelect(MARCA_API, 'readAll', 'marcaProducto');
     fillSelect(PROVEEDOR_API, 'readAll', 'proveedorProducto');
@@ -152,16 +150,16 @@ const openUpdate = async (id) => {
         MODAL_TITLE.textContent = 'Actualizar producto';
         // Se prepara el formulario.
         SAVE_FORM.reset();
-      //  EXISTENCIAS_PRODUCTO.disabled = false;
+        //  EXISTENCIAS_PRODUCTO.disabled = false;
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_PRODUCTO.value = ROW.producto_id;
         NOMBRE_PRODUCTO.value = ROW.nombre;
         DESCRIPCION_PRODUCTO.value = ROW.descripcion;
         PRECIO_PRODUCTO.value = ROW.precio;
-        if(ROW.estado == 0){
+        if (ROW.estado == 0) {
             ESTADO_PRODUCTO.checked = false;
-        } else if(ROW.estado == 1) {
+        } else if (ROW.estado == 1) {
             ESTADO_PRODUCTO.checked = true;
         } else (
             console.log(ROW.estado)

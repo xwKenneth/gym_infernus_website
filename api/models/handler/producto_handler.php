@@ -20,8 +20,6 @@ class ProductoHandler
     protected $categoria = null;
     protected $estado = null;
 
-
-
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
 
@@ -108,7 +106,6 @@ class ProductoHandler
         $sql = "SELECT producto_id, CONCAT_WS(' ', producto.producto_id, producto.nombre) AS `producto_nombre` FROM producto";
         return Database::getRows($sql);
     }
-    
 
     public function readProductosCategoria()
     {

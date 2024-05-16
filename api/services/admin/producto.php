@@ -36,7 +36,6 @@ if (isset($_GET['action'])) {
                     !$producto->setCategoria($_POST['categoriaProducto']) or
                     !$producto->setExistencias($_POST['existenciasProducto']) or
                     !$producto->setEstado(isset($_POST['estadoProducto']) ? 1 : 0)
-
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->createRow()) {

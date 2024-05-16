@@ -1,27 +1,28 @@
 .btn-custom {
     background-color: #D9D9D9;
-    color: #000000;  
-    font-size: 11px;  
-    padding: 6px 11px; 
+    color: #000000;
+    font-size: 11px;
+    padding: 6px 11px;
 }
 
 .btn-custom:hover {
-    background-color: #D9D9D9;  
-    color: #000000;  
+    background-color: #D9D9D9;
+    color: #000000;
 }
 
 .hidden {
     display: none;
 }
+
 .card-body-custom {
-height: 250px;  
-overflow: hidden; 
-}
-.card-text {
-display: -webkit-box;
--webkit-box-orient: vertical;
-overflow: hidden;
--webkit-line-clamp: 4;  
-line-clamp: 4;  
+    height: 250px;
+    overflow: hidden;
 }
 
+.card-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+}

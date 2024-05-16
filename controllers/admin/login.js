@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Se establece el título del contenido principal.
     // Se establece el título del contenido principal.
     MAIN_TITLE.textContent = 'Iniciar sesión';
-    
-    
+
+
 });
 
 // Método del evento para cuando se envía el formulario de iniciar sesión.

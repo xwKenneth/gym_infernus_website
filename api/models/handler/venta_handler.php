@@ -23,19 +23,17 @@ class VentaHandler
     protected $total = null;
     protected $cliente = null;
 
-
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
-
-
+    
     public function searchRows($startDate, $endDate)
     {
-        
+
         $sql = 'SELECT venta_id, fecha, total, CONCAT_WS(" ",cliente.nombre, cliente.apellido) AS "NombreFull"
                  FROM ventas 
                  INNER JOIN cliente USING(cliente_id)
                  WHERE fecha BETWEEN ? AND ?';
-        $params = array($startDate, $endDate); 
+        $params = array($startDate, $endDate);
         return Database::getRows($sql, $params);
     }
 
@@ -43,7 +41,7 @@ class VentaHandler
     {
         $sql = 'INSERT INTO ventas(fecha, total, cliente_id)
                 VALUES(?, ?, ?)';
-                
+
         $params = array($this->fecha, $this->total, $this->cliente);
         return Database::executeRow($sql, $params);
     }

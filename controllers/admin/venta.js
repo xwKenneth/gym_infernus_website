@@ -17,7 +17,6 @@ const SAVE_FORM = document.getElementById('saveForm'),
     TOTAL_VENTA = document.getElementById('totalVenta'),
     CLIENTE_VENTA = document.getElementById('clienteVenta');
 
-
 document.addEventListener('DOMContentLoaded', async () => {
     loadTemplate();
     MAIN_TITLE.textContent = 'Gestionar ventas';
@@ -36,7 +35,6 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
     fillTable(FORM);
 });
-
 
 // Método del evento para cuando se envía el formulario de guardar.
 SAVE_FORM.addEventListener('submit', async (event) => {
@@ -72,8 +70,6 @@ const fillTable = async (form = null) => {
     TABLE_BODY.innerHTML = '';
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
-
-
 
     // Petición para obtener los registros disponibles.
     const DATA = await fetchData(VENTA_API, action, form);

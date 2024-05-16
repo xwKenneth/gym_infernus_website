@@ -69,7 +69,6 @@ class ClienteData extends ClienteHandler
             return true;
         }
     }
-    
 
     public function setTelefono($value)
     {
@@ -112,7 +111,7 @@ class ClienteData extends ClienteHandler
         if (!Validator::validateString($value)) {
             $this->data_error = 'La dirección contiene caracteres prohibidos';
             return false;
-        } elseif(Validator::validateLength($value, $min, $max)) {
+        } elseif (Validator::validateLength($value, $min, $max)) {
             $this->direccion = $value;
             return true;
         } else {

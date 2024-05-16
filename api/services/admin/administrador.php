@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
                     !$administrador->setNombre($_POST['nombreAdministrador']) or
                     !$administrador->setApellido($_POST['apellidoAdministrador']) or
                     !$administrador->setCorreo($_POST['correoAdministrador']) or
-                    !$administrador->setClave($_POST['claveAdministrador']) or 
+                    !$administrador->setClave($_POST['claveAdministrador']) or
                     !$administrador->setRol($_POST['idCargo'])
                 ) {
                     $result['error'] = $administrador->getDataError();
@@ -145,13 +145,13 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
                 }
                 break;
-                case 'getCargos':
-                    if ($result['dataset'] = $administrador->getCargos()) {
-                        $result['status'] = 1;
-                    } else {
-                        $result['error'] = 'No se pudieron obtener los cargos';
-                    }
-                    break;                
+            case 'getCargos':
+                if ($result['dataset'] = $administrador->getCargos()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'No se pudieron obtener los cargos';
+                }
+                break;
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }

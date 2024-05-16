@@ -16,10 +16,9 @@ class ValoracionHandler
     protected $producto = null;
     protected $calificacion = null;
     protected $comentario = null;
+    protected $total = null;
 
     // Constante para establecer la ruta de las imágenes.
-    const RUTA_IMAGEN = '../../images/productos/';
-
 
     public function searchRows()
     {
@@ -57,26 +56,24 @@ class ValoracionHandler
 
     public function readOne()
     {
-        $sql = 'SELECT valoracion_id, producto.nombre AS "producto_nombre",  
+        $sql = 'SELECT valoracion_id, cliente_id, producto_id, producto.nombre AS "producto_nombre",  
         CONCAT_WS(" ",cliente.nombre, cliente.apellido) AS "nombre_cliente", 
         calificacion ,comentario, fecha_valoracion
         FROM valoracion 
 		  INNER JOIN cliente USING(cliente_id)
 		INNER JOIN producto USING(producto_id)
-                WHERE venta_id = ?';
+                WHERE valoracion_id = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
-
-
     public function updateRow()
     {
-        $sql = 'UPDATE ventas
-                SET fecha = ?, total = ?, cliente_id = ?
-                WHERE venta_id = ?';
+        $sql = 'UPDATE valoracion
+                SET producto_id = ?, cliente_id = ?, calificacion = ?, comentario = ?, fecha_valoracion = ?
+                WHERE valoracion_id = ?';
         $params = array(
-            $this->fecha, $this->cliente, $this->id
+            $this->producto, $this->cliente, $this->calificacion, $this->comentario, $this->fecha, $this->id
         );
         return Database::executeRow($sql, $params);
     }
@@ -88,8 +85,6 @@ class ValoracionHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
-
-
 
     /*
     *   Métodos para generar gráficos.

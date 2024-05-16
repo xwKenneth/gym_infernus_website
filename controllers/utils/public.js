@@ -74,8 +74,8 @@ const loadTemplate = async () => {
         </header>
         `);
     }
-// Se agrega el pie de la página web después del contenido principal.
-MAIN.insertAdjacentHTML('afterend', `
+    // Se agrega el pie de la página web después del contenido principal.
+    MAIN.insertAdjacentHTML('afterend', `
 <footer id="footer">
     <nav class="navbar fixed-bottom" style="background-color: #F96060">
         <div class="container">
@@ -95,11 +95,11 @@ MAIN.insertAdjacentHTML('afterend', `
 </footer>
 `);
 
-// Call the toggleFooterVisibility function to initially hide the footer
-toggleFooterVisibility();
+    // Call the toggleFooterVisibility function to initially hide the footer
+    toggleFooterVisibility();
 
 }
- 
+
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.

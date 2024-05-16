@@ -110,8 +110,6 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al cerrar la sesión';
                 }
                 break;
-
-                break;
             case 'editProfile':
                 $_POST = Validator::validateForm($_POST);
                 if (

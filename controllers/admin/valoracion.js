@@ -15,12 +15,10 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
 const SAVE_FORM = document.getElementById('saveForm'),
     ID_VALORACION = document.getElementById('idValoracion'),
     CALIFICACION_VALORACION = document.getElementById('calificacionValoracion');
-    COMENTARIO_VALORACION = document.getElementById('comentarioValoracion'),
+COMENTARIO_VALORACION = document.getElementById('comentarioValoracion'),
     FECHA_VALORACION = document.getElementById('fechaValoracion'),
     CLIENTE_VALORACION = document.getElementById('clienteValoracion'),
     PRODUCTO_VALORACION = document.getElementById('productoValoracion');
-
-
 document.addEventListener('DOMContentLoaded', async () => {
     loadTemplate();
     MAIN_TITLE.textContent = 'Gestionar valoración';
@@ -39,7 +37,6 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
     fillTable(FORM);
 });
-
 
 // Método del evento para cuando se envía el formulario de guardar.
 SAVE_FORM.addEventListener('submit', async (event) => {
@@ -114,14 +111,13 @@ const openCreate = () => {
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL.show();
     // Se coloca el título para el formulario.
-    MODAL_TITLE.textContent = 'Crear venta';
+    MODAL_TITLE.textContent = 'Crear valoración';
     // Se restauran los elementos del formulario.
     SAVE_FORM.reset();
     fillSelect(CLIENTE_API, 'getClientes', 'clienteValoracion');
-    fillSelect(PRODUCTO_API,'getProductos', 'productoValoracion');
+    fillSelect(PRODUCTO_API, 'getProductos', 'productoValoracion');
 
 }
-
 
 /*
 *   Función asíncrona para preparar el formulario al momento de actualizar un registro.
@@ -131,22 +127,24 @@ const openCreate = () => {
 const openUpdate = async (id) => {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('idVenta', id);
+    FORM.append('idValoracion', id);
     // Petición para obtener los datos del registro solicitado.
     const DATA = await fetchData(VALORACION_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar venta';
+        MODAL_TITLE.textContent = 'Actualizar valoracion';
         // Se prepara el formulario.
         SAVE_FORM.reset();
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_VALORACION.value = ROW.valoracion_id;
-        FECHA_VENTA.value = ROW.fecha;
-        TOTAL_VENTA.value = ROW.total;
-        fillSelect(CLIENTE_API, 'getClientes', 'clienteVenta', ROW.cliente_id)
+        CALIFICACION_VALORACION.value = ROW.calificacion;
+        COMENTARIO_VALORACION.value = ROW.comentario;
+        FECHA_VALORACION.value = ROW.fecha_valoracion;
+        fillSelect(CLIENTE_API, 'getClientes', 'clienteValoracion', ROW.cliente_id);
+        fillSelect(PRODUCTO_API, 'getProductos', 'productoValoracion', ROW.producto_id);
     } else {
         sweetAlert(2, DATA.error, false);
     }

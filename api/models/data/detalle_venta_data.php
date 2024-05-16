@@ -23,7 +23,7 @@ class DetalleVentaData extends DetalleVentaHandler
             $this->id = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador de la venta es incorrecto';
+            $this->data_error = 'El identificador del id es incorrecto';
             return false;
         }
     }
@@ -45,10 +45,11 @@ class DetalleVentaData extends DetalleVentaHandler
             $this->producto = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador de la venta es incorrecto';
+            $this->data_error = 'El identificador del producto es incorrecto';
             return false;
         }
     }
+    
     public function setNombre($value, $min = 2, $max = 50)
     {
         if (!Validator::validateAlphanumeric($value)) {
@@ -88,7 +89,6 @@ class DetalleVentaData extends DetalleVentaHandler
         }
     }
 
-
     public function setCantidad($value)
     {
         if (Validator::validateMoney($value)) {
@@ -105,7 +105,7 @@ class DetalleVentaData extends DetalleVentaHandler
         if (!Validator::validateString($value)) {
             $this->data_error = 'La dirección contiene caracteres prohibidos';
             return false;
-        } elseif(Validator::validateLength($value, $min, $max)) {
+        } elseif (Validator::validateLength($value, $min, $max)) {
             $this->direccion = $value;
             return true;
         } else {

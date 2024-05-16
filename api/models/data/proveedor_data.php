@@ -20,7 +20,7 @@ class ProveedorData extends ProveedorHandler
             $this->id = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador del administrador es incorrecto';
+            $this->data_error = 'El identificador del proveedor es incorrecto';
             return false;
         }
     }
@@ -72,7 +72,7 @@ class ProveedorData extends ProveedorHandler
         if (!Validator::validateString($value)) {
             $this->data_error = 'La dirección contiene caracteres prohibidos';
             return false;
-        } elseif(Validator::validateLength($value, $min, $max)) {
+        } elseif (Validator::validateLength($value, $min, $max)) {
             $this->direccion = $value;
             return true;
         } else {

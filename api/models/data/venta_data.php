@@ -78,7 +78,7 @@ class VentaData extends VentaHandler
         }
     }
 
-    
+
     public function setTotalVenta($value)
     {
         if (Validator::validateMoney($value)) {
@@ -118,19 +118,19 @@ class VentaData extends VentaHandler
         }
     }
 
-   // Nuevo método para establecer la fecha de la venta
-   public function setFechaVenta($value)
-   {
-       // Validar el formato de la fecha
-       $date = date('Y-m-d', strtotime($value));
-       if ($date && $date == $value) {
-           $this->fecha = $date;
-           return true;
-       } else {
-           $this->data_error = 'Fecha inválida';
-           return false;
-       }
-   }
+    // Nuevo método para establecer la fecha de la venta
+    public function setFechaVenta($value)
+    {
+        // Validar el formato de la fecha
+        $date = date('Y-m-d', strtotime($value));
+        if ($date && $date == $value) {
+            $this->fecha = $date;
+            return true;
+        } else {
+            $this->data_error = 'Fecha inválida';
+            return false;
+        }
+    }
 
     public function setCategoria($value)
     {
@@ -153,7 +153,7 @@ class VentaData extends VentaHandler
             return false;
         }
     }
-    
+
     public function setMarca($value)
     {
         if (Validator::validateNaturalNumber($value)) {

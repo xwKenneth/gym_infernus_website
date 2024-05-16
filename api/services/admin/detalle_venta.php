@@ -30,13 +30,12 @@ if (isset($_GET['action'])) {
             case 'createRow':
                 // Validar y registrar los datos del formulario
                 $_POST = Validator::validateForm($_POST);
-
                 // Validar los datos y procesar la creación de la venta
                 if (
                     !$venta->setVentaId($_POST['ventaDetalleV']) or
                     !$venta->setProductoId($_POST['productoDetalleV']) or
                     !$venta->setCantidad($_POST['cantidadDetalleV']) or
-                    !$venta->setDireccion($_POST['direccionDetalleV']) 
+                    !$venta->setDireccion($_POST['direccionDetalleV'])
                 ) {
                     // Error de validación
                     $result['error'] = $venta->getDataError();
@@ -51,8 +50,6 @@ if (isset($_GET['action'])) {
                     error_log('Error al crear la venta: Ocurrió un problema al crear la venta');
                 }
                 break;
-
-
             case 'readAll':
                 if ($result['dataset'] = $venta->readAll()) {
                     $result['status'] = 1;
@@ -94,9 +91,9 @@ if (isset($_GET['action'])) {
                     $result['error'] = $venta->getDataError();
                 } elseif ($venta->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Producto eliminado correctamente';
+                    $result['message'] = 'Detalle de la venta eliminada correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al eliminar el producto';
+                    $result['error'] = 'Ocurrió un problema al eliminar el detalle de la venta';
                 }
                 break;
             case 'cantidadProductosCategoria':

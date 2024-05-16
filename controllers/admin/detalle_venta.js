@@ -25,7 +25,7 @@ const SAVE_FORM = document.getElementById('saveForm'),
 
 document.addEventListener('DOMContentLoaded', async () => {
     loadTemplate();
-    MAIN_TITLE.textContent = 'Gestionar valoración';
+    MAIN_TITLE.textContent = 'Gestionar detalle venta';
     await fillTable();
 
 });
@@ -41,7 +41,6 @@ SEARCH_FORM.addEventListener('submit', (event) => {
     // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
     fillTable(FORM);
 });
-
 
 // Método del evento para cuando se envía el formulario de guardar.
 SAVE_FORM.addEventListener('submit', async (event) => {
@@ -110,23 +109,22 @@ const fillTable = async (form = null) => {
         sweetAlert(4, DATA.error, true);
     }
 }
- 
+
 // Función para preparar el formulario al momento de insertar un registro.
 const openCreate = () => {
 
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL.show();
     // Se coloca el título para el formulario.
-    MODAL_TITLE.textContent = 'Crear venta';
+    MODAL_TITLE.textContent = 'Agregar un detalle de venta';
     // Se restauran los elementos del formulario.
-    
+
     SAVE_FORM.reset();
     fillSelect(VENTA_API, 'readAll', 'ventaDetalleV');
-    fillSelect(PRODUCTO_API,'getProductos', 'productoDetalleV');
+    fillSelect(PRODUCTO_API, 'getProductos', 'productoDetalleV');
     SUBTOTAL_DETALLE_V.disabled = true;
     DESCUENTO_DETALLE_V.disabled = true;
 }
-
 
 /*
 *   Función asíncrona para preparar el formulario al momento de actualizar un registro.
@@ -143,16 +141,16 @@ const openUpdate = async (id) => {
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar venta';
+        MODAL_TITLE.textContent = 'Actualizar detalle venta';
         // Se prepara el formulario.
         SAVE_FORM.reset();
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_DETALLE_V.value = ROW.detalle_venta_id;
         fillSelect(VENTA_API, 'readAll', 'ventaDetalleV', ROW.venta_id);
-        fillSelect(PRODUCTO_API,'getProductos', 'productoDetalleV', ROW.producto_id);
-        CANTIDAD_DETALLE_V.value =  ROW.cantidad
-        DIRECCION_DETALLE_V.value =  ROW.direccion_cliente;
+        fillSelect(PRODUCTO_API, 'getProductos', 'productoDetalleV', ROW.producto_id);
+        CANTIDAD_DETALLE_V.value = ROW.cantidad
+        DIRECCION_DETALLE_V.value = ROW.direccion_cliente;
         SUBTOTAL_DETALLE_V.disabled = true;
         DESCUENTO_DETALLE_V.disabled = true;
     } else {
@@ -167,7 +165,7 @@ const openUpdate = async (id) => {
 */
 const openDelete = async (id) => {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar el administrador de forma permanente?');
+    const RESPONSE = await confirmAction('¿Desea eliminar el detalle de la venta de forma permanente?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.

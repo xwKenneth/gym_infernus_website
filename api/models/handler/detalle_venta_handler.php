@@ -27,9 +27,9 @@ class DetalleVentaHandler
     protected $producto = null;
     protected $cantidad  = null;
     protected $direccion = null;
- 
 
- 
+
+
 
 
     public function searchRows()
@@ -41,7 +41,7 @@ class DetalleVentaHandler
         INNER JOIN ventas ON detalle_ventas.venta_id = ventas.venta_id
         INNER JOIN producto ON detalle_ventas.producto_id = producto.producto_id
         INNER JOIN cliente ON ventas.cliente_id = cliente.cliente_id;
-        WHERE producto.nombre LIKE ? OR cliente.nombre LIKE ?';              
+        WHERE producto.nombre LIKE ? OR cliente.nombre LIKE ?';
         $params = array($value, $value);
         return Database::getRows($sql, $params);
     }
@@ -54,7 +54,7 @@ class DetalleVentaHandler
         $params = array($this->venta, $this->producto, $this->cantidad, $this->direccion);
         return Database::executeRow($sql, $params);
     }
-    
+
 
     public function readAll()
     {

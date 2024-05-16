@@ -116,7 +116,7 @@ class ProductoData extends ProductoHandler
             return false;
         }
     }
-    
+
     public function setMarca($value)
     {
         if (Validator::validateNaturalNumber($value)) {

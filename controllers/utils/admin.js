@@ -59,7 +59,7 @@ const loadTemplate = async () => {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                         aria-expanded="false"><i class="bi bi-three-dots"></i> Más<b></b></a>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu" style="background-color: rgb(249 96 96 / 80%);">
                                         <li><a class="dropdown-item" href="../../views/admin/administrar_venta.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
                                         <li>
                                             <hr class="dropdown-divider">

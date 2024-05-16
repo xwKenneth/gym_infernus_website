@@ -16,8 +16,7 @@ const SAVE_FORM = document.getElementById('saveForm'),
     CORREO_ADMINISTRADOR = document.getElementById('correoAdministrador'),
     CLAVE_ADMINISTRADOR = document.getElementById('claveAdministrador'),
     CONFIRMAR_CLAVE = document.getElementById('confirmarClave');
-    ROL_ADMINISTRADOR = document.getElementById('idCargo');
-
+ROL_ADMINISTRADOR = document.getElementById('idCargo');
 
 document.addEventListener('DOMContentLoaded', async () => {
     loadTemplate();
@@ -25,7 +24,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fillTable();
     fillSelect(ADMINISTRADOR_API, 'getCargos', 'idCargo')
 });
-
 
 // Método del evento para cuando se envía el formulario de buscar.
 SEARCH_FORM.addEventListener('submit', (event) => {

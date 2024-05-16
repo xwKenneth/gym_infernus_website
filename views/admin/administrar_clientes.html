@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="CesarYKenneth">
+    <meta name="author" content="Kenneth & Cesar">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Clientes</title>
     <link type="image/png" rel="icon" href="../../resources/img/icon.png">
@@ -23,7 +23,7 @@
 
                     </div>
                     <div class="col-6">
-                        
+
                         <button type="submit" class="btn btn-success">
                             <i class="bi bi-search"></i>
                         </button>
@@ -74,29 +74,34 @@
                             <input type="hidden" id="idCliente" name="idCliente">
                             <div class="col-sm-12 col-md-6">
                                 <label for="nombreCliente" class="form-label">Nombre</label>
-                                <input id="nombreCliente" type="text" name="nombreCliente" class="form-control" required>
+                                <input id="nombreCliente" type="text" name="nombreCliente" class="form-control"
+                                    required>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="apellidoCliente" class="form-label">Apellido</label>
-                                <input id="apellidoCliente" type="text" name="apellidoCliente" class="form-control" required>
+                                <input id="apellidoCliente" type="text" name="apellidoCliente" class="form-control"
+                                    required>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="correoCliente" class="form-label">Correo</label>
-                                <input id="correoCliente" type="email" name="correoCliente" class="form-control" required>
+                                <input id="correoCliente" type="email" name="correoCliente" class="form-control"
+                                    required>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="col-sm-12 col-md-6">
                                     <label for="telefonoCliente" class="form-label">Teléfono</label>
-                                    <input id="telefonoCliente" type="text" name="telefonoCliente" class="form-control" required maxlength="9">
-                                    <small id="telefonoHelp" class="form-text text-muted">Ingrese un número de teléfono válido (ejemplo: 8986-9899).</small>
-                                </div>         
-                            </div>                                                                  
+                                    <input id="telefonoCliente" type="text" name="telefonoCliente" class="form-control"
+                                        required maxlength="9">
+                                    <small id="telefonoHelp" class="form-text text-muted">Ingrese un número de teléfono
+                                        válido (ejemplo: 8986-9899).</small>
+                                </div>
+                            </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="duiCliente" class="form-label">DUI</label>
-                                <input id="duiCliente" type="text" name="duiCliente" class="form-control" required 
-                                       pattern="[0-9]{8}-[0-9]" title="Ingrese el DUI en el formato correcto (00000000-0)"
-                                       placeholder="00000000-0" maxlength="10">
-                            </div>                            
+                                <input id="duiCliente" type="text" name="duiCliente" class="form-control" required
+                                    pattern="[0-9]{8}-[0-9]" title="Ingrese el DUI en el formato correcto (00000000-0)"
+                                    placeholder="00000000-0" maxlength="10">
+                            </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="fechaNacimientoCliente" class="form-label">Fecha de nacimiento</label>
                                 <input id="fechaNacimientoCliente" type="date" name="fechaNacimientoCliente"
@@ -104,7 +109,8 @@
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="direccionCliente" class="form-label">Dirección</label>
-                                <input id="direccionCliente" type="text" name="direccionCliente" class="form-control" required>
+                                <input id="direccionCliente" type="text" name="direccionCliente" class="form-control"
+                                    required>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="claveAdministrador" class="form-label">Contraseña</label>
@@ -136,7 +142,7 @@
     <script src="../../controllers/utils/components.js"></script>
     <script src="../../controllers/utils/admin.js"></script>
     <script src="../../controllers/admin/clientes.js"></script>
-    
+
 </body>
 
 </html>

@@ -23,7 +23,7 @@ class ValoracionData extends ValoracionHandler
             $this->id = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador de la venta es incorrecto';
+            $this->data_error = 'El identificador de la valoración es incorrecto';
             return false;
         }
     }
@@ -53,16 +53,8 @@ class ValoracionData extends ValoracionHandler
         }
     }
 
-
-
-
-
-
-
-
-
     // Nuevo método para establecer la fecha de la venta
-    public function setFechaVenta($value)
+    public function setFechaValoracion($value)
     {
         // Validar el formato de la fecha
         $date = date('Y-m-d', strtotime($value));
@@ -74,7 +66,6 @@ class ValoracionData extends ValoracionHandler
             return false;
         }
     }
-
 
     public function setCalificacion($value)
     {
@@ -99,10 +90,7 @@ class ValoracionData extends ValoracionHandler
             $this->data_error = 'La descripción debe tener una longitud entre ' . $min . ' y ' . $max;
             return false;
         }
-
     }
-
-
 
     public function setProducto($value)
     {
@@ -114,7 +102,6 @@ class ValoracionData extends ValoracionHandler
             return false;
         }
     }
-
 
     /*
      *  Métodos para obtener los atributos adicionales.

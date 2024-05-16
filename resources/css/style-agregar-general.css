@@ -1,46 +1,62 @@
 .form-group {
     display: flex;
     align-items: center;
-    margin-bottom: 15px; /* Add margin for spacing */
+    margin-bottom: 15px;
+    /* Add margin for spacing */
 }
 
 .form-group input {
     flex: 1;
     border: none;
-    border-bottom: 1px solid #ced4da; /* Line color */
-    padding: 5px; /* Adjust as needed */
-    margin-right: 10px; /* Spacing between line and placeholder */
-    background: transparent; /* Transparent background */
+    border-bottom: 1px solid #ced4da;
+    /* Line color */
+    padding: 5px;
+    /* Adjust as needed */
+    margin-right: 10px;
+    /* Spacing between line and placeholder */
+    background: transparent;
+    /* Transparent background */
 }
 
 .form-group label {
-    margin-bottom: 0; /* Remove default margin for labels */
+    margin-bottom: 0;
+    /* Remove default margin for labels */
 }
 
 .btn {
-    background-color: transparent; /* Remove background color */
-    padding: 10px 20px; /* Adjust padding */
-    border: none; /* Remove border */
-    outline: none; /* Remove outline */
+    background-color: transparent;
+    /* Remove background color */
+    padding: 10px 20px;
+    /* Adjust padding */
+    border: none;
+    /* Remove border */
+    outline: none;
+    /* Remove outline */
 }
 
 .custom-file-upload {
     flex: 1;
     border: none;
-    border-bottom: 1px solid #ced4da; /* Line color */
-    padding: 5px; /* Adjust as needed */
-    margin-right: 10px; /* Spacing between line and placeholder */
-    background: transparent; /* Transparent background */
-  }
-  
-  .custom-file-upload:hover {
+    border-bottom: 1px solid #ced4da;
+    /* Line color */
+    padding: 5px;
+    /* Adjust as needed */
+    margin-right: 10px;
+    /* Spacing between line and placeholder */
+    background: transparent;
+    /* Transparent background */
+}
+
+.custom-file-upload:hover {
     background-color: #e0e0e0;
-  }
-  
-  .input-group-append img {
-    margin-right: 10px; /* Add some space between image and input field */
+}
+
+.input-group-append img {
+    margin-right: 10px;
+    /* Add some space between image and input field */
 }
 
 .form-control {
-    width: calc(100% - 50px); /* Adjust width to accommodate image */
+    width: calc(100% - 50px);
+    /* Adjust width to accommodate image */
 }

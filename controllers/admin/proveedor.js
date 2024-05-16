@@ -1,5 +1,6 @@
 // Constante para completar la ruta de la API.
 const PROVEEDOR_API = 'services/admin/proveedor.php';
+const VENTA_API = 'services/admin/venta.php';
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');
 // Constantes para establecer los elementos de la tabla.
@@ -12,7 +13,7 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
 const SAVE_FORM = document.getElementById('saveForm'),
     ID_PROVEEDOR = document.getElementById('idProveedor'),
     NOMBRE_PROVEEDOR = document.getElementById('nombreProveedor'),
-    TELEFONO_PROVEEDOR = document.getElementById('telefonoProveedor');
+    TELEFONO_PROVEEDOR = document.getElementById('telefonoProveedor'),
 DIRECCION_PROVEEDOR = document.getElementById('direccionProveedor');
 
 const telefonoInput = document.getElementById('telefonoProveedor');
@@ -34,8 +35,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fillTable();
 });
 
-
-
 // Método del evento para cuando se envía el formulario de buscar.
 SEARCH_FORM.addEventListener('submit', (event) => {
     // Se evita recargar la página web después de enviar el formulario.
@@ -51,7 +50,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    const action = ID_VENTA.value ? 'updateRow' : 'createRow';
+    const action = ID_PROVEEDOR.value ? 'updateRow' : 'createRow';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
 
@@ -59,7 +58,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     console.log('Datos enviados:', Object.fromEntries(FORM.entries()));
 
     // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(VENTA_API, action, FORM);
+    const DATA = await fetchData(PROVEEDOR_API, action, FORM);
 
     // Log the server response
     console.log('Respuesta del servidor:', DATA);
@@ -89,7 +88,7 @@ const fillTable = async (form = null) => {
     const action = form ? 'searchRows' : 'readAll';
 
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(VENTA_API, action, form);
+    const DATA = await fetchData(PROVEEDOR_API, action, form);
 
     // Log the server response
     console.log('Respuesta del servidor:', DATA);
@@ -101,14 +100,14 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td>${row.fecha}</td>
-                    <td>${row.total}</td>
-                    <td>${row.NombreFull}</td>
+                    <td>${row.nombre}</td>
+                    <td>${row.telefono}</td>
+                    <td>${row.direccion}</td>
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.venta_id})">
+                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.proveedor_id})">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.venta_id})">
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.proveedor_id})">
                             <i class="bi bi-trash3"></i>
                         </button>
                     </td>
@@ -122,10 +121,6 @@ const fillTable = async (form = null) => {
         sweetAlert(4, DATA.error, true);
     }
 }
-
-
-
-
 
 /*
 *   Función para preparar el formulario al momento de insertar un registro.
@@ -156,7 +151,7 @@ const openUpdate = async (id) => {
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar cliente';
+        MODAL_TITLE.textContent = 'Actualizar proveedor';
         // Se prepara el formulario.
         SAVE_FORM.reset();
         // Se inicializan los campos con los datos.

@@ -163,6 +163,4 @@ class ClienteHandler
         $sql = "SELECT cliente_id, CONCAT_WS(' ', cliente.nombre, cliente.apellido) AS `NombreFull` FROM cliente";
         return Database::getRows($sql);
     }
-    
-    
 }

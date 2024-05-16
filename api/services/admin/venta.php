@@ -18,7 +18,6 @@ if (isset($_GET['action'])) {
                 if (!empty($_POST['startDate']) && !empty($_POST['endDate'])) {
                     $startDate = $_POST['startDate'];
                     $endDate = $_POST['endDate'];
-
                     // Validar las fechas
                     if (!Validator::validateDateSQL($startDate) || !Validator::validateDateSQL($endDate)) {
                         $result['error'] = Validator::getSearchError();
@@ -59,8 +58,6 @@ if (isset($_GET['action'])) {
                     error_log('Error al crear la venta: Ocurrió un problema al crear la venta');
                 }
                 break;
-
-
             case 'readAll':
                 if ($result['dataset'] = $venta->readAll()) {
                     $result['status'] = 1;

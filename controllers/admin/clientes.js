@@ -15,29 +15,28 @@ const SAVE_FORM = document.getElementById('saveForm'),
     APELLIDO_CLIENTE = document.getElementById('apellidoCliente'),
     CORREO_CLIENTE = document.getElementById('correoCliente'),
     CLAVE_CLIENTE = document.getElementById('claveCliente'),
-    CONFIRMAR_CLAVE = document.getElementById('confirmarClave');
-    NACIMIENTO_CLIENTE = document.getElementById('fechaNacimientoCliente');
-    DUI_CLIENTE = document.getElementById('duiCliente');
-    TELEFONO_CLIENTE = document.getElementById('telefonoCliente');
+    CONFIRMAR_CLAVE = document.getElementById('confirmarClave'),
+    NACIMIENTO_CLIENTE = document.getElementById('fechaNacimientoCliente'),
+    DUI_CLIENTE = document.getElementById('duiCliente'),
+    TELEFONO_CLIENTE = document.getElementById('telefonoCliente'),
     DIRECCION_CLIENTE = document.getElementById('direccionCliente');
 const duiInput = document.getElementById('duiCliente');
 const telefonoInput = document.getElementById('telefonoCliente');
 
-telefonoInput.addEventListener('input', function(event) {
+telefonoInput.addEventListener('input', function (event) {
     let value = event.target.value;
-    
+
     value = value.replace(/-/g, '');
-    
+
     if (value.length > 4) {
         value = value.slice(0, 4) + '-' + value.slice(4);
     }
-    
+
     event.target.value = value;
 });
 
-
-telefonoInput.addEventListener('change', function(event) {
-    if (!event.target.value.match(/^\d{4}-\d{4}$/)) { 
+telefonoInput.addEventListener('change', function (event) {
+    if (!event.target.value.match(/^\d{4}-\d{4}$/)) {
         event.target.classList.add('invalid');
         $('#telefonoHelp').text('Ingrese un número de teléfono válido (ejemplo: 8986-9899).');
     } else {
@@ -46,13 +45,11 @@ telefonoInput.addEventListener('change', function(event) {
     }
 });
 
- 
 document.addEventListener('DOMContentLoaded', async () => {
     loadTemplate();
     MAIN_TITLE.textContent = 'Gestionar clientes';
     await fillTable();
 });
-
 
 // Método del evento para cuando se envía el formulario de buscar.
 SEARCH_FORM.addEventListener('submit', (event) => {
@@ -129,29 +126,23 @@ const fillTable = async (form = null) => {
     }
 }
 
-
-
-
-    
-
 // Escuchar el evento input
-duiInput.addEventListener('input', function(event) {
+duiInput.addEventListener('input', function (event) {
     // Obtener el valor actual del campo de entrada
     let value = event.target.value;
-    
+
     // Eliminar cualquier guion existente
     value = value.replace(/-/g, '');
-    
+
     // Verificar si se han ingresado los primeros ocho dígitos
     if (value.length >= 8) {
         // Insertar un guion después del séptimo dígito
         value = value.slice(0, 8) + '-' + value.slice(8);
     }
-    
+
     // Asignar el valor modificado de vuelta al campo de entrada
     event.target.value = value;
 });
-
 
 /*
 *   Función para preparar el formulario al momento de insertar un registro.
@@ -164,7 +155,7 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear cliente';
     // Se prepara el formulario.
     SAVE_FORM.reset();
- 
+
 }
 
 /*
