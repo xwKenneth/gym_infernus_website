@@ -77,8 +77,8 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td><img src="${SERVER_URL}images/marcas/${row.foto}" height="60"></td>
-                    <td>${row.nombre}</td>
+                    <td><img src="${SERVER_URL}images/marcas/${row.imagen_marca}" height="60"></td>
+                    <td>${row.nombre_marca}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.marca_id})">
                             <i class="bi bi-pencil-fill"></i>
@@ -134,7 +134,7 @@ const openUpdate = async (id) => {
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_MARCA.value = ROW.marca_id;
-        NOMBRE_MARCA.value = ROW.nombre;
+        NOMBRE_MARCA.value = ROW.nombre_marca;
     } else {
         sweetAlert(2, DATA.error, false);
     }

@@ -22,6 +22,7 @@ const SAVE_FORM = document.getElementById('saveForm'),
     MARCA_PRODUCTO = document.getElementById('marcaProducto'),
     PROVEEDOR_PRODUCTO = document.getElementById('proveedorProducto'),
     IMAGEN_PRODUCTO = document.getElementById('imagenProducto'),
+    FECHA_REGISTRO_PRODUCTO = document.getElementById('fechaDeRegistro'),
     ESTADO_PRODUCTO = document.getElementById('estadoProducto');
 
 // Método del evento para cuando el documento ha cargado.
@@ -91,11 +92,11 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td><img src="${SERVER_URL}images/productos/${row.foto}" height="50"></td>
+                    <td><img src="${SERVER_URL}images/productos/${row.imagen_producto}" height="50"></td>
                     <td>${row.nombre_producto}</td>
-                    <td>${row.nombre_proveedor}</td>
-                    <td>${row.nombre_marca}</td>
-                    <td>${row.nombre_categoria}</td>                    
+                    <td>${row.precio_producto}</td>
+                    <td>${row.nombre_categoria}</td>
+                    <td>${row.existencias_producto}</td>                          
                     <td><i class="${icon}"></i></td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.producto_id})">
@@ -154,9 +155,9 @@ const openUpdate = async (id) => {
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_PRODUCTO.value = ROW.producto_id;
-        NOMBRE_PRODUCTO.value = ROW.nombre;
-        DESCRIPCION_PRODUCTO.value = ROW.descripcion;
-        PRECIO_PRODUCTO.value = ROW.precio;
+        NOMBRE_PRODUCTO.value = ROW.nombre_producto;
+        DESCRIPCION_PRODUCTO.value = ROW.descripcion_producto;
+        PRECIO_PRODUCTO.value = ROW.precio_producto;
         if (ROW.estado == 0) {
             ESTADO_PRODUCTO.checked = false;
         } else if (ROW.estado == 1) {
@@ -164,10 +165,12 @@ const openUpdate = async (id) => {
         } else (
             console.log(ROW.estado)
         )
+        EXISTENCIAS_PRODUCTO.value = ROW.existencias_producto;
+        FECHA_REGISTRO_PRODUCTO.value = ROW.fecha_registro;
+        ESTADO_PRODUCTO.value =  ROW.estado_producto;
         fillSelect(MARCA_API, 'readAll', 'marcaProducto', ROW.marca_id);
         fillSelect(PROVEEDOR_API, 'readAll', 'proveedorProducto', ROW.proveedor_id);
         fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.categoria_id);
-        EXISTENCIAS_PRODUCTO.value = ROW.existencias;
 
 
     } else {

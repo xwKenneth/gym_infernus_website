@@ -6,74 +6,81 @@ CREATE TABLE cargo (
     cargo VARCHAR(100) NOT NULL
 );
 
-
+ SELECT * FROM empleado
 CREATE TABLE empleado (
     empleado_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    apellido VARCHAR(100) NOT NULL,
-    correo_electronico VARCHAR(100) UNIQUE NOT NULL,
-    contrasena VARCHAR(255) NOT NULL,
+    nombre_empleado VARCHAR(100) NOT NULL,
+    apellido_empleado VARCHAR(100) NOT NULL,
+    correo_empleado VARCHAR(100) UNIQUE NOT NULL,
+    clave_empleado VARCHAR(255) NOT NULL,
     cargo_id INT,
     CONSTRAINT fk_cargo_empleado FOREIGN KEY (cargo_id) REFERENCES cargo(cargo_id)
 );
 
+ 
+INSERT INTO empleado(nombre_empleado, apellido_empleado, correo_empleado, clave_empleado) 
+VALUES('Carlos','Belcast','carlos@infernus.com','12345678')
 
 CREATE TABLE cliente (
     cliente_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    apellido VARCHAR(100) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    dui VARCHAR(10) UNIQUE NOT NULL,
-    fecha_nacimiento DATE NOT NULL,
-    correo_electronico VARCHAR(100) UNIQUE NOT NULL,
-    direccion VARCHAR(255) NOT NULL,
-    contrasena VARCHAR(255) NOT NULL
+    nombre_cliente VARCHAR(100) NOT NULL,
+    apellido_cliente VARCHAR(100) NOT NULL,
+    telefono_cliente VARCHAR(15) NOT NULL,
+    dui_cliente VARCHAR(10) UNIQUE NOT NULL,
+    nacimiento_cliente DATE NOT NULL CHECK(),
+    correo_cliente VARCHAR(100) UNIQUE NOT NULL,
+    direccion_cliente VARCHAR(255) NOT NULL,
+    clave_cliente VARCHAR(255) NOT NULL
 );
  
 CREATE TABLE proveedor (
     proveedor_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    telefono VARCHAR(15) NOT NULL,
-    direccion VARCHAR(255) NOT NULL
+    nombre_proveedor VARCHAR(100) UNIQUE NOT NULL,
+    telefono_proveedor VARCHAR(15) NOT NULL,
+    direccion_proveedor VARCHAR(255) NOT NULL
 );
  
 
-CREATE TABLE marcas (
+CREATE TABLE marca (
     marca_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    foto VARCHAR(255) NOT NULL
+    nombre_marca VARCHAR(100) UNIQUE NOT NULL,
+    imagen_marca VARCHAR(255) NOT NULL
 );
-
+SELECT * FROM categoria
 CREATE TABLE categoria (
     categoria_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    foto VARCHAR(255) NOT NULL
+    nombre_categoria VARCHAR(100) UNIQUE NOT NULL,
+    descuento_categoria DECIMAL(5, 2) DEFAULT 0 CHECK (descuento_categoria >= 0 AND descuento_categoria <= 100),
+    imagen_categoria VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE producto (
     producto_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion TEXT,
-    precio DECIMAL(10, 2) NOT NULL,
-    foto VARCHAR(255) NOT NULL,
+    nombre_producto VARCHAR(100) UNIQUE NOT NULL,
+    descripcion_producto TEXT,
+    precio_producto DECIMAL(10, 2) NOT NULL,
+    descuento_producto DECIMAL(5, 2) DEFAULT 0 CHECK (descuento_producto >= 0 AND descuento_producto <= 100),
+    imagen_producto VARCHAR(255) NOT NULL,
+    existencias_producto INT NOT NULL,
     proveedor_id INT,
     marca_id INT,
     categoria_id INT,
-    existencias INT NOT NULL,
-    estado tinyint(1),
+    estado_producto tinyint(1),
+    fecha_registro date NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT fk_proveedor_producto FOREIGN KEY (proveedor_id) REFERENCES proveedor(proveedor_id),
-    CONSTRAINT fk_marca_producto FOREIGN KEY (marca_id) REFERENCES marcas(marca_id),
+    CONSTRAINT fk_marca_producto FOREIGN KEY (marca_id) REFERENCES marca(marca_id),
     CONSTRAINT fk_categoria_producto FOREIGN KEY (categoria_id) REFERENCES categoria(categoria_id),
-    CONSTRAINT chk_precio_positive CHECK (precio >= 0),
-    CONSTRAINT chk_existencias_positive CHECK (existencias >= 0)
+    CONSTRAINT chk_precio_positive CHECK (precio_producto >= 0),
+    CONSTRAINT chk_existencias_positive CHECK (existencias_producto >= 0)
 );
- 
-CREATE TABLE ventas (
-    venta_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    fecha DATE NOT NULL DEFAULT CURRENT_TIMESTAMP() CHECK (YEAR(fecha) >= 2016) ,
-    total DECIMAL(10, 2) NOT NULL,
+  
+CREATE TABLE pedido (
+    pedido_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     cliente_id INT,
-    CONSTRAINT fk_cliente_ventas FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
+    direccion_pedido varchar(250) NOT NULL,
+    estado_pedido enum('Pendiente','Finalizado','Entregado','Anulado') NOT NULL,
+    fecha_registro DATE NOT NULL DEFAULT CURRENT_TIMESTAMP() CHECK (YEAR(fecha_registro) >= 2016),
+    CONSTRAINT fk_cliente_pedido FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
 );
  
 CREATE TABLE valoracion (
@@ -87,40 +94,16 @@ CREATE TABLE valoracion (
     CONSTRAINT fk_cliente_valoracion FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
 );
 
-SELECT * FROM ventas
-CREATE TABLE detalle_ventas (
-    detalle_venta_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    venta_id INT,
+CREATE TABLE detalle_pedido (
+    detalle_pedido_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    pedido_id INT,
     producto_id INT,
     cantidad INT NOT NULL CHECK (cantidad >= 0),
-    precio_unitario DECIMAL(10, 2) NOT NULL CHECK (precio_unitario >= 0),
-    subtotal DECIMAL(10, 2) AS (cantidad * precio_unitario) STORED,
-    descuento DECIMAL(5, 2) DEFAULT 0 CHECK (descuento >= 0 AND descuento <= 100),
-    direccion_cliente varchar(250) NOT NULL,
-    CONSTRAINT fk_ventas_detalle FOREIGN KEY (venta_id) REFERENCES ventas(venta_id),
+    precio_producto DECIMAL(5, 2) NOT NULL CHECK (precio_producto >= 0),
+    subtotal DECIMAL(10, 2) AS (cantidad * precio_producto) STORED,
+    CONSTRAINT fk_pedido_detalle FOREIGN KEY (pedido_id) REFERENCES pedido(pedido_id),
     CONSTRAINT fk_producto_detalle FOREIGN KEY (producto_id) REFERENCES producto(producto_id)
-);
-
- 
-SHOW COLUMNS FROM detalle_ventas  
-
- 
--- Insertar un registro en la tabla detalle_ventas
-INSERT INTO detalle_ventas (venta_id, producto_id, cantidad, direccion_cliente)
-VALUES (5, 4, 3, '123 Calle Principal');
-
-
-SELECT 
-    TRIGGER_NAME, 
-    EVENT_MANIPULATION, 
-    EVENT_OBJECT_TABLE, 
-    ACTION_STATEMENT, 
-    ACTION_TIMING 
-FROM 
-    information_schema.TRIGGERS
-WHERE 
-    TRIGGER_SCHEMA = 'gyminfernus_db' AND
-    TRIGGER_NAME = 'set_precio_unitario';
+);  
 
 
 INSERT INTO cargo
@@ -128,20 +111,33 @@ VALUES
 (1, 'Administrador'),
 (2, 'Empleado');
 
+ 
+
+/* Trigger para pasar el precio unitario del producto a los detalles de la venta */
 DELIMITER //
-CREATE TRIGGER set_precio_unitario
-BEFORE INSERT ON detalle_ventas
+CREATE TRIGGER set_precio_producto
+BEFORE INSERT ON detalle_pedido
 FOR EACH ROW
 BEGIN
     DECLARE prod_precio DECIMAL(10, 2);
-    -- Obtenemos el precio del producto
-    SELECT precio INTO prod_precio FROM producto WHERE producto_id = NEW.producto_id;
-    -- Establecemos el precio unitario del detalle de venta al precio del producto
-    SET NEW.precio_unitario = prod_precio;
+    DECLARE descuento_prod DECIMAL(5, 2);
+    DECLARE descuento_cat DECIMAL(5, 2);
+    DECLARE cat_id INT;
+    
+    -- Obtenemos el precio y el descuento del producto
+    SELECT precio_producto, descuento_producto, categoria_id INTO prod_precio, descuento_prod, cat_id FROM producto WHERE producto_id = NEW.producto_id;
+    
+    -- Obtenemos el descuento de la categoría
+    SELECT descuento_categoria INTO descuento_cat FROM categoria WHERE categoria_id = cat_id;
+    
+    -- Aplicamos los descuentos al precio del producto
+    SET prod_precio = prod_precio * (1 - descuento_prod/100) * (1 - descuento_cat/100);
+    
+    -- Establecemos el precio unitario del detalle de venta al precio del producto con los descuentos aplicados
+    SET NEW.precio_producto = prod_precio;
 END;
 //
 DELIMITER ;
-
 
 /*Trigger 2*/
 DELIMITER //
@@ -150,10 +146,25 @@ CREATE TRIGGER lowercase_correo
 BEFORE INSERT ON empleado
 FOR EACH ROW
 BEGIN
-    SET NEW.correo_electronico = LOWER(NEW.correo_electronico);
+    SET NEW.correo_empleado = LOWER(NEW.correo_empleado);
 END;
 //
 
 DELIMITER ;
 
+/*Trigger 3*/
+DELIMITER //
+CREATE TRIGGER validar_edad
+BEFORE INSERT ON cliente
+FOR EACH ROW
+BEGIN
+    IF TIMESTAMPDIFF(YEAR, NEW.nacimiento_cliente, CURDATE()) < 18 OR YEAR(NEW.nacimiento_cliente) < 1950 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El cliente debe tener al menos 18 años y no puede nacer antes de 1950.';
+    END IF;
+END;
+//
+DELIMITER ;
+
+
+ 
 

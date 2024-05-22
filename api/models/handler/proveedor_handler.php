@@ -23,22 +23,6 @@ class ProveedorHandler
     /*
     *   Métodos para gestionar la cuenta del cliente.
     */
-    public function checkUser($mail, $password)
-    {
-        $sql = 'SELECT cliente_id, nombre, apellido, telefono, correo_electronico, direccion
-         contrasena, estado_cliente
-                FROM cliente
-                WHERE correo_electronico = ?';
-        $params = array($mail);
-        $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['contrasena'])) {
-            $this->id = $data['id_cliente'];
-            $this->correo = $data['correo_electronico'];
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public function checkStatus()
     {
@@ -58,17 +42,17 @@ class ProveedorHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT proveedor_id, nombre, telefono, direccion
+        $sql = 'SELECT proveedor_id, nombre_proveedor, telefono_proveedor, direccion_proveedor
                 FROM proveedor
-                WHERE nombre LIKE ? 
-                ORDER BY nombre';
+                WHERE nombre_proveedor LIKE ? 
+                ORDER BY nombre_proveedor';
         $params = array($value);
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO proveedor(nombre, telefono, direccion)
+        $sql = 'INSERT INTO proveedor(nombre_proveedor, telefono_proveedor, direccion_proveedor)
                 VALUES(?, ?, ?)';
         $params = array($this->nombre, $this->telefono, $this->direccion);
         return Database::executeRow($sql, $params);
@@ -76,15 +60,15 @@ class ProveedorHandler
 
     public function readAll()
     {
-        $sql = 'SELECT proveedor_id, nombre, telefono, direccion
+        $sql = 'SELECT proveedor_id, nombre_proveedor, telefono_proveedor, direccion_proveedor
                 FROM proveedor
-                ORDER BY nombre';
+                ORDER BY nombre_proveedor';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT proveedor_id, nombre, telefono, direccion
+        $sql = 'SELECT proveedor_id, nombre_proveedor, telefono_proveedor, direccion_proveedor
                 FROM proveedor
                 WHERE proveedor_id = ?';
         $params = array($this->id);
@@ -94,7 +78,7 @@ class ProveedorHandler
     public function updateRow()
     {
         $sql = 'UPDATE proveedor
-                SET nombre = ?, telefono = ?, direccion = ?
+                SET nombre_proveedor = ?, telefono_proveedor = ?, direccion_proveedor = ?
                 WHERE proveedor_id = ?';
         $params = array($this->nombre, $this->telefono, $this->direccion, $this->id);
         return Database::executeRow($sql, $params);

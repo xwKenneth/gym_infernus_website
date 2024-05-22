@@ -98,13 +98,27 @@ class ClienteData extends ClienteHandler
     public function setNacimiento($value)
     {
         if (Validator::validateDate($value)) {
-            $this->nacimiento = $value;
-            return true;
+            $fechaNacimiento = new DateTime($value);
+            $fechaActual = new DateTime(date("Y-m-d"));
+            $edad = $fechaActual->diff($fechaNacimiento)->y;
+            $clienteNacimiento = $fechaNacimiento->format('Y');
+    
+            if ($edad < 18) {
+                $this->data_error = 'El cliente debe ser mayor de 18 años';
+                return false;
+            } elseif ($clienteNacimiento < 1940) {
+                $this->data_error = 'La fecha de nacimiento no puede ser anterior a 1940';
+                return false;
+            } else {
+                $this->nacimiento = $value;
+                return true;
+            }
         } else {
             $this->data_error = 'La fecha de nacimiento es incorrecta';
             return false;
         }
     }
+    
 
     public function setDireccion($value, $min = 2, $max = 250)
     {

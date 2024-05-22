@@ -62,7 +62,7 @@ class MarcaData extends MarcaHandler
     public function setFilename()
     {
         if ($data = $this->readFilename()) {
-            $this->filename = $data['foto'];
+            $this->filename = $data['imagen_marca'];
             return true;
         } else {
             $this->data_error = 'Marca inexistente';

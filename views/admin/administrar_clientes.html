@@ -49,7 +49,7 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Correo_electronico</th>
+                    <th>Correo</th>
                     <th>DUI</th>
                     <th>Acciones</th>
                 </tr>
@@ -74,28 +74,26 @@
                             <input type="hidden" id="idCliente" name="idCliente">
                             <div class="col-sm-12 col-md-6">
                                 <label for="nombreCliente" class="form-label">Nombre</label>
-                                <input id="nombreCliente" type="text" name="nombreCliente" class="form-control"
+                                <input id="nombreCliente" type="text" name="nombreCliente" class="form-control" placeholder="John"
                                     required>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="apellidoCliente" class="form-label">Apellido</label>
-                                <input id="apellidoCliente" type="text" name="apellidoCliente" class="form-control"
+                                <input id="apellidoCliente" type="text" name="apellidoCliente" class="form-control" placeholder="Doe"
                                     required>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="correoCliente" class="form-label">Correo</label>
-                                <input id="correoCliente" type="email" name="correoCliente" class="form-control"
+                                <input id="correoCliente" type="email" name="correoCliente" class="form-control" placeholder="johndoe@gmail.com"
                                     required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="telefonoCliente" class="form-label">Teléfono</label>
-                                    <input id="telefonoCliente" type="text" name="telefonoCliente" class="form-control"
-                                        required maxlength="9">
-                                    <small id="telefonoHelp" class="form-text text-muted">Ingrese un número de teléfono
-                                        válido (ejemplo: 8986-9899).</small>
+                                <div class="col-sm-12 col-md-6" style="position: relative;">
+                                    <label for="telefonoCliente" class="form-label">Teléfono (+503)</label>
+                                    <input id="telefonoCliente" type="text" name="telefonoCliente" class="form-control" placeholder="xxxx-xxxx"
+                                        required maxlength="9" pattern="[267][0-9]{3}-[0-9]{4}">
                                 </div>
-                            </div>
+                            </div>                                                 
                             <div class="col-sm-12 col-md-6">
                                 <label for="duiCliente" class="form-label">DUI</label>
                                 <input id="duiCliente" type="text" name="duiCliente" class="form-control" required
@@ -110,8 +108,9 @@
                             <div class="col-sm-12 col-md-6">
                                 <label for="direccionCliente" class="form-label">Dirección</label>
                                 <input id="direccionCliente" type="text" name="direccionCliente" class="form-control"
+                                    placeholder="Ej: Calle San Antonio, #23, Col. Santa Lucia, SS"
                                     required>
-                            </div>
+                            </div>                            
                             <div class="col-sm-12 col-md-6">
                                 <label for="claveAdministrador" class="form-label">Contraseña</label>
                                 <input id="claveCliente" type="password" name="claveCliente" class="form-control"

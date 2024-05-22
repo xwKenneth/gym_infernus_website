@@ -92,6 +92,19 @@
                                     step="1" class="form-control" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
+                                <label for="descuentoProducto" class="form-label">Descuento</label>
+                                <div class="input-group">
+                                    <input id="descuentoProducto" type="number" name="descuentoProducto" class="form-control"
+                                    min="0" max="100" step="0.01" value="0" required >
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="fechaDeRegistro" class="form-label">Fecha de registro</label>
+                                <input id="fechaDeRegistro" type="date" name="fechaDeRegistro"
+                                    class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
                                 <label for="categoriaProducto" class="form-label">Categoría</label>
                                 <select id="categoriaProducto" name="categoriaProducto" class="form-select" required>
                                 </select>
@@ -111,6 +124,7 @@
                                 <input id="imagenProducto" type="file" name="imagenProducto" class="form-control"
                                     accept=".png, .jpg">
                             </div>
+                            
                             <div class="form-check form-switch form-check-reverse">
                                 <input class="form-check-input" type="checkbox" id="estadoProducto"
                                     name="estadoProducto" checked>

@@ -102,46 +102,6 @@
           default:
             $result['error'] = 'Acción no disponible dentro de la sesión';
         }
-      } else {
-        // Se compara la acción a realizar cuando el administrador no ha iniciado sesión.
-        switch ($_GET['action']) {
-          case 'readUsers':
-            if ($proveedor->readAll()) {
-              $result['status'] = 1;
-              $result['message'] = 'Debe autenticarse para ingresar';
-            } else {
-              $result['error'] = 'Debe crear un proveedor para comenzar';
-            }
-            break;
-          case 'signUp':
-            $_POST = Validator::validateForm($_POST);
-            if (
-              !$proveedor->setNombre($_POST['nombreAdministrador']) or
-              !$proveedor->setApellido($_POST['apellidoAdministrador']) or
-              !$proveedor->setCorreo($_POST['correoAdministrador'])
-            ) {
-              $result['error'] = $proveedor->getDataError();
-            } elseif ($_POST['claveAdministrador'] != $_POST['confirmarClave']) {
-              $result['error'] = 'Contraseñas diferentes';
-            } elseif ($proveedor->createRow()) {
-              $result['status'] = 1;
-              $result['message'] = 'Proveedor registrado correctamente';
-            } else {
-              $result['error'] = 'Ocurrió un problema al registrar el proveedor';
-            }
-            break;
-          case 'logIn':
-            $_POST = Validator::validateForm($_POST);
-            if ($proveedor->checkUser($_POST['correo'], $_POST['clave'])) {
-              $result['status'] = 1;
-              $result['message'] = 'Autenticación correcta';
-            } else {
-              $result['error'] = 'Credenciales incorrectas';
-            }
-            break;
-          default:
-            $result['error'] = 'Acción no disponible fuera de la sesión';
-        }
       }
       // Se obtiene la excepción del servidor de base de datos por si ocurrió un problema.
       $result['exception'] = Database::getException();

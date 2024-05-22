@@ -72,6 +72,16 @@ class Validator
         }
     }
 
+    public static function validateDiscount($value)
+    {
+        $numericValue = floatval($value);
+        if ($value >= 0 && $value <= 100) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
     public static function validateDateSQL($date)
     {
         // Verificar si la fecha tiene el formato correcto de SQL (YYYY-MM-DD)

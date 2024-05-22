@@ -104,10 +104,10 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td>${row.nombre}</td>
-                    <td>${row.apellido}</td>
-                    <td>${row.correo_electronico}</td>
-                    <td>${row.dui}</td>  
+                    <td>${row.nombre_cliente}</td>
+                    <td>${row.apellido_cliente}</td>
+                    <td>${row.correo_cliente}</td>
+                    <td>${row.dui_cliente}</td>  
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.cliente_id})">  
                             <i class="bi bi-pencil-fill"></i>
@@ -181,13 +181,13 @@ const openUpdate = async (id) => {
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_CLIENTE.value = ROW.cliente_id;
-        NOMBRE_CLIENTE.value = ROW.nombre;
-        APELLIDO_CLIENTE.value = ROW.apellido;
-        CORREO_CLIENTE.value = ROW.correo_electronico;
-        TELEFONO_CLIENTE.value = ROW.telefono;
-        DUI_CLIENTE.value = ROW.dui;
-        NACIMIENTO_CLIENTE.value = ROW.fecha_nacimiento;
-        DIRECCION_CLIENTE.value = ROW.direccion;
+        NOMBRE_CLIENTE.value = ROW.nombre_cliente;
+        APELLIDO_CLIENTE.value = ROW.apellido_cliente;
+        CORREO_CLIENTE.value = ROW.correo_cliente;
+        TELEFONO_CLIENTE.value = ROW.telefono_cliente;
+        DUI_CLIENTE.value = ROW.dui_cliente;
+        NACIMIENTO_CLIENTE.value = ROW.nacimiento_cliente;
+        DIRECCION_CLIENTE.value = ROW.direccion_cliente;
 
     } else {
         sweetAlert(2, DATA.error, false);

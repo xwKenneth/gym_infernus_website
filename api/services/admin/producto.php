@@ -30,12 +30,14 @@ if (isset($_GET['action'])) {
                     !$producto->setNombre($_POST['nombreProducto']) or
                     !$producto->setDescripcion($_POST['descripcionProducto']) or
                     !$producto->setPrecio($_POST['precioProducto']) or
+                    !$producto->setDescuento($_POST['descuentoProducto']) or
                     !$producto->setImagen($_FILES['imagenProducto']) or
+                    !$producto->setExistencias($_POST['existenciasProducto']) or
                     !$producto->setProveedor($_POST['proveedorProducto']) or
                     !$producto->setMarca($_POST['marcaProducto']) or
                     !$producto->setCategoria($_POST['categoriaProducto']) or
-                    !$producto->setExistencias($_POST['existenciasProducto']) or
-                    !$producto->setEstado(isset($_POST['estadoProducto']) ? 1 : 0)
+                    !$producto->setEstado(isset($_POST['estadoProducto']) ? 1 : 0) or 
+                    !$producto->setFechaRegistro($_POST["fechaDeRegistro"])
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->createRow()) {
@@ -79,13 +81,15 @@ if (isset($_GET['action'])) {
                     !$producto->setNombre($_POST['nombreProducto']) or
                     !$producto->setDescripcion($_POST['descripcionProducto']) or
                     !$producto->setPrecio($_POST['precioProducto']) or
+                    !$producto->setDescuento($_POST['descuentoProducto']) or
                     !$producto->setFilename() or
                     !$producto->setImagen($_FILES['imagenProducto'], $producto->getFilename()) or
+                    !$producto->setExistencias($_POST['existenciasProducto']) or
                     !$producto->setProveedor($_POST['proveedorProducto']) or
                     !$producto->setMarca($_POST['marcaProducto']) or
                     !$producto->setCategoria($_POST['categoriaProducto']) or
-                    !$producto->setExistencias($_POST['existenciasProducto']) or
-                    !$producto->setEstado(isset($_POST['estadoProducto']) ? 1 : 0)
+                    !$producto->setEstado(isset($_POST['estadoProducto']) ? 1 : 0) or
+                    !$producto->setFechaRegistro($_POST["fechaDeRegistro"])
                 ) {
                     $result['error'] = $producto->getDataError();
                 } elseif ($producto->updateRow()) {

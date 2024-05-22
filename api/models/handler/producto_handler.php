@@ -19,6 +19,8 @@ class ProductoHandler
     protected $imagen = null;
     protected $categoria = null;
     protected $estado = null;
+    protected $descuento = null;
+    protected $fecha_registro = null;
 
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
@@ -29,12 +31,12 @@ class ProductoHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT producto.producto_id, producto.nombre AS nombre_producto, descripcion, precio, producto.foto, proveedor.nombre AS nombre_proveedor, marcas.nombre AS nombre_marca, categoria.nombre AS nombre_categoria, existencias, estado
+        $sql = 'SELECT producto.producto_id, nombre_producto, descripcion_producto, precio_producto, imagen_producto, nombre_proveedor, nombre_marca, nombre_categoria, existencias_producto, estado_producto
                FROM producto
                INNER JOIN categoria USING(categoria_id)
                 INNER JOIN proveedor USING(proveedor_id)
-                INNER JOIN marcas USING(marca_id)
-                WHERE producto.nombre LIKE ? 
+                INNER JOIN marca USING(marca_id)
+                WHERE nombre_producto LIKE ? 
                 ORDER BY nombre_producto';
         $params = array($value);
         return Database::getRows($sql, $params);
@@ -42,29 +44,34 @@ class ProductoHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO producto(nombre, descripcion, precio, foto, proveedor_id, marca_id, categoria_id, existencias, estado)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO producto(nombre_producto, descripcion_producto, precio_producto, 
+        descuento_producto, imagen_producto, existencias_producto, proveedor_id, marca_id, 
+        categoria_id, estado_producto, fecha_registro)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array(
-            $this->nombre, $this->descripcion, $this->precio, $this->imagen, $this->proveedor, $this->marca,
-            $this->categoria,  $this->existencias, $this->estado
+            $this->nombre, $this->descripcion, $this->precio, $this->descuento, $this->imagen, 
+            $this->existencias, $this->proveedor, $this->marca,
+            $this->categoria,  $this->estado, $this->fecha_registro
         );
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT producto.producto_id, producto.nombre AS nombre_producto, descripcion, precio, producto.foto, proveedor.nombre AS nombre_proveedor, marcas.nombre AS nombre_marca, categoria.nombre AS nombre_categoria, existencias, estado
-        FROM producto
-        INNER JOIN categoria USING(categoria_id)
-        INNER JOIN proveedor USING(proveedor_id)
-        INNER JOIN marcas USING(marca_id)
-        ORDER BY producto.nombre';
+        $sql = 'SELECT producto_id, nombre_producto, descripcion_producto, precio_producto, descuento_producto, imagen_producto, 
+        existencias_producto, nombre_proveedor, nombre_marca, nombre_categoria, estado_producto, estado_producto, fecha_registro
+       FROM producto
+       INNER JOIN categoria USING(categoria_id)
+       INNER JOIN proveedor USING(proveedor_id)
+       INNER JOIN marca USING(marca_id)
+       ORDER BY nombre_producto';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT producto_id, nombre, descripcion, precio, foto, proveedor_id, marca_id, categoria_id, existencias, estado
+        $sql = 'SELECT producto_id, nombre_producto, descripcion_producto, precio_producto, descuento_producto, imagen_producto, 
+        existencias_producto, proveedor_id, marca_id, categoria_id, estado_producto, estado_producto, fecha_registro
                 FROM producto
                 WHERE producto_id = ?';
         $params = array($this->id);
@@ -73,7 +80,7 @@ class ProductoHandler
 
     public function readFilename()
     {
-        $sql = 'SELECT foto
+        $sql = 'SELECT imagen_producto
                 FROM producto
                 WHERE producto_id = ?';
         $params = array($this->id);
@@ -83,15 +90,17 @@ class ProductoHandler
     public function updateRow()
     {
         $sql = 'UPDATE producto
-                SET nombre = ?, descripcion = ?, precio = ?, foto = ?, proveedor_id = ?, marca_id = ?, categoria_id =?,
-                existencias= ?, estado= ?
+                SET nombre_producto = ?, descripcion_producto = ?, precio_producto = ?, descuento_producto = ?, imagen_producto = ?, 
+                existencias_producto = ?, proveedor_id = ?, marca_id = ?, categoria_id = ?, estado_producto = ?, fecha_registro = ?
                 WHERE producto_id = ?';
         $params = array(
-            $this->nombre, $this->descripcion, $this->precio, $this->imagen, $this->proveedor, $this->marca,  $this->categoria,
-            $this->existencias, $this->estado, $this->id
+            $this->nombre, $this->descripcion, $this->precio, $this->descuento, $this->imagen, $this->existencias,
+            $this->proveedor, $this->marca, $this->categoria, $this->estado, $this->fecha_registro, $this->id
         );
         return Database::executeRow($sql, $params);
     }
+    
+    
 
     public function deleteRow()
     {
@@ -103,7 +112,7 @@ class ProductoHandler
 
     public function getProductos()
     {
-        $sql = "SELECT producto_id, CONCAT_WS(' ', producto.producto_id, producto.nombre) AS `producto_nombre` FROM producto";
+        $sql = "SELECT producto_id, CONCAT_WS(' ', producto.producto_id, nombre_producto) AS `producto_nombre` FROM producto";
         return Database::getRows($sql);
     }
 

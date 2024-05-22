@@ -23,17 +23,17 @@ class MarcaHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT marca_id, nombre, foto
-                FROM marcas
-                WHERE nombre LIKE ? 
-                ORDER BY nombre';
+        $sql = 'SELECT marca_id, nombre_marca, imagen_marca
+                FROM marca
+                WHERE nombre_marca LIKE ? 
+                ORDER BY nombre_marca';
         $params = array($value);
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO marcas(nombre, foto)
+        $sql = 'INSERT INTO marca(nombre_marca, imagen_marca)
                 VALUES(?, ?)';
         $params = array($this->nombre, $this->imagen);
         return Database::executeRow($sql, $params);
@@ -41,16 +41,16 @@ class MarcaHandler
 
     public function readAll()
     {
-        $sql = 'SELECT marca_id, nombre, foto
-                FROM marcas
-                ORDER BY nombre';
+        $sql = 'SELECT marca_id, nombre_marca, imagen_marca
+                FROM marca
+                ORDER BY nombre_marca';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT foto, nombre, marca_id
-                FROM marcas
+        $sql = 'SELECT imagen_marca, nombre_marca, marca_id
+                FROM marca
                 WHERE marca_id = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
@@ -58,8 +58,8 @@ class MarcaHandler
 
     public function readFilename()
     {
-        $sql = 'SELECT foto
-                FROM marcas
+        $sql = 'SELECT imagen_marca
+                FROM marca
                 WHERE marca_id = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
@@ -67,8 +67,8 @@ class MarcaHandler
 
     public function updateRow()
     {
-        $sql = 'UPDATE marcas
-                SET foto = ?, nombre = ?
+        $sql = 'UPDATE marca
+                SET imagen_marca = ?, nombre_marca = ?
                 WHERE marca_id = ?';
         $params = array($this->imagen, $this->nombre, $this->id);
         return Database::executeRow($sql, $params);
@@ -76,7 +76,7 @@ class MarcaHandler
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM marcas
+        $sql = 'DELETE FROM marca
                 WHERE marca_id = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);

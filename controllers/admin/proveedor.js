@@ -16,9 +16,7 @@ const SAVE_FORM = document.getElementById('saveForm'),
     TELEFONO_PROVEEDOR = document.getElementById('telefonoProveedor'),
 DIRECCION_PROVEEDOR = document.getElementById('direccionProveedor');
 
-const telefonoInput = document.getElementById('telefonoProveedor');
-
-telefonoInput.addEventListener('input', function (event) {
+TELEFONO_PROVEEDOR.addEventListener('input', function (event) {
     let value = event.target.value;
 
     value = value.replace(/-/g, '');
@@ -29,6 +27,8 @@ telefonoInput.addEventListener('input', function (event) {
 
     event.target.value = value;
 });
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     loadTemplate();
     MAIN_TITLE.textContent = 'Gestionar proveedores';
@@ -61,7 +61,7 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     const DATA = await fetchData(PROVEEDOR_API, action, FORM);
 
     // Log the server response
-    console.log('Respuesta del servidor:', DATA);
+  //  console.log('Respuesta del servidor:', DATA);
 
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
@@ -100,9 +100,9 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td>${row.nombre}</td>
-                    <td>${row.telefono}</td>
-                    <td>${row.direccion}</td>
+                    <td>${row.nombre_proveedor}</td>
+                    <td>${row.telefono_proveedor}</td>
+                    <td>${row.direccion_proveedor}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.proveedor_id})">
                             <i class="bi bi-pencil-fill"></i>
@@ -157,9 +157,9 @@ const openUpdate = async (id) => {
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_PROVEEDOR.value = ROW.proveedor_id;
-        NOMBRE_PROVEEDOR.value = ROW.nombre;
-        TELEFONO_PROVEEDOR.value = ROW.telefono;
-        DIRECCION_PROVEEDOR.value = ROW.direccion;
+        NOMBRE_PROVEEDOR.value = ROW.nombre_proveedor;
+        TELEFONO_PROVEEDOR.value = ROW.telefono_proveedor;
+        DIRECCION_PROVEEDOR.value = ROW.direccion_proveedor;
 
     } else {
         sweetAlert(2, DATA.error, false);

@@ -1,6 +1,5 @@
-// venta.js
 // Constante para completar la ruta de la API.
-const VENTA_API = 'services/admin/venta.php';
+const VENTA_API = 'services/admin/pedido.php';
 const CLIENTE_API = 'services/admin/cliente.php';
 // Constante para establecer el formulario de buscar.
 const SEARCH_FORM = document.getElementById('searchForm');

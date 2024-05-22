@@ -12,7 +12,8 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
 const SAVE_FORM = document.getElementById('saveForm'),
     ID_CATEGORIA = document.getElementById('idCategoria'),
     NOMBRE_CATEGORIA = document.getElementById('nombreCategoria'),
-    IMAGEN_CATEGORIA = document.getElementById('imagenCategoria');
+    IMAGEN_CATEGORIA = document.getElementById('imagenCategoria'),
+    DESCUENTO_CATEGORIA = document.getElementById('descuentoCategoria');
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,6 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Llamada a la función para llenar la tabla con los registros existentes.
     fillTable();
 });
+
+function controlDigitos(input, maxLength) {
+    if (input.value.length > maxLength) {
+        input.value = input.value.slice(0, maxLength);
+    } else if (input.value < 0) {
+        input.value = 0;
+    } else if (input.value > 100) {
+        input.value = 100;
+    }
+}
+
 
 // Método del evento para cuando se envía el formulario de buscar.
 SEARCH_FORM.addEventListener('submit', (event) => {
@@ -77,8 +89,9 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td><img src="${SERVER_URL}images/categorias/${row.foto}" height="90"></td>
-                    <td>${row.nombre}</td>
+                    <td><img src="${SERVER_URL}images/categorias/${row.imagen_categoria}" height="90"></td>
+                    <td>${row.nombre_categoria}</td>
+                    <td>${row.descuento_categoria}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.categoria_id})">
                             <i class="bi bi-pencil-fill"></i>
@@ -134,7 +147,8 @@ const openUpdate = async (id) => {
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
         ID_CATEGORIA.value = ROW.categoria_id;
-        NOMBRE_CATEGORIA.value = ROW.nombre;
+        NOMBRE_CATEGORIA.value = ROW.nombre_categoria;
+        DESCUENTO_CATEGORIA.value = ROW.descuento_categoria
     } else {
         sweetAlert(2, DATA.error, false);
     }

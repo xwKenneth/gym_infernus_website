@@ -78,6 +78,17 @@ class ProductoData extends ProductoHandler
         }
     }
 
+    public function setDescuento($value)
+    {
+        if (!Validator::validateDiscount($value)) {
+            $this->descuento = $value;
+            return true;
+        } else  {
+            $this->data_error = 'El descuento debe ser menor a 100 y no puede ser un número negativo';
+            return false;
+        } 
+    }
+
     public function setImagen($file, $filename = null)
     {
         if (Validator::validateImageFile($file, 1000)) {
@@ -127,6 +138,20 @@ class ProductoData extends ProductoHandler
             return false;
         }
     }
+    
+    public function setFechaRegistro($value)
+    {
+        // Validar el formato de la fecha
+        $date = date('Y-m-d', strtotime($value));
+        if ($date && $date == $value) {
+            $this->fecha_registro = $date;
+            return true;
+        } else {
+            $this->data_error = 'Fecha inválida';
+            return false;
+        }
+    }
+
     public function setEstado($value)
     {
         if (Validator::validateBoolean($value)) {
@@ -141,7 +166,7 @@ class ProductoData extends ProductoHandler
     public function setFilename()
     {
         if ($data = $this->readFilename()) {
-            $this->filename = $data['foto'];
+            $this->filename = $data['imagen_producto'];
             return true;
         } else {
             $this->data_error = 'Producto inexistente';

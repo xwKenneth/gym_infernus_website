@@ -28,12 +28,13 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 if (
                     !$categoria->setNombre($_POST['nombreCategoria']) or
+                    !$categoria->setDescuento($_POST['descuentoCategoria'])  or
                     !$categoria->setImagen($_FILES['imagenCategoria'])
                 ) {
                     $result['error'] = $categoria->getDataError();
                 } elseif ($categoria->createRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Categoría creada correctamente';
+                    $result['message'] = 'Categoría creada correctamente';    
                     // Se asigna el estado del archivo después de insertar.
                     $result['fileStatus'] = Validator::saveFile($_FILES['imagenCategoria'], $categoria::RUTA_IMAGEN);
                 } else {
@@ -63,6 +64,7 @@ if (isset($_GET['action'])) {
                     !$categoria->setId($_POST['idCategoria']) or
                     !$categoria->setFilename() or
                     !$categoria->setNombre($_POST['nombreCategoria']) or
+                    !$categoria->setDescuento($_POST['descuentoCategoria']) or
                     !$categoria->setImagen($_FILES['imagenCategoria'], $categoria->getFilename())
                 ) {
                     $result['error'] = $categoria->getDataError();

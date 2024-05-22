@@ -11,6 +11,7 @@ class CategoriaHandler
      */
     protected $id = null;
     protected $nombre = null;
+    protected $descuento = null;
     protected $descripcion = null;
     protected $imagen = null;
 
@@ -23,33 +24,34 @@ class CategoriaHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT categoria_id, nombre, foto
+        $sql = 'SELECT categoria_id, nombre_categoria, descuento_categoria, imagen_categoria
                 FROM categoria
-                WHERE nombre LIKE ? 
-                ORDER BY nombre';
+                WHERE nombre_categoria LIKE ? 
+                ORDER BY nombre_categoria';
         $params = array($value);
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO categoria(nombre, foto)
-                VALUES(?, ?)';
-        $params = array($this->nombre, $this->imagen);
+        $sql = 'INSERT INTO categoria(nombre_categoria, descuento_categoria, imagen_categoria)
+                VALUES(?, ?, ?)';
+        $params = array($this->nombre, $this->descuento, $this->imagen);
+        
         return Database::executeRow($sql, $params);
     }
 
     public function readAll()
     {
-        $sql = 'SELECT categoria_id, nombre, foto
+        $sql = 'SELECT categoria_id, nombre_categoria, descuento_categoria, imagen_categoria
                 FROM categoria
-                ORDER BY nombre';
+                ORDER BY nombre_categoria';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT foto, nombre, categoria_id
+        $sql = 'SELECT imagen_categoria, nombre_categoria, descuento_categoria, categoria_id
                 FROM categoria
                 WHERE categoria_id = ?';
         $params = array($this->id);
@@ -58,7 +60,7 @@ class CategoriaHandler
 
     public function readFilename()
     {
-        $sql = 'SELECT foto
+        $sql = 'SELECT imagen_categoria
                 FROM categoria
                 WHERE categoria_id = ?';
         $params = array($this->id);
@@ -68,9 +70,9 @@ class CategoriaHandler
     public function updateRow()
     {
         $sql = 'UPDATE categoria
-                SET foto = ?, nombre = ?
+                SET imagen_categoria = ?, nombre_categoria = ?, descuento_categoria = ?
                 WHERE categoria_id = ?';
-        $params = array($this->imagen, $this->nombre, $this->id);
+        $params = array($this->imagen, $this->nombre, $this->descuento, $this->id);
         return Database::executeRow($sql, $params);
     }
 

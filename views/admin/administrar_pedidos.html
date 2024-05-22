@@ -15,7 +15,7 @@
 
 <body>
     <main>
-        <h3 id="mainTitle">Ventas</h3>
+        <h3 id="mainTitle">Pedidos</h3>
         <div class="row">
             <form class="col-sm-12 col-md-6" id="searchForm">
                 <div class="row">
@@ -46,12 +46,13 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="4" id="rowsFound"></td>
+                    <td colspan="5" id="rowsFound"></td>
                 </tr>
                 <tr>
                     <th>Fecha</th>
-                    <th>Total</th>
                     <th>Cliente</th>
+                    <th>Direccion</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -102,7 +103,7 @@
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
     <script src="../../controllers/utils/admin.js"></script>
-    <script src="../../controllers/admin/venta.js"></script>
+    <script src="../../controllers/admin/pedido.js"></script>
 </body>
 
 </html>

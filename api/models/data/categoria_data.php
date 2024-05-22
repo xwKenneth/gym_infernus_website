@@ -28,6 +28,17 @@ class CategoriaData extends CategoriaHandler
         }
     }
 
+    public function setDescuento($value)
+    {
+        if (!Validator::validateDiscount($value)) {
+            $this->descuento = $value;
+            return true;
+        } else  {
+            $this->data_error = 'El descuento debe ser menor a 100 y no puede ser un número negativo';
+            return false;
+        } 
+    }
+ 
     public function setNombre($value, $min = 2, $max = 50)
     {
         if (!Validator::validateAlphanumeric($value)) {
@@ -78,7 +89,7 @@ class CategoriaData extends CategoriaHandler
     public function setFilename()
     {
         if ($data = $this->readFilename()) {
-            $this->filename = $data['foto'];
+            $this->filename = $data['imagen_categoria'];
             return true;
         } else {
             $this->data_error = 'Categoría inexistente';

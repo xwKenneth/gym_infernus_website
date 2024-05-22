@@ -54,17 +54,17 @@ const loadTemplate = async () => {
                                     <a class="nav-link" href="../../views/admin/administrar_empleados.html"><i class="bi bi-people"></i> Empleados</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../../views/admin/administrar_empleados.html"><i class="bi bi-shield-shaded"></i> Cuenta: Admin</a>
+                                    <a class="nav-link"><i class="bi bi-shield-shaded"></i> Cuenta: Admin</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                         aria-expanded="false"><i class="bi bi-three-dots"></i> Más<b></b></a>
                                     <ul class="dropdown-menu" style="background-color: rgb(249 96 96 / 80%);">
-                                        <li><a class="dropdown-item" href="../../views/admin/administrar_venta.html"><img src="../../resources/img/icons/ventas.png" width="20"> Venta</a></li>
+                                        <li><a class="dropdown-item" href="../../views/admin/administrar_pedidos.html"><img src="../../resources/img/icons/ventas.png" width="20"> Pedido</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="../../views/admin/administrar_detalle_venta.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Venta</a></li>
+                                        <li><a class="dropdown-item" href="../../views/admin/administrar_detalle_venta.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Pedido</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
