@@ -19,7 +19,7 @@
             <form class="col-sm-12 col-md-6" id="searchForm">
                 <div class="row">
                     <div class="col-6">
-                        <input type="search" class="form-control" name="search" required>
+                        <input type="search" class="form-control" name="search" placeholder="Buscar por producto"  required>
                     </div>
                     <div class="col-6">
                         <button type="submit" class="btn btn-success">
@@ -71,36 +71,31 @@
                         <form id="saveForm">
                             <div class="modal-body row g-3">
                                 <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                                <input type="hidden" id="idDetalleVenta" name="idDetalleVenta">
+                                <input type="hidden" id="idDetallePedido" name="idDetallePedido">
                                 <div class="col-sm-12 col-md-6">
-                                    <label for="ventaDetalleV" class="form-label">Venta</label>
-                                    <select id="ventaDetalleV" name="ventaDetalleV" class="form-select" required>
+                                    <label for="pedidoDetalleP" class="form-label">Pedido</label>
+                                    <select id="pedidoDetalleP" name="pedidoDetalleP" class="form-select" required>
                                     </select>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <label for="productoDetalleV" class="form-label">Producto</label>
-                                    <select id="productoDetalleV" name="productoDetalleV" class="form-select" required>
+                                    <label for="productoDetalleP" class="form-label">Producto</label>
+                                    <select id="productoDetalleP" name="productoDetalleP" class="form-select" required>
                                     </select>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <label for="cantidadDetalleV" class="form-label">Cantidad</label>
-                                    <input id="cantidadDetalleV" type="number" name="cantidadDetalleV" min="0.01"
+                                    <label for="cantidadDetalleP" class="form-label">Cantidad</label>
+                                    <input id="cantidadDetalleP" type="number" name="cantidadDetalleP" min="0.01"
                                         step="0.01" class="form-control" required>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <label for="direccionDetalleV">Dirección</label>
-                                    <input type="text" class="form-control" name="direccionDetalleV"
-                                        id="direccionDetalleV" required>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="subtotalDetalleV" class="form-label">Subototal</label>
-                                    <input id="subtotalDetalleV" type="number" name="subtotalDetalleV" min="0.01"
+                                    <label for="precioUnitarioDetalleP" class="form-label">Precio Unitario</label>
+                                    <input id="precioUnitarioDetalleP" type="number" name="precioUnitarioDetalleP" min="0.01"
                                         step="0.01" class="form-control" required>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <label for="descuentoDetalleV" class="form-label">Descuento</label>
-                                    <input id="descuentoDetalleV" type="number" name="descuentoDetalleV" min="0.01"
-                                        step="0.01" class="form-control">
+                                    <label for="subtotalDetalleP" class="form-label">Subototal</label>
+                                    <input id="subtotalDetalleP" type="number" name="subtotalDetalleP" min="0.01"
+                                        step="0.01" class="form-control" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -117,7 +112,7 @@
     <script src="../../resources/js/sweetalert.min.js"></script>
     <script src="../../controllers/utils/components.js"></script>
     <script src="../../controllers/utils/admin.js"></script>
-    <script src="../../controllers/admin/detalle_venta.js"></script>
+    <script src="../../controllers/admin/detalle_pedido.js"></script>
 </body>
 
 </html>

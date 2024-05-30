@@ -74,19 +74,24 @@
                     <form id="saveForm">
                         <div class="modal-body row g-3">
                             <!-- Campo oculto para asignar el id del registro al momento de modificar -->
-                            <input type="hidden" id="idVenta" name="idVenta">
+                            <input type="number" class="d-none" id="idPedido" name="idPedido">
                             <div class="col-sm-12 col-md-6">
-                                <label for="fechaVenta" class="form-label">Fecha de venta</label>
-                                <input id="fechaVenta" type="date" name="fechaVenta" class="form-control" required>
+                                <label for="clientePedido" class="form-label">Cliente</label>
+                                <select id="clientePedido" name="clientePedido" class="form-select" required>
+                                </select>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="totalVenta" class="form-label">Total (US$)</label>
-                                <input id="totalVenta" type="number" name="totalVenta" min="0.01" step="0.01"
-                                    class="form-control" required>
+                                <label for="direccionPedido" class="form-label">Dirección</label>
+                                <input id="direccionPedido" type="text" name="direccionPedido" class="form-control"
+                                    placeholder="Ej: Calle San Antonio, #23, Col. Santa Lucia, SS" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="clienteVenta" class="form-label">Cliente</label>
-                                <select id="clienteVenta" name="clienteVenta" class="form-select" required>
+                                <label for="fechaPedido" class="form-label">Fecha de registro</label>
+                                <input id="fechaPedido" type="date" name="fechaPedido" class="form-control" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="estadoPedido" class="form-label">Estado</label>
+                                <select id="estadoPedido" name="estadoPedido" class="form-select" required>
                                 </select>
                             </div>
                         </div>

@@ -60,27 +60,27 @@ const loadTemplate = async () => {
                                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                         aria-expanded="false"><i class="bi bi-three-dots"></i> Más<b></b></a>
                                     <ul class="dropdown-menu" style="background-color: rgb(249 96 96 / 80%);">
-                                        <li><a class="dropdown-item" href="../../views/admin/administrar_pedidos.html"><img src="../../resources/img/icons/ventas.png" width="20"> Pedido</a></li>
+                                        <li><a class="dropdown-item" href="../../views/admin/administrar_pedidos.html"><i class="bi bi-clipboard2-check"></i> Pedido</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="../../views/admin/administrar_detalle_venta.html" onclick="logOut()" ><img src="../../resources/img/icons/informacion.png" width="20"> Detalle Pedido</a></li>
+                                        <li><a class="dropdown-item" href="../../views/admin/administrar_detalle_pedido.html" onclick="logOut()" ><i class="bi bi-info-circle"></i> Detalle Pedido</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="../../views/admin/administrar_valoracion.html" onclick=""><img src="../../resources/img/icons/valoracion.png" width="20"> Valoración</a></li>
+                                        <li><a class="dropdown-item" href="../../views/admin/administrar_valoracion.html" onclick=""><i class="bi bi-chat-dots-fill"></i> Valoración</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="../../views/admin/administrar_marcas.html" onclick=""><img src="../../resources/img/icons/marca.png"  width="20"> Marca</a></li>
+                                        <li><a class="dropdown-item" href="../../views/admin/administrar_marcas.html" onclick=""><i class="bi bi-award"></i> Marca</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="../../views/admin/administrar_proveedores.html" onclick=""><img src="../../resources/img/icons/proveedor.png" width="20"> Proveedor</a></li>
+                                        <li><a class="dropdown-item" href="../../views/admin/administrar_proveedores.html" onclick=""><i class="bi bi-truck"></i> Proveedor</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="javascript:;" onclick="logOut()"><img src="../../resources/img/icons/logout.png" width="20"> Cerrar Sesión</a></li>
+                                        <li><a class="dropdown-item" href="javascript:;" onclick="logOut()"><i class="bi bi-box-arrow-in-right"></i> Cerrar Sesión</a></li>
                                     </ul>
                                 </li>
                             </ul>

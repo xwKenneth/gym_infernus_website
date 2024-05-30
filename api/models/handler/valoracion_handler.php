@@ -23,14 +23,14 @@ class ValoracionHandler
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT valoracion_id, producto.nombre AS "producto_nombre",  
-        CONCAT_WS(" ",cliente.nombre, cliente.apellido) AS "nombre_cliente", 
+        $sql = 'SELECT valoracion_id, cliente_id, producto_id, nombre_producto,  
+        CONCAT_WS(" ",nombre_cliente, apellido_cliente) AS "nombre_cliente", 
         calificacion ,comentario, fecha_valoracion
         FROM valoracion 
-		INNER JOIN cliente USING(cliente_id)
+		  INNER JOIN cliente USING(cliente_id)
 		INNER JOIN producto USING(producto_id)
-        WHERE producto.nombre LIKE ? OR cliente.nombre LIKE ?';
-        $params = array($value, $value);
+        WHERE nombre_cliente LIKE ?';
+        $params = array($value);
         return Database::getRows($sql, $params);
     }
 
@@ -45,8 +45,8 @@ class ValoracionHandler
 
     public function readAll()
     {
-        $sql = 'SELECT valoracion_id, producto.nombre AS "producto_nombre",  
-        CONCAT_WS(" ",cliente.nombre, cliente.apellido) AS "nombre_cliente", 
+        $sql = 'SELECT valoracion_id, nombre_producto,  
+        CONCAT_WS(" ", nombre_cliente, apellido_cliente) AS "nombre_cliente", 
         calificacion ,comentario, fecha_valoracion
         FROM valoracion 
 		  INNER JOIN cliente USING(cliente_id)
@@ -56,8 +56,8 @@ class ValoracionHandler
 
     public function readOne()
     {
-        $sql = 'SELECT valoracion_id, cliente_id, producto_id, producto.nombre AS "producto_nombre",  
-        CONCAT_WS(" ",cliente.nombre, cliente.apellido) AS "nombre_cliente", 
+        $sql = 'SELECT valoracion_id, cliente_id, producto_id, nombre_producto,  
+        CONCAT_WS(" ",nombre_cliente, apellido_cliente) AS "nombre_cliente", 
         calificacion ,comentario, fecha_valoracion
         FROM valoracion 
 		  INNER JOIN cliente USING(cliente_id)

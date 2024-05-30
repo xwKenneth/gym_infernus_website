@@ -81,7 +81,7 @@ const fillTable = async (form = null) => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td>${row.producto_nombre}</td>
+                    <td>${row.nombre_producto}</td>
                     <td>${row.nombre_cliente}</td>
                     <td>${row.calificacion}</td>
                     <td>${row.comentario}</td>
@@ -116,7 +116,9 @@ const openCreate = () => {
     SAVE_FORM.reset();
     fillSelect(CLIENTE_API, 'getClientes', 'clienteValoracion');
     fillSelect(PRODUCTO_API, 'getProductos', 'productoValoracion');
-
+    const fechaActual = new Date();
+    const fechaFormateada = fechaActual.toISOString().split('T')[0];
+    FECHA_VALORACION.value = fechaFormateada;
 }
 
 /*

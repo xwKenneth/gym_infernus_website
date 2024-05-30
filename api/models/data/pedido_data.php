@@ -14,6 +14,8 @@ class PedidoData extends PedidoHandler
     private $data_error = null;
     private $filename = null;
 
+    const ESTADOS = array(array('Pendiente', 'Pendiente'), array('Finalizado', 'Finalizado'), array('Entregado', 'Entregado'), array('Anulado', 'Anulado'));
+
     /*
      *   Métodos para validar y establecer los datos.
      */
@@ -118,6 +120,33 @@ class PedidoData extends PedidoHandler
         }
     }
 
+    public function setDireccion($value, $min = 2, $max = 250)
+    {
+        if (!Validator::validateString($value)) {
+            $this->data_error = 'La dirección contiene caracteres prohibidos';
+            return false;
+        } elseif (Validator::validateLength($value, $min, $max)) {
+            $this->direccion = $value;
+            return true;
+        } else {
+            $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        }
+    }
+
+    public function setEstado($value)
+    {
+        // Valida que el valor esté dentro de las opciones permitidas
+        $allowedValues = ['Pendiente', 'Finalizado', 'Entregado', 'Anulado'];
+        if (!in_array($value, $allowedValues)) {
+            $this->data_error = 'El estado del pedido no es válido';
+            return false;
+        }
+
+        $this->estado = $value;
+        return true;
+    }
+
     // Nuevo método para establecer la fecha de la venta
     public function setFechaVenta($value)
     {
@@ -164,15 +193,10 @@ class PedidoData extends PedidoHandler
             return false;
         }
     }
-    public function setEstado($value)
+
+    public function getEstados()
     {
-        if (Validator::validateBoolean($value)) {
-            $this->estado = $value;
-            return true;
-        } else {
-            $this->data_error = 'Estado incorrecto';
-            return false;
-        }
+        return self::ESTADOS;
     }
 
     public function setFilename()

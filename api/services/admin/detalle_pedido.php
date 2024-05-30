@@ -1,6 +1,6 @@
 <?php
 // Se incluye la clase del modelo.
-require_once('../../models/data/detalle_venta_data.php');
+require_once('../../models/data/detalle_pedido_data.php');
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -32,10 +32,11 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 // Validar los datos y procesar la creación de la venta
                 if (
-                    !$venta->setVentaId($_POST['ventaDetalleV']) or
-                    !$venta->setProductoId($_POST['productoDetalleV']) or
-                    !$venta->setCantidad($_POST['cantidadDetalleV']) or
-                    !$venta->setDireccion($_POST['direccionDetalleV'])
+                    !$venta->setPedidoId($_POST['pedidoDetalleP']) or
+                    !$venta->setProductoId($_POST['productoDetalleP']) or
+                    !$venta->setCantidad($_POST['cantidadDetalleP']) or
+                    !$venta->setPrecio($_POST['precioUnitarioDetalleP']) or 
+                    !$venta->setSubTotal($_POST['subtotalDetalleP']) 
                 ) {
                     // Error de validación
                     $result['error'] = $venta->getDataError();
@@ -59,7 +60,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
             case 'readOne':
-                if (!$venta->setId($_POST['idDetalleVenta'])) {
+                if (!$venta->setId($_POST['idDetallePedido'])) {
                     $result['error'] = $venta->getDataError();
                 } elseif ($result['dataset'] = $venta->readOne()) {
                     $result['status'] = 1;
@@ -70,30 +71,31 @@ if (isset($_GET['action'])) {
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$venta->setVentaId($_POST['ventaDetalleV']) or
-                    !$venta->setProductoId($_POST['productoDetalleV']) or
-                    !$venta->setCantidad($_POST['cantidadDetalleV']) or
-                    !$venta->setDireccion($_POST['direccionDetalleV']) or
-                    !$venta->setId($_POST['idDetalleVenta'])
+                !$venta->setPedidoId($_POST['pedidoDetalleP']) or
+                !$venta->setProductoId($_POST['productoDetalleP']) or
+                !$venta->setCantidad($_POST['cantidadDetalleP']) or
+                !$venta->setPrecio($_POST['precioUnitarioDetalleP']) or 
+                !$venta->setSubTotal($_POST['subtotalDetalleP']) or
+                !$venta->setId($_POST['idDetallePedido'])
                 ) {
                     $result['error'] = $venta->getDataError();
                 } elseif ($venta->updateRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Detalle de la venta modificada correctamente';
+                    $result['message'] = 'Detalle del pedido modificado correctamente';
                 } else {
                     $result['error'] = 'Ocurrió un problema al modificar la venta';
                 }
                 break;
             case 'deleteRow':
                 if (
-                    !$venta->setId($_POST['idDetalleVenta'])
+                    !$venta->setId($_POST['idDetallePedido'])
                 ) {
                     $result['error'] = $venta->getDataError();
                 } elseif ($venta->deleteRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Detalle de la venta eliminada correctamente';
+                    $result['message'] = 'Detalle de pedido eliminado correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al eliminar el detalle de la venta';
+                    $result['error'] = 'Ocurrió un problema al eliminar el detalle del pedido';
                 }
                 break;
             case 'cantidadProductosCategoria':

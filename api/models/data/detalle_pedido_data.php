@@ -2,7 +2,7 @@
 // Se incluye la clase para validar los datos de entrada.
 require_once('../../helpers/validator.php');
 // Se incluye la clase padre.
-require_once('../../models/handler/detalle_venta_handler.php');
+require_once('../../models/handler/detalle_pedido_handler.php');
 /*
  *	Clase para manejar el encapsulamiento de los datos de la tabla PRODUCTO.
  */
@@ -28,13 +28,13 @@ class DetalleVentaData extends DetalleVentaHandler
         }
     }
 
-    public function setVentaId($value)
+    public function setPedidoId($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->venta = $value;
+            $this->pedido = $value;
             return true;
         } else {
-            $this->data_error = 'El identificador de la venta es incorrecto';
+            $this->data_error = 'El identificador del pedido es incorrecto';
             return false;
         }
     }
@@ -56,7 +56,7 @@ class DetalleVentaData extends DetalleVentaHandler
             $this->data_error = 'El nombre debe ser un valor alfanumérico';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->nombre = $value;
+      //      $this->nombre = $value;
             return true;
         } else {
             $this->data_error = 'El nombre debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -70,7 +70,7 @@ class DetalleVentaData extends DetalleVentaHandler
             $this->data_error = 'La descripción contiene caracteres prohibidos';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->descripcion = $value;
+      //      $this->descripcion = $value;
             return true;
         } else {
             $this->data_error = 'La descripción debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -89,6 +89,16 @@ class DetalleVentaData extends DetalleVentaHandler
         }
     }
 
+    public function setSubTotal($value)
+    {
+        if (Validator::validateMoney($value)) {
+            $this->subtotal = $value;
+            return true;
+        } else {
+            $this->data_error = 'El precio debe ser un valor numérico';
+            return false;
+        }
+    }
     public function setCantidad($value)
     {
         if (Validator::validateMoney($value)) {
@@ -106,7 +116,7 @@ class DetalleVentaData extends DetalleVentaHandler
             $this->data_error = 'La dirección contiene caracteres prohibidos';
             return false;
         } elseif (Validator::validateLength($value, $min, $max)) {
-            $this->direccion = $value;
+       //     $this->direccion = $value;
             return true;
         } else {
             $this->data_error = 'La dirección debe tener una longitud entre ' . $min . ' y ' . $max;
@@ -117,7 +127,7 @@ class DetalleVentaData extends DetalleVentaHandler
     public function setExistencias($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->existencias = $value;
+        //    $this->existencias = $value;
             return true;
         } else {
             $this->data_error = 'El valor de las existencias debe ser numérico entero';
@@ -128,16 +138,16 @@ class DetalleVentaData extends DetalleVentaHandler
     public function setImagen($file, $filename = null)
     {
         if (Validator::validateImageFile($file, 1000)) {
-            $this->imagen = Validator::getFileName();
+         //   $this->imagen = Validator::getFileName();
             return true;
         } elseif (Validator::getFileError()) {
             $this->data_error = Validator::getFileError();
             return false;
         } elseif ($filename) {
-            $this->imagen = $filename;
+        //    $this->imagen = $filename;
             return true;
         } else {
-            $this->imagen = 'default.png';
+       //     $this->imagen = 'default.png';
             return true;
         }
     }
@@ -148,7 +158,7 @@ class DetalleVentaData extends DetalleVentaHandler
         // Validar el formato de la fecha
         $date = date('Y-m-d', strtotime($value));
         if ($date && $date == $value) {
-            $this->fecha = $date;
+        //    $this->fecha = $date;
             return true;
         } else {
             $this->data_error = 'Fecha inválida';
@@ -159,7 +169,7 @@ class DetalleVentaData extends DetalleVentaHandler
     public function setCategoria($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->categoria = $value;
+       //     $this->categoria = $value;
             return true;
         } else {
             $this->data_error = 'El identificador de la categoría es incorrecto';
@@ -170,7 +180,7 @@ class DetalleVentaData extends DetalleVentaHandler
     public function setProveedor($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->proveedor = $value;
+        //    $this->proveedor = $value;
             return true;
         } else {
             $this->data_error = 'El identificador de el proveedor es incorrecto';
@@ -181,7 +191,7 @@ class DetalleVentaData extends DetalleVentaHandler
     public function setMarca($value)
     {
         if (Validator::validateNaturalNumber($value)) {
-            $this->marca = $value;
+         //   $this->marca = $value;
             return true;
         } else {
             $this->data_error = 'El identificador de la marca es incorrecto';
@@ -191,7 +201,7 @@ class DetalleVentaData extends DetalleVentaHandler
     public function setEstado($value)
     {
         if (Validator::validateBoolean($value)) {
-            $this->estado = $value;
+         //   $this->estado = $value;
             return true;
         } else {
             $this->data_error = 'Estado incorrecto';

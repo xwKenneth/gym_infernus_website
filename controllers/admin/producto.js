@@ -86,10 +86,8 @@ const fillTable = async (form = null) => {
         // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
             // Se establece un icono para el estado del producto.
-            // icon = (row.estado == 1) ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill';
+             icon = (row.estado_producto == 1) ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill';
 
-            (row.estado) ? icon = 'bi bi-eye-fill' : icon = 'bi bi-eye-slash-fill';
-            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
                     <td><img src="${SERVER_URL}images/productos/${row.imagen_producto}" height="50"></td>
@@ -97,7 +95,7 @@ const fillTable = async (form = null) => {
                     <td>${row.precio_producto}</td>
                     <td>${row.nombre_categoria}</td>
                     <td>${row.existencias_producto}</td>                          
-                    <td><i class="${icon}"></i></td>
+                    <td><i class="${icon}" style="color: black;"></i></td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.producto_id})">
                             <i class="bi bi-pencil-fill"></i>

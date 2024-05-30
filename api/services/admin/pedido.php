@@ -41,9 +41,11 @@ if (isset($_GET['action'])) {
 
                 // Validar los datos y procesar la creación de la venta
                 if (
-                    !$pedido->setFechaVenta($_POST['fechaVenta']) or
-                    !$pedido->setTotalVenta($_POST['totalVenta']) or
-                    !$pedido->setCliente($_POST['clienteVenta'])
+                    !$pedido->setCliente($_POST['clientePedido']) or
+                    !$pedido->setDireccion($_POST['direccionPedido']) or
+                    !$pedido->setEstado($_POST['estadoPedido']) or
+                    !$pedido->setFechaVenta($_POST['fechaPedido'])
+
                 ) {
                     // Error de validación
                     $result['error'] = $pedido->getDataError();
@@ -51,11 +53,11 @@ if (isset($_GET['action'])) {
                 } elseif ($pedido->createRow()) {
                     // Venta creada correctamente
                     $result['status'] = 1;
-                    $result['message'] = 'Venta creada correctamente';
+                    $result['message'] = 'Pedido creada correctamente';
                 } else {
                     // Error general al crear la venta
-                    $result['error'] = 'Ocurrió un problema al crear la venta';
-                    error_log('Error al crear la venta: Ocurrió un problema al crear la venta');
+                    $result['error'] = 'Ocurrió un problema al crear el pedido';
+                    error_log('Error al crear la venta: Ocurrió un problema al crear el pedido');
                 }
                 break;
             case 'readAll':
@@ -63,37 +65,39 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
-                    $result['error'] = 'No existen ventas registradas';
+                    $result['error'] = 'No existen pedidos registradas';
                 }
                 break;
             case 'readOne':
-                if (!$pedido->setId($_POST['idVenta'])) {
+                if (!$pedido->setId($_POST['idPedido'])) {
                     $result['error'] = $pedido->getDataError();
                 } elseif ($result['dataset'] = $pedido->readOne()) {
                     $result['status'] = 1;
                 } else {
-                    $result['error'] = 'Venta inexistente';
+                    $result['error'] = 'Pedido inexistente';
                 }
                 break;
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$pedido->setFechaVenta($_POST['fechaVenta']) or
-                    !$pedido->setTotalVenta($_POST['totalVenta']) or
-                    !$pedido->setCliente($_POST['clienteVenta']) or
-                    !$pedido->setId($_POST['idVenta'])
+
+                    !$pedido->setCliente($_POST['clientePedido']) or
+                    !$pedido->setDireccion($_POST['direccionPedido']) or
+                    !$pedido->setEstado($_POST['estadoPedido']) or
+                    !$pedido->setFechaVenta($_POST['fechaPedido']) or
+                    !$pedido->setId($_POST['idPedido'])
                 ) {
                     $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->updateRow()) {
                     $result['status'] = 1;
-                    $result['message'] = 'Venta modificada correctamente';
+                    $result['message'] = 'Pedido modificado correctamente';
                 } else {
-                    $result['error'] = 'Ocurrió un problema al modificar la venta';
+                    $result['error'] = 'Ocurrió un problema al modificar el pedido';
                 }
                 break;
             case 'deleteRow':
                 if (
-                    !$pedido->setId($_POST['idVenta'])
+                    !$pedido->setId($_POST['idPedido'])
                 ) {
                     $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->deleteRow()) {
@@ -103,6 +107,14 @@ if (isset($_GET['action'])) {
                     $result['fileStatus'] = Validator::deleteFile($pedido::RUTA_IMAGEN, $pedido->getFilename());
                 } else {
                     $result['error'] = 'Ocurrió un problema al eliminar el producto';
+                }
+                break;
+            case 'getEstado':
+                if ($result['dataset'] = $pedido->getEstado()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existe ningun estado de pedido';
                 }
                 break;
             case 'cantidadProductosCategoria':
@@ -117,6 +129,13 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                 } else {
                     $result['error'] = 'No hay datos disponibles';
+                }
+                break;
+            case 'getEstados':
+                if ($result['dataset'] = $pedido->getEstados()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'No existen estados registrados';
                 }
                 break;
             default:

@@ -1,7 +1,7 @@
 // venta.js
 // Constante para completar la ruta de la API.
-const DETALLE_VENTA_API = 'services/admin/detalle_venta.php';
-const VENTA_API = 'services/admin/venta.php';
+const DETALLE_PEDIDO_API = 'services/admin/detalle_pedido.php';
+const PEDIDO_API = 'services/admin/pedido.php';
 const CLIENTE_API = 'services/admin/cliente.php';
 const PRODUCTO_API = 'services/admin/producto.php';
 // Constante para establecer el formulario de buscar.
@@ -14,18 +14,16 @@ const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
     MODAL_TITLE = document.getElementById('modalTitle');
 // Constantes para establecer los elementos del formulario de guardar.
 const SAVE_FORM = document.getElementById('saveForm'),
-    ID_DETALLE_V = document.getElementById('idDetalleVenta'),
-    VENTA_DETALLE_V = document.getElementById('ventaDetalleV'),
-    PRODUCTO_DETALLE_V = document.getElementById('productoDetalleV'),
-    CANTIDAD_DETALLE_V = document.getElementById('cantidadDetalleV'),
-    SUBTOTAL_DETALLE_V = document.getElementById('subtotalDetalleV'),
-    DESCUENTO_DETALLE_V = document.getElementById('descuentoDetalleV'),
-    ESTADO_DETALLE_V = document.getElementById('estadoDetalleV'),
-    DIRECCION_DETALLE_V = document.getElementById('direccionDetalleV');
+    ID_DETALLE_P = document.getElementById('idDetallePedido'),
+    PEDIDO_DETALLE_P = document.getElementById('pedidoDetalleP'),
+    PRODUCTO_DETALLE_P = document.getElementById('productoDetalleP'),
+    CANTIDAD_DETALLE_P = document.getElementById('cantidadDetalleP'),
+    SUBTOTAL_DETALLE_P = document.getElementById('subtotalDetalleP'),
+    PRECIO_UNITARIO_DETALLE_P = document.getElementById('precioUnitarioDetalleP');
 
 document.addEventListener('DOMContentLoaded', async () => {
     loadTemplate();
-    MAIN_TITLE.textContent = 'Gestionar detalle venta';
+    MAIN_TITLE.textContent = 'Gestionar detalle pedido';
     await fillTable();
 
 });
@@ -47,11 +45,11 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Se verifica la acción a realizar.
-    (ID_DETALLE_V.value) ? action = 'updateRow' : action = 'createRow';
+    (ID_DETALLE_P.value) ? action = 'updateRow' : action = 'createRow';
     // Constante tipo objeto con los datos del formulario.
     const FORM = new FormData(SAVE_FORM);
     // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(DETALLE_VENTA_API, action, FORM);
+    const DATA = await fetchData(DETALLE_PEDIDO_API, action, FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se cierra la caja de diálogo.
@@ -77,7 +75,7 @@ const fillTable = async (form = null) => {
     // Se verifica la acción a realizar.
     (form) ? action = 'searchRows' : action = 'readAll';
     // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(DETALLE_VENTA_API, action, form);
+    const DATA = await fetchData(DETALLE_PEDIDO_API, action, form);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se recorre el conjunto de registros fila por fila.
@@ -88,14 +86,14 @@ const fillTable = async (form = null) => {
                     <td>${row.nombre_cliente}</td>
                     <td>${row.nombre_producto}</td>
                     <td>${row.cantidad}</td>
-                    <td>${row.precio_unitario}</td>
+                    <td>${row.precio_producto}</td>
                     <td>${row.subtotal}</td>
-                    <td>${row.direccion_cliente}</td>
+                    <td>${row.direccion_pedido}</td>
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.detalle_venta_id})">
+                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.detalle_pedido_id})">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.detalle_venta_id})">
+                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.detalle_pedido_id})">
                             <i class="bi bi-trash3"></i>
                         </button>
                     </td>
@@ -111,19 +109,18 @@ const fillTable = async (form = null) => {
 }
 
 // Función para preparar el formulario al momento de insertar un registro.
-const openCreate = () => {
+const openCreate = async (id) => {
 
     // Se muestra la caja de diálogo con su título.
     SAVE_MODAL.show();
     // Se coloca el título para el formulario.
-    MODAL_TITLE.textContent = 'Agregar un detalle de venta';
+    MODAL_TITLE.textContent = 'Agregar un detalle de pedido';
     // Se restauran los elementos del formulario.
 
     SAVE_FORM.reset();
-    fillSelect(VENTA_API, 'readAll', 'ventaDetalleV');
-    fillSelect(PRODUCTO_API, 'getProductos', 'productoDetalleV');
-    SUBTOTAL_DETALLE_V.disabled = true;
-    DESCUENTO_DETALLE_V.disabled = true;
+    fillSelect(PEDIDO_API, 'readAll', 'pedidoDetalleP');
+    fillSelect(PRODUCTO_API, 'getProductos', 'productoDetalleP');
+ 
 }
 
 /*
@@ -134,25 +131,25 @@ const openCreate = () => {
 const openUpdate = async (id) => {
     // Se define una constante tipo objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('idDetalleVenta', id);
+    FORM.append('idDetallePedido', id);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(DETALLE_VENTA_API, 'readOne', FORM);
+    const DATA = await fetchData(DETALLE_PEDIDO_API, 'readOne', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
         SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar detalle venta';
+        MODAL_TITLE.textContent = 'Actualizar detalle pedido';
         // Se prepara el formulario.
         SAVE_FORM.reset();
         // Se inicializan los campos con los datos.
         const ROW = DATA.dataset;
-        ID_DETALLE_V.value = ROW.detalle_venta_id;
-        fillSelect(VENTA_API, 'readAll', 'ventaDetalleV', ROW.venta_id);
-        fillSelect(PRODUCTO_API, 'getProductos', 'productoDetalleV', ROW.producto_id);
-        CANTIDAD_DETALLE_V.value = ROW.cantidad
-        DIRECCION_DETALLE_V.value = ROW.direccion_cliente;
-        SUBTOTAL_DETALLE_V.disabled = true;
-        DESCUENTO_DETALLE_V.disabled = true;
+        ID_DETALLE_P.value = ROW.detalle_pedido_id;
+
+        fillSelect(PEDIDO_API, 'readAll', 'pedidoDetalleP', ROW.pedido_id);
+        fillSelect(PRODUCTO_API, 'getProductos', 'productoDetalleP', ROW.producto_id);
+        CANTIDAD_DETALLE_P.value = ROW.cantidad;
+        SUBTOTAL_DETALLE_P.value = ROW.subtotal;
+        PRECIO_UNITARIO_DETALLE_P.value = ROW.precio_producto;
     } else {
         sweetAlert(2, DATA.error, false);
     }
@@ -170,9 +167,9 @@ const openDelete = async (id) => {
     if (RESPONSE) {
         // Se define una constante tipo objeto con los datos del registro seleccionado.
         const FORM = new FormData();
-        FORM.append('idDetalleVenta', id);
+        FORM.append('idDetallePedido', id);
         // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(DETALLE_VENTA_API, 'deleteRow', FORM);
+        const DATA = await fetchData(DETALLE_PEDIDO_API, 'deleteRow', FORM);
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
             // Se muestra un mensaje de éxito.

@@ -10,80 +10,64 @@ class DetalleVentaHandler
     *   Declaración de atributos para el manejo de datos.
     */
     protected $id = null;
-    protected $nombre = null;
-    protected $descripcion = null;
-    protected $precio = null;
-    protected $existencias = null;
-    protected $proveedor = null;
-    protected $marca = null;
-    protected $imagen = null;
-    protected $categoria = null;
-    protected $estado = null;
-    protected $fecha = null;
-    protected $total = null;
-    protected $cliente = null;
-
-    protected $venta = null;
+    protected $pedido = null;
     protected $producto = null;
-    protected $cantidad  = null;
-    protected $direccion = null;
-
-
-
-
+    protected $cantidad = null;
+    protected $precio = null;
+    protected $subtotal = null;
 
     public function searchRows()
     {
         $value = '%' . Validator::getSearchValue() . '%';
-        $sql = 'SELECT detalle_venta_id, ventas.cliente_id, cliente.nombre AS nombre_cliente, producto.nombre AS nombre_producto, cantidad, 
-        precio_unitario, subtotal, descuento, direccion_cliente
-        FROM detalle_ventas
-        INNER JOIN ventas ON detalle_ventas.venta_id = ventas.venta_id
-        INNER JOIN producto ON detalle_ventas.producto_id = producto.producto_id
-        INNER JOIN cliente ON ventas.cliente_id = cliente.cliente_id;
-        WHERE producto.nombre LIKE ? OR cliente.nombre LIKE ?';
+        $sql = 'SELECT detalle_pedido_id, pedido.cliente_id,  nombre_cliente, nombre_producto, cantidad, 
+        detalle_pedido.precio_producto, subtotal, direccion_pedido, detalle_pedido.pedido_id, detalle_pedido.producto_id
+        FROM detalle_pedido
+        INNER JOIN pedido ON detalle_pedido.pedido_id = pedido.pedido_id
+        INNER JOIN producto ON detalle_pedido.producto_id = producto.producto_id
+        INNER JOIN cliente ON pedido.cliente_id = cliente.cliente_id
+        WHERE nombre_producto LIKE ? OR nombre_cliente LIKE ?';
         $params = array($value, $value);
         return Database::getRows($sql, $params);
     }
 
     public function createRow()
     {
-        $sql = 'INSERT INTO detalle_ventas(venta_id, producto_id, cantidad, direccion_cliente)
-                VALUES(?, ?, ?, ?)';
+        $sql = 'INSERT INTO detalle_pedido(pedido_id, producto_id, cantidad, precio_producto, subtotal)
+                VALUES(?, ?, ?, ?, ?)';
 
-        $params = array($this->venta, $this->producto, $this->cantidad, $this->direccion);
+        $params = array($this->pedido, $this->producto, $this->cantidad, $this->precio, $this->subtotal);
         return Database::executeRow($sql, $params);
     }
 
 
     public function readAll()
     {
-        $sql = 'SELECT detalle_venta_id, ventas.cliente_id, cliente.nombre AS nombre_cliente, producto.nombre AS nombre_producto, cantidad, 
-        precio_unitario, subtotal, descuento, direccion_cliente
-        FROM detalle_ventas
-        INNER JOIN ventas ON detalle_ventas.venta_id = ventas.venta_id
-        INNER JOIN producto ON detalle_ventas.producto_id = producto.producto_id
-        INNER JOIN cliente ON ventas.cliente_id = cliente.cliente_id;
+        $sql = 'SELECT detalle_pedido_id, pedido.cliente_id,  nombre_cliente, nombre_producto, cantidad, 
+        detalle_pedido.precio_producto, subtotal, direccion_pedido
+        FROM detalle_pedido
+        INNER JOIN pedido ON detalle_pedido.pedido_id = pedido.pedido_id
+        INNER JOIN producto ON detalle_pedido.producto_id = producto.producto_id
+        INNER JOIN cliente ON pedido.cliente_id = cliente.cliente_id;
         ';
         return Database::getRows($sql);
     }
 
     public function readOne()
     {
-        $sql = 'SELECT detalle_venta_id, ventas.cliente_id, cliente.nombre AS nombre_cliente, producto.nombre AS nombre_producto, cantidad, 
-        precio_unitario, subtotal, descuento, direccion_cliente
-        FROM detalle_ventas
-        INNER JOIN ventas ON detalle_ventas.venta_id = ventas.venta_id
-        INNER JOIN producto ON detalle_ventas.producto_id = producto.producto_id
-        INNER JOIN cliente ON ventas.cliente_id = cliente.cliente_id;
-                WHERE detalle_venta_id = ?';
+        $sql = 'SELECT detalle_pedido_id, pedido.cliente_id,  nombre_cliente, nombre_producto, cantidad, 
+        detalle_pedido.precio_producto, subtotal, direccion_pedido, detalle_pedido.pedido_id, detalle_pedido.producto_id
+        FROM detalle_pedido
+        INNER JOIN pedido ON detalle_pedido.pedido_id = pedido.pedido_id
+        INNER JOIN producto ON detalle_pedido.producto_id = producto.producto_id
+        INNER JOIN cliente ON pedido.cliente_id = cliente.cliente_id
+                WHERE detalle_pedido_id = ?';
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
 
     public function readFilename()
     {
-        $sql = 'SELECT foto
+        $sql = 'SELECT imagen_producto
                 FROM producto
                 WHERE producto_id = ?';
         $params = array($this->id);
@@ -92,22 +76,23 @@ class DetalleVentaHandler
 
     public function updateRow()
     {
-        $sql = 'UPDATE detalle_ventas
-                SET producto_id = ?, cantidad = ?, direccion_cliente = ?
-                WHERE detalle_venta_id = ?';
+        $sql = 'UPDATE detalle_pedido
+                SET pedido_id = ?, producto_id = ?, cantidad = ?, precio_producto = ?, subtotal = ?
+                WHERE detalle_pedido_id = ?';
         $params = array(
-            $this->producto, $this->cantidad, $this->direccion, $this->id
+           $this->pedido, $this->producto, $this->cantidad, $this->precio, $this->subtotal ,$this->id
         );
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM detalle_ventas
-                WHERE detalle_venta_id = ?';
+        $sql = 'DELETE FROM detalle_pedido
+                WHERE detalle_pedido_id = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+    /*
 
     public function readProductosCategoria()
     {
@@ -119,7 +104,7 @@ class DetalleVentaHandler
         $params = array($this->categoria);
         return Database::getRows($sql, $params);
     }
-
+*/
     /*
     *   Métodos para generar gráficos.
     */
@@ -144,6 +129,7 @@ class DetalleVentaHandler
     /*
     *   Métodos para generar reportes.
     */
+    /*
     public function productosCategoria()
     {
         $sql = 'SELECT nombre_producto, precio_producto, estado_producto
@@ -154,4 +140,5 @@ class DetalleVentaHandler
         $params = array($this->categoria);
         return Database::getRows($sql, $params);
     }
+    */
 }
