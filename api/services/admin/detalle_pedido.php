@@ -32,11 +32,9 @@ if (isset($_GET['action'])) {
                 $_POST = Validator::validateForm($_POST);
                 // Validar los datos y procesar la creación de la venta
                 if (
-                    !$venta->setPedidoId($_POST['pedidoDetalleP']) or
+                    !$venta->setPedidoId($_POST['idPedidoCRUD']) or
                     !$venta->setProductoId($_POST['productoDetalleP']) or
-                    !$venta->setCantidad($_POST['cantidadDetalleP']) or
-                    !$venta->setPrecio($_POST['precioUnitarioDetalleP']) or 
-                    !$venta->setSubTotal($_POST['subtotalDetalleP']) 
+                    !$venta->setCantidad($_POST['cantidadDetalleP'])
                 ) {
                     // Error de validación
                     $result['error'] = $venta->getDataError();
@@ -51,12 +49,21 @@ if (isset($_GET['action'])) {
                     error_log('Error al crear la venta: Ocurrió un problema al crear la venta');
                 }
                 break;
-            case 'readAll':
+                /*     case 'readAll':
                 if ($result['dataset'] = $venta->readAll()) {
                     $result['status'] = 1;
                     $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
                 } else {
                     $result['error'] = 'No existen detalles de ventas registradas';
+                }
+                break;*/
+            case 'readAll':
+                if (!$venta->setPedidoId($_POST['idPedidoCRUD'])) {
+                    $result['error'] = $venta->getDataError();
+                } elseif ($result['dataset'] = $venta->readAll()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'Detalle de ventas inexistente';
                 }
                 break;
             case 'readOne':
@@ -71,12 +78,9 @@ if (isset($_GET['action'])) {
             case 'updateRow':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                !$venta->setPedidoId($_POST['pedidoDetalleP']) or
-                !$venta->setProductoId($_POST['productoDetalleP']) or
-                !$venta->setCantidad($_POST['cantidadDetalleP']) or
-                !$venta->setPrecio($_POST['precioUnitarioDetalleP']) or 
-                !$venta->setSubTotal($_POST['subtotalDetalleP']) or
-                !$venta->setId($_POST['idDetallePedido'])
+                    !$venta->setProductoId($_POST['productoDetalleP']) or
+                    !$venta->setCantidad($_POST['cantidadDetalleP']) or
+                    !$venta->setId($_POST['idDetallePedido'])
                 ) {
                     $result['error'] = $venta->getDataError();
                 } elseif ($venta->updateRow()) {

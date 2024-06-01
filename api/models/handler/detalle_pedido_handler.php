@@ -32,10 +32,10 @@ class DetalleVentaHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO detalle_pedido(pedido_id, producto_id, cantidad, precio_producto, subtotal)
-                VALUES(?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO detalle_pedido(pedido_id, producto_id, cantidad)
+                VALUES(?, ?, ?)';
 
-        $params = array($this->pedido, $this->producto, $this->cantidad, $this->precio, $this->subtotal);
+        $params = array($this->pedido, $this->producto, $this->cantidad);
         return Database::executeRow($sql, $params);
     }
 
@@ -43,19 +43,20 @@ class DetalleVentaHandler
     public function readAll()
     {
         $sql = 'SELECT detalle_pedido_id, pedido.cliente_id,  nombre_cliente, nombre_producto, cantidad, 
-        detalle_pedido.precio_producto, subtotal, direccion_pedido
+        detalle_pedido.precio_producto, subtotal, direccion_pedido, pedido.pedido_id AS pedido_id
         FROM detalle_pedido
         INNER JOIN pedido ON detalle_pedido.pedido_id = pedido.pedido_id
         INNER JOIN producto ON detalle_pedido.producto_id = producto.producto_id
-        INNER JOIN cliente ON pedido.cliente_id = cliente.cliente_id;
+        INNER JOIN cliente ON pedido.cliente_id = cliente.cliente_id WHERE pedido.pedido_id = ?
         ';
-        return Database::getRows($sql);
+        $params = array($this->pedido);
+        return Database::getRows($sql, $params);
     }
 
     public function readOne()
     {
         $sql = 'SELECT detalle_pedido_id, pedido.cliente_id,  nombre_cliente, nombre_producto, cantidad, 
-        detalle_pedido.precio_producto, subtotal, direccion_pedido, detalle_pedido.pedido_id, detalle_pedido.producto_id
+        detalle_pedido.precio_producto, subtotal, direccion_pedido, pedido.pedido_id AS pedido_id, detalle_pedido.producto_id
         FROM detalle_pedido
         INNER JOIN pedido ON detalle_pedido.pedido_id = pedido.pedido_id
         INNER JOIN producto ON detalle_pedido.producto_id = producto.producto_id
@@ -77,10 +78,10 @@ class DetalleVentaHandler
     public function updateRow()
     {
         $sql = 'UPDATE detalle_pedido
-                SET pedido_id = ?, producto_id = ?, cantidad = ?, precio_producto = ?, subtotal = ?
+                SET producto_id = ?, cantidad = ?
                 WHERE detalle_pedido_id = ?';
         $params = array(
-           $this->pedido, $this->producto, $this->cantidad, $this->precio, $this->subtotal ,$this->id
+           $this->producto, $this->cantidad,$this->id
         );
         return Database::executeRow($sql, $params);
     }

@@ -86,8 +86,8 @@ const fillTable = async (form = null) => {
                     <td>${row.nombre_cliente}</td>
                     <td>${row.nombre_producto}</td>
                     <td>${row.cantidad}</td>
-                    <td>${row.precio_producto}</td>
-                    <td>${row.subtotal}</td>
+                    <td>$${row.precio_producto}</td>
+                    <td>$${row.subtotal}</td>
                     <td>${row.direccion_pedido}</td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.detalle_pedido_id})">

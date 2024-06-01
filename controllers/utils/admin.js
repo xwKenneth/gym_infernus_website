@@ -64,7 +64,6 @@ const loadTemplate = async () => {
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="../../views/admin/administrar_detalle_pedido.html" onclick="logOut()" ><i class="bi bi-info-circle"></i> Detalle Pedido</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>

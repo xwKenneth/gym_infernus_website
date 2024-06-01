@@ -112,7 +112,7 @@ class ProductoHandler
 
     public function getProductos()
     {
-        $sql = "SELECT producto_id, CONCAT_WS(' ', producto.producto_id, nombre_producto) AS `producto_nombre` FROM producto";
+        $sql = "SELECT producto_id, nombre_producto FROM producto";
         return Database::getRows($sql);
     }
 
