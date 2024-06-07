@@ -24,8 +24,7 @@ const loadTemplate = async () => {
     // Petición para obtener en nombre del usuario que ha iniciado sesión.
     const DATA = await fetchData(USER_API, 'getUser');
     // Se comprueba si el usuario está autenticado para establecer el encabezado respectivo.
-    if (DATA && DATA.session) {
-
+    if (DATA.session) {
         // Se verifica si la página web no es el inicio de sesión, de lo contrario se direcciona a la página web principal.
         if (!location.pathname.endsWith('login.html')) {
             // Se agrega el encabezado de la página web antes del contenido principal.
@@ -39,7 +38,7 @@ const loadTemplate = async () => {
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                                 <div class="navbar-nav ms-auto">
-                                    <a class="nav-link" href="index.html"><i class="bi bi-shop"></i> Catálogo</a>
+                                    <a class="nav-link" href="clasificacion.html"><i class="bi bi-shop"></i> Catálogo</a>
                                     <a class="nav-link" href="carrito.html"><i class="bi bi-cart"></i> Carrito</a>
                                     <a class="nav-link" href="#" onclick="logOut()"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a>
                                 </div>
@@ -95,18 +94,18 @@ const loadTemplate = async () => {
 </footer>
 `);
 
-    // Call the toggleFooterVisibility function to initially hide the footer
-    toggleFooterVisibility();
+    //ocultar el pie de pagina al cargar la pagina
+  //  toggleFooterVisibility();
 
 }
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
     // Llamada a la función para mostrar el encabezado y pie del documento.
-    loadTemplate();
+    //loadTemplate();
 
     // Event listener for scroll event to toggle footer visibility
-    window.addEventListener('scroll', toggleFooterVisibility);
+ //   window.addEventListener('scroll', toggleFooterVisibility);
 });
 
 // Function to toggle footer visibility based on scroll position

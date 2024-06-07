@@ -93,6 +93,15 @@ class DetalleVentaHandler
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    public function validarExistencias()
+    {
+        $sql = 'SELECT existencias_producto
+                FROM producto
+                WHERE producto_id = ?';
+        $params = array($this->producto);
+        return Database::getRow($sql, $params);
+    }
     /*
 
     public function readProductosCategoria()

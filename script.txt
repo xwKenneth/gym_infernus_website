@@ -17,10 +17,6 @@ CREATE TABLE empleado (
     CONSTRAINT fk_cargo_empleado FOREIGN KEY (cargo_id) REFERENCES cargo(cargo_id)
 );
 
- 
-INSERT INTO empleado(nombre_empleado, apellido_empleado, correo_empleado, clave_empleado) 
-VALUES('Carlos','Belcast','carlos@infernus.com','12345678')
-
 CREATE TABLE cliente (
     cliente_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_cliente VARCHAR(100) NOT NULL,
@@ -46,14 +42,16 @@ CREATE TABLE marca (
     nombre_marca VARCHAR(100) UNIQUE NOT NULL,
     imagen_marca VARCHAR(255) NOT NULL
 );
-SELECT * FROM categoria
+INSERT INTO categoria(nombre_categoria, descuento_categoria, imagen_categoria)
+                VALUES('badddd', '12', 'null')
+SELECT * FROM producto
 CREATE TABLE categoria (
     categoria_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_categoria VARCHAR(100) UNIQUE NOT NULL,
     descuento_categoria DECIMAL(5, 2) DEFAULT 0 CHECK (descuento_categoria >= 0 AND descuento_categoria <= 100),
     imagen_categoria VARCHAR(255) NOT NULL
 );
-
+ 
 CREATE TABLE producto (
     producto_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_producto VARCHAR(100) UNIQUE NOT NULL,
@@ -65,7 +63,7 @@ CREATE TABLE producto (
     proveedor_id INT,
     marca_id INT,
     categoria_id INT,
-    estado_producto tinyint(1),
+    estado_producto TINYINT(1) NOT NULL,
     fecha_registro date NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     CONSTRAINT fk_proveedor_producto FOREIGN KEY (proveedor_id) REFERENCES proveedor(proveedor_id),
     CONSTRAINT fk_marca_producto FOREIGN KEY (marca_id) REFERENCES marca(marca_id),
@@ -73,7 +71,8 @@ CREATE TABLE producto (
     CONSTRAINT chk_precio_positive CHECK (precio_producto >= 0),
     CONSTRAINT chk_existencias_positive CHECK (existencias_producto >= 0)
 );
-  
+
+
 CREATE TABLE pedido (
     pedido_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     cliente_id INT,
@@ -94,6 +93,14 @@ CREATE TABLE valoracion (
     CONSTRAINT fk_cliente_valoracion FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
 );
 
+ 
+SELECT detalle_pedido_id, pedido.cliente_id,  nombre_cliente, nombre_producto, cantidad, 
+        detalle_pedido.precio_producto, subtotal, direccion_pedido, pedido.pedido_id AS pedido_id
+        FROM detalle_pedido
+        INNER JOIN pedido ON detalle_pedido.pedido_id = pedido.pedido_id
+        INNER JOIN producto ON detalle_pedido.producto_id = producto.producto_id
+        INNER JOIN cliente ON pedido.cliente_id = cliente.cliente_id WHERE pedido.pedido_id = 1
+
 CREATE TABLE detalle_pedido (
     detalle_pedido_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     pedido_id INT,
@@ -104,8 +111,7 @@ CREATE TABLE detalle_pedido (
     CONSTRAINT fk_pedido_detalle FOREIGN KEY (pedido_id) REFERENCES pedido(pedido_id),
     CONSTRAINT fk_producto_detalle FOREIGN KEY (producto_id) REFERENCES producto(producto_id)
 );  
-
-
+ 
 INSERT INTO cargo
 VALUES
 (1, 'Administrador'),
@@ -165,6 +171,53 @@ END;
 //
 DELIMITER ;
 
+/*Trigger 4*/
+DELIMITER //
+CREATE TRIGGER validar_existencias
+BEFORE INSERT ON detalle_pedido
+FOR EACH ROW
+BEGIN
+    DECLARE existencias INT;
+    
+    -- Obtener las existencias del producto
+    SELECT existencias_producto INTO existencias FROM producto WHERE producto_id = NEW.producto_id;
+    
+    -- Validar que la cantidad a insertar no sobrepase las existencias
+    IF NEW.cantidad > existencias THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede agregar más productos al pedido debido a que sobrepasa la cantidad de existencias del producto.';
+    END IF;
+END;
+//
+DELIMITER ;
 
- 
+/* Trigger 5 */
+/*Actualizar la cantidad de existencias en productos */
+DELIMITER //
+CREATE TRIGGER actualizar_existencias
+AFTER UPDATE ON pedido
+FOR EACH ROW
+BEGIN
+    DECLARE cantidad_pedido INT;
+    DECLARE producto_id_pedido INT;
+
+    IF NEW.estado_pedido = 'Entregado' AND OLD.estado_pedido != 'Entregado' THEN
+    
+        SELECT producto_id, cantidad INTO producto_id_pedido, cantidad_pedido FROM detalle_pedido WHERE pedido_id = NEW.pedido_id;
+      
+        UPDATE producto SET existencias_producto = existencias_producto - cantidad_pedido WHERE producto_id = producto_id_pedido;
+    END IF;
+END;
+//
+DELIMITER ;
+
+
+/*Saber si el cliente ha comprado un producto para valorarlo*/
+
+ SELECT cl.nombre_cliente, cl.apellido_cliente, pr.nombre_producto, pe.pedido_id
+FROM cliente cl
+JOIN pedido pe ON cl.cliente_id = pe.cliente_id
+JOIN detalle_pedido dp ON pe.pedido_id = dp.pedido_id
+JOIN producto pr ON dp.producto_id = pr.producto_id
+WHERE cl.cliente_id = 1
+
 

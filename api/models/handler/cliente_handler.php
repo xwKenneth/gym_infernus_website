@@ -25,15 +25,15 @@ class ClienteHandler
     */
     public function checkUser($mail, $password)
     {
-        $sql = 'SELECT cliente_id, nombre, apellido, telefono, correo_electronico, direccion
-         contrasena, estado_cliente
+        $sql = 'SELECT cliente_id, correo_cliente, clave_cliente, estado_cliente
                 FROM cliente
-                WHERE correo_electronico = ?';
+                WHERE correo_cliente = ?';
         $params = array($mail);
         $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['contrasena'])) {
-            $this->id = $data['id_cliente'];
-            $this->correo = $data['correo_electronico'];
+        if (password_verify($password, $data['clave_cliente'])) {
+            $this->id = $data['cliente_id'];
+            $this->correo = $data['correo_cliente'];
+            $this->estado = $data['estado_cliente'];
             return true;
         } else {
             return false;
@@ -43,8 +43,8 @@ class ClienteHandler
     public function checkStatus()
     {
         if ($this->estado) {
-            $_SESSION['cliente_id'] = $this->id;
-            $_SESSION['correo_electronico'] = $this->correo;
+            $_SESSION['idCliente'] = $this->id;
+            $_SESSION['correoCliente'] = $this->correo;
             return true;
         } else {
             return false;

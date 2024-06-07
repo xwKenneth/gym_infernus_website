@@ -64,9 +64,6 @@ const loadTemplate = async () => {
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
                                         <li><a class="dropdown-item" href="../../views/admin/administrar_valoracion.html" onclick=""><i class="bi bi-chat-dots-fill"></i> Valoración</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
