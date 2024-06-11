@@ -14,7 +14,7 @@ MAIN.classList.add('container');
 document.querySelector('title').textContent = 'InfernusGym - Shop';
 // Constante para establecer el elemento del título principal.
 const MAIN_TITLE = document.getElementById('mainTitle');
-MAIN_TITLE.classList.add('text-center', 'py-3');
+MAIN_TITLE.classList.add('text-center');
 
 /*  Función asíncrona para cargar el encabezado y pie del documento.
 *   Parámetros: ninguno.
@@ -32,7 +32,7 @@ const loadTemplate = async () => {
                 <header>
                     <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(201 88 88 / 46%)">
                         <div class="container">
-                            <a class="navbar-brand" href="index.html"><img src="../../resources/img/logo.png" height="50" alt="CoffeeShop"></a>
+                            <a class="navbar-brand" href="index.html"><img src="../../resources/img/logo.png" height="50" alt="GymInfernus"></a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -63,7 +63,7 @@ const loadTemplate = async () => {
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ms-auto">
                             <a class="nav-link" href="index.html"><i class="bi bi-house-door"></i> Inicio</a>
-                            <a class="nav-link" href="signup.html"><i class="bi bi-person"></i> Usuario</a>
+                            <a class="nav-link" href="login.html"><i class="bi bi-person"></i> Usuario</a>
                             <a class="nav-link" href="clasificacion.html"><i class="bi bi-shop"></i> Tienda</a>
                             <a class="nav-link" href="carrito.html"><i class="bi bi-cart4"></i> Carrito</a>
                         </div>
@@ -95,7 +95,7 @@ const loadTemplate = async () => {
 `);
 
     //ocultar el pie de pagina al cargar la pagina
-  //  toggleFooterVisibility();
+    toggleFooterVisibility();
 
 }
 
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     //loadTemplate();
 
     // Event listener for scroll event to toggle footer visibility
- //   window.addEventListener('scroll', toggleFooterVisibility);
+    window.addEventListener('scroll', toggleFooterVisibility);
 });
 
 // Function to toggle footer visibility based on scroll position
@@ -118,11 +118,10 @@ function toggleFooterVisibility() {
     // Calculate the maximum scroll position for the scrollbar
     const maxScroll = documentHeight - windowHeight;
 
-    // Show footer only when scrollbar is at the bottom
-    if (scrollPosition >= maxScroll) {
+    // Show footer only when scrollbar is at the bottom or at the top
+    if (scrollPosition >= maxScroll || scrollPosition === 0) {
         footer.style.display = 'block';
     } else {
         footer.style.display = 'none';
     }
 }
-

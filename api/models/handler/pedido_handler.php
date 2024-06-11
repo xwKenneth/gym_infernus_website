@@ -23,6 +23,8 @@ class PedidoHandler
     protected $total = null;
     protected $cliente = null;
     protected $direccion = null;
+    protected $producto = null;
+    protected $cantidad = null;
 
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
@@ -34,7 +36,7 @@ class PedidoHandler
         AS "NombreFull", estado_pedido
         FROM pedido INNER JOIN cliente USING(cliente_id)
                 WHERE fecha_registro BETWEEN ? AND ?';
- 
+
         $params = array($startDate, $endDate);
         return Database::getRows($sql, $params);
     }
@@ -64,24 +66,24 @@ class PedidoHandler
                 WHERE TABLE_NAME = 'pedido'
                   AND COLUMN_NAME = 'estado_pedido'";
         $result = Database::getRows($sql);
-    
+
         if (!empty($result)) {
             $enumValues = explode(",", str_replace("'", "", $result[0]['COLUMN_TYPE']));
             $options = [];
-    
+
             foreach ($enumValues as $value) {
                 $options[] = [
                     'value' => $value,
                     'text' => ucfirst($value), // Puedes personalizar el texto según tus necesidades
                 ];
             }
-    
-            return Database::getRows($sql);// Devuelve los valores como JSON
+
+            return Database::getRows($sql); // Devuelve los valores como JSON
         }
-    
+
         return '[]'; // En caso de que no se obtengan valores del enum
     }
-    
+
     public function readOne()
     {
 
@@ -108,32 +110,24 @@ class PedidoHandler
                 SET cliente_id = ?, direccion_pedido = ?, estado_pedido = ?, fecha_registro = ?
                 WHERE pedido_id = ?';
         $params = array(
-            $this->cliente, $this->direccion, $this->estado, $this->fecha, $this->id);
+            $this->cliente, $this->direccion, $this->estado, $this->fecha, $this->id
+        );
         return Database::executeRow($sql, $params);
     }
 
     public function deleteRow()
     {
-        $sql = 'DELETE FROM ventas
-                WHERE venta_id = ?';
+        $sql = 'DELETE FROM pedido
+                WHERE pedido_id = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
 
-    public function readProductosCategoria()
-    {
-        $sql = 'SELECT producto_id, foto, nombre, descripcion, precio, existencias
-                FROM producto
-                INNER JOIN categoria USING(id_categoria)
-                WHERE categoria_id = ? AND estado = true
-                ORDER BY nombre';
-        $params = array($this->categoria);
-        return Database::getRows($sql, $params);
-    }
-
+ 
     /*
     *   Métodos para generar gráficos.
     */
+
     public function cantidadProductosCategoria()
     {
         $sql = 'SELECT nombre_categoria, COUNT(id_producto) cantidad

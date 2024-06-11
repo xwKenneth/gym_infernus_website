@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('descripcionProducto').textContent = DATA.dataset.descripcion_producto;
         document.getElementById('precioProducto').textContent = DATA.dataset.precio_producto;
         document.getElementById('existenciasProducto').textContent = DATA.dataset.existencias_producto;
-        document.getElementById('idProducto').value = DATA.dataset.id_producto;
+        document.getElementById('idProducto').value = DATA.dataset.producto_id;
     } else {
         // Se presenta un mensaje de error cuando no existen datos para mostrar.
         document.getElementById('mainTitle').textContent = DATA.error;
@@ -44,7 +44,7 @@ SHOPPING_FORM.addEventListener('submit', async (event) => {
     const DATA = await fetchData(PEDIDO_API, 'createDetail', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se constata si el cliente ha iniciado sesión.
     if (DATA.status) {
-        sweetAlert(1, DATA.message, false, 'cart.html');
+        sweetAlert(1, DATA.message, false, 'carrito.html');
     } else if (DATA.session) {
         sweetAlert(2, DATA.error, false);
     } else {

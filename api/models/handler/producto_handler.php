@@ -42,6 +42,33 @@ class ProductoHandler
         return Database::getRows($sql, $params);
     }
 
+    public function getCategoria()
+    {
+        $this->estado = 'Pendiente';
+        $sql = 'SELECT pedido_id
+                FROM pedido
+                WHERE estado_pedido = ? AND cliente_id = ?';
+        $params = array($_SESSION['idCliente']);
+        if ($data = Database::getRow($sql, $params)) {
+            $_SESSION['idPedido'] = $data['pedido_id'];
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function searchRowsPublic()
+    {    
+        $value = '%' . Validator::getSearchValue() . '%';
+        $sql = 'SELECT producto_id, imagen_producto, nombre_producto, descripcion_producto, precio_producto, existencias_producto
+                FROM producto
+                INNER JOIN categoria USING(categoria_id)
+                WHERE categoria_id = ? AND estado_producto = TRUE AND nombre_producto LIKE ?
+                ORDER BY nombre_producto'; 
+        $params = array($this->categoria, $value);
+        return Database::getRows($sql, $params);
+    }
+
     public function createRow()
     {
         $sql = 'INSERT INTO producto(nombre_producto, descripcion_producto, precio_producto, 
@@ -49,7 +76,7 @@ class ProductoHandler
         categoria_id, estado_producto, fecha_registro)
                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $params = array(
-            $this->nombre, $this->descripcion, $this->precio, $this->descuento, $this->imagen, 
+            $this->nombre, $this->descripcion, $this->precio, $this->descuento, $this->imagen,
             $this->existencias, $this->proveedor, $this->marca,
             $this->categoria,  $this->estado, $this->fecha_registro
         );
@@ -99,8 +126,8 @@ class ProductoHandler
         );
         return Database::executeRow($sql, $params);
     }
-    
-    
+
+
 
     public function deleteRow()
     {
@@ -118,11 +145,11 @@ class ProductoHandler
 
     public function readProductosCategoria()
     {
-        $sql = 'SELECT producto_id, foto, nombre, descripcion, precio, existencias
+        $sql = 'SELECT producto_id, imagen_producto, nombre_producto, descripcion_producto, precio_producto, existencias_producto
                 FROM producto
-                INNER JOIN categoria USING(id_categoria)
-                WHERE categoria_id = ? AND estado = true
-                ORDER BY nombre';
+                INNER JOIN categoria USING(categoria_id)
+                WHERE categoria_id = ? AND estado_producto = true
+                ORDER BY nombre_producto';
         $params = array($this->categoria);
         return Database::getRows($sql, $params);
     }
