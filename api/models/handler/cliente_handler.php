@@ -30,7 +30,7 @@ class ClienteHandler
                 WHERE correo_cliente = ?';
         $params = array($mail);
         $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave_cliente'])) {
+        if (isset($data['clave_cliente']) &&  password_verify($password, $data['clave_cliente'])) {
             $this->id = $data['cliente_id'];
             $this->correo = $data['correo_cliente'];
             $this->estado = $data['estado_cliente'];

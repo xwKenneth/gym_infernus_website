@@ -40,6 +40,7 @@ const loadTemplate = async () => {
                                 <div class="navbar-nav ms-auto">
                                     <a class="nav-link" href="clasificacion.html"><i class="bi bi-shop"></i> Catálogo</a>
                                     <a class="nav-link" href="carrito.html"><i class="bi bi-cart"></i> Carrito</a>
+                                    <a class="nav-link" href="historial.html"><i class="bi bi-clock-history"></i> Historial</a>
                                     <a class="nav-link" href="#" onclick="logOut()"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a>
                                 </div>
                             </div>
@@ -54,7 +55,7 @@ const loadTemplate = async () => {
         // Se agrega el encabezado de la página web antes del contenido principal.
         MAIN.insertAdjacentHTML('beforebegin', `
         <header>
-            <nav class="navbar fixed-top navbar-expand-lg" style="background-color: #F96060">
+            <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(201 88 88 / 46%)">
                 <div class="container">
                     <a class="navbar-brand" href="index.html"><i class="bi bi-info-circle"></i><span>&nbsp; Información</span></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,23 +76,23 @@ const loadTemplate = async () => {
     }
     // Se agrega el pie de la página web después del contenido principal.
     MAIN.insertAdjacentHTML('afterend', `
-<footer id="footer">
-    <nav class="navbar fixed-bottom" style="background-color: #F96060">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <a class="nav-link" href="terminos.html">  
-                        <img src="../../resources/img/terminos.png" alt="Image" style="width: 50px; height: 50px;">
-                        <span>Términos y condiciones</span>
-                    </a>
-                </div>
-                <div class="col center-text">
-                    <p>Derechos Reservados © [Año] Infernus Gym Shop. Todos los derechos están reservados.</p>
+    <footer id="footer">
+        <nav class="navbar fixed-bottom" style="background-color: rgb(201 88 88 / 46%)">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <a class="nav-link" href="terminos.html">  
+                            <img src="../../resources/img/terminos.png" alt="Image" style="width: 50px; height: 50px;">
+                            <span>Términos y condiciones</span>
+                        </a>
+                    </div>
+                    <div class="col center-text">
+                        <p>Derechos Reservados © [Año] Infernus Gym Shop. Todos los derechos están reservados.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
-</footer>
+        </nav>
+    </footer>
 `);
 
     //ocultar el pie de pagina al cargar la pagina

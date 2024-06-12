@@ -9,6 +9,7 @@ class PedidoPublicHandler
     /*
     *   Declaración de atributos para el manejo de datos.
     */
+    protected $id = null;
     protected $id_pedido = null;
     protected $id_detalle = null;
     protected $cliente = null;
@@ -30,8 +31,6 @@ class PedidoPublicHandler
     */
     // Método para verificar si existe un pedido en proceso con el fin de iniciar o continuar una compra.
 
-
- 
 
     public function getOrder()
     {
@@ -64,6 +63,16 @@ class PedidoPublicHandler
             }
         }
     }
+    public function getHistory()
+    {
+        $sql = 'SELECT detalle_pedido_id, nombre_producto, detalle_pedido.precio_producto, cantidad, subtotal, estado_pedido
+                FROM detalle_pedido
+                INNER JOIN pedido USING(pedido_id)
+                INNER JOIN producto USING(producto_id)
+                WHERE cliente_id = ?';
+        $params = array($_SESSION['idCliente']);
+        return Database::getRows($sql, $params);
+    }
     public function readDetail()
     {
         $sql = 'SELECT detalle_pedido_id, nombre_producto, detalle_pedido.precio_producto, detalle_pedido.cantidad
@@ -74,6 +83,16 @@ class PedidoPublicHandler
         $params = array($_SESSION['idPedido']);
         return Database::getRows($sql, $params);
     }
+
+    public function readCantidad()
+    {
+        $sql = 'SELECT existencias_producto
+                FROM producto
+                WHERE producto_id = ?';
+        $params = array($this->producto);
+        return Database::getRow($sql, $params);
+    }
+
     // Método para agregar un producto al carrito de compras.
 
     public function createDetail()

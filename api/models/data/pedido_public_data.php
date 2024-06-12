@@ -57,14 +57,31 @@ class PedidoPublicData extends PedidoPublicHandler
             return false;
         }
     }
-
     public function setCantidad($value)
     {
-        if (Validator::validateNaturalNumber($value)) {
-            $this->cantidad = $value;
-            return true;
-        } else {
+        $existencias = $this->getCantidad($this->producto);
+
+        if (!Validator::validateNaturalNumber($value) || $value < 1) {
             $this->data_error = 'La cantidad del producto debe ser mayor o igual a 1';
+            return false;
+        } else if ($existencias === false) {
+            $this->data_error = 'No hay existencias disponibles del producto';
+            return false;
+        } else if ($value > $existencias) {
+            $this->data_error = 'La cantidad solicitada sobrepasa las existencias del producto';
+            return false;
+        }
+        $this->cantidad = $value;
+        return true;
+    }
+
+
+    public function getCantidad($value)
+    {
+        $data = $this->readCantidad($value);
+        if ($data) {
+            return $data['existencias_producto'];
+        } else {
             return false;
         }
     }

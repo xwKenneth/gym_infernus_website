@@ -86,7 +86,7 @@ if (isset($_GET['action'])) {
             case 'logIn':
                 $_POST = Validator::validateForm($_POST);
                 if (!$cliente->checkUser($_POST['correo'], $_POST['clave'])) {
-                    $result['error'] = 'Datos incorrectos';
+                    $result['error'] = 'Credenciales incorrectas';
                 } elseif ($cliente->checkStatus()) {
                     $result['status'] = 1;
                     $result['message'] = 'Autenticación correcta';
