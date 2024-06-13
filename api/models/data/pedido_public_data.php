@@ -47,6 +47,32 @@ class PedidoPublicData extends PedidoPublicHandler
         }
     }
 
+
+    public function setComentario($value, $min = 2, $max = 250)
+    {
+        if (!Validator::validateString($value)) {
+            $this->data_error = 'La descripción contiene caracteres prohibidos';
+            return false;
+        } elseif (Validator::validateLength($value, $min, $max)) {
+            $this->comentario = $value;
+            return true;
+        } else {
+            $this->data_error = 'La descripción debe tener una longitud entre ' . $min . ' y ' . $max;
+            return false;
+        }
+    }
+    
+    public function setCalificacion($value)
+    {
+        if (Validator::validateMoney($value)) {
+            $this->calificacion = $value;
+            return true;
+        } else {
+            $this->data_error = 'La calificación debe ser un valor numérico';
+            return false;
+        }
+    }
+
     public function setProducto($value)
     {
         if (Validator::validateNaturalNumber($value)) {

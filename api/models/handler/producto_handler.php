@@ -21,6 +21,7 @@ class ProductoHandler
     protected $estado = null;
     protected $descuento = null;
     protected $fecha_registro = null;
+    protected $cliente = null;
 
     // Constante para establecer la ruta de las imágenes.
     const RUTA_IMAGEN = '../../images/productos/';
@@ -58,13 +59,13 @@ class ProductoHandler
     }
 
     public function searchRowsPublic()
-    {    
+    {
         $value = '%' . Validator::getSearchValue() . '%';
         $sql = 'SELECT producto_id, imagen_producto, nombre_producto, descripcion_producto, precio_producto, existencias_producto
                 FROM producto
                 INNER JOIN categoria USING(categoria_id)
                 WHERE categoria_id = ? AND estado_producto = TRUE AND nombre_producto LIKE ?
-                ORDER BY nombre_producto'; 
+                ORDER BY nombre_producto';
         $params = array($this->categoria, $value);
         return Database::getRows($sql, $params);
     }
@@ -154,6 +155,15 @@ class ProductoHandler
         return Database::getRows($sql, $params);
     }
 
+    public function getCommentsAndRatings()
+    {
+        $sql = 'SELECT v.valoracion_id, v.producto_id, v.cliente_id, v.calificacion, v.comentario, v.fecha_valoracion, c.nombre_cliente, c.apellido_cliente
+        FROM valoracion v
+        JOIN cliente c ON v.cliente_id = c.cliente_id
+        WHERE v.producto_id = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
     /*
     *   Métodos para generar gráficos.
     */

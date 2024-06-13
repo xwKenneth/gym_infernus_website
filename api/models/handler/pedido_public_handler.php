@@ -17,7 +17,8 @@ class PedidoPublicHandler
     protected $cantidad = null;
     protected $estado = null;
     protected $categoria = null;
-
+    protected $calificacion = null;
+    protected $comentario = null;
     /*
     *   ESTADOS DEL PEDIDO
     *   Pendiente (valor por defecto en la base de datos). Pedido en proceso y se puede modificar el detalle.
@@ -142,5 +143,36 @@ class PedidoPublicHandler
                 ORDER BY nombre';
         $params = array($this->categoria);
         return Database::getRows($sql, $params);
+    }
+    public function getProductosComprados()
+    {
+        $sql = 'SELECT DISTINCT dp.producto_id, producto.nombre_producto, producto.imagen_producto
+                FROM pedido
+                INNER JOIN detalle_pedido dp USING(pedido_id)
+                INNER JOIN producto USING(producto_id)
+                LEFT JOIN valoracion USING(producto_id)
+                WHERE pedido.cliente_id = ? AND pedido.estado_pedido = "Finalizado"';
+        $params = array($_SESSION['idCliente']);
+        return Database::GetRows($sql, $params);
+    }
+
+
+    public function createValoracion()
+    {
+        $sql = 'INSERT INTO valoracion(producto_id, cliente_id, calificacion, comentario, fecha_valoracion)
+                VALUES(?, ?, ?, ?, ?)';
+
+        $params = array($this->producto, $_SESSION['idCliente'], $this->calificacion, $this->comentario, date('Y-m-d'));
+
+        return Database::executeRow($sql, $params);
+    }
+
+    
+
+    public function getValoracionByProducto($producto_id)
+    {
+        $sql = 'SELECT valoracion_id FROM valoracion WHERE producto_id = ? AND cliente_id = ?';
+        $params = array($producto_id, $_SESSION['idCliente']);
+        return Database::getRow($sql, $params);
     }
 }
