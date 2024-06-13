@@ -13,7 +13,7 @@ if (isset($_GET['action'])) {
         case 'searchRowsPublic':
             if (!Validator::validateSearch($_POST['search'])) {
                 $result['error'] = Validator::getSearchError();
-            } elseif ($result['dataset'] = $producto->searchRowsPublic($producto->setCategoria($_POST['idCategoria'])))  {
+            } elseif ($result['dataset'] = $producto->searchRowsPublic($producto->setCategoria($_POST['idCategoria']))) {
                 $result['status'] = 1;
                 $result['message'] = 'Existen ' . count($result['dataset']) . ' coincidencias';
             } else {
@@ -36,6 +36,15 @@ if (isset($_GET['action'])) {
                 $result['status'] = 1;
             } else {
                 $result['error'] = 'Producto inexistente';
+            }
+            break;
+        case 'getCommentsAndRatings':
+            if (!isset($_POST['idProducto'])) {
+                $result['error'] = 'Falta el id del producto';
+            } else {
+                $producto->setId($_POST['idProducto']);
+                $result['dataset'] = $producto->getCommentsAndRatings();
+                $result['status'] = 1;
             }
             break;
         default:

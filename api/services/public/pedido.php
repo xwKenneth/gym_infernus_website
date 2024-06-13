@@ -85,6 +85,56 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen productos en el historial';
                 }
                 break;
+            case 'getProductosComprados':
+                if ($result['dataset'] = $pedido->getProductosComprados()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen productos para mostrar';
+                }
+                break;
+            case 'createValoracion':
+                // Validar y registrar los datos del formulario
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$pedido->setProducto($_POST['productoValoracion']) or
+                    !$pedido->setCalificacion($_POST['calificacionValoracion']) or
+                    !$pedido->setComentario($_POST['comentarioValoracion'])
+                ) {
+                    // Error de validación
+                    $result['error'] = $pedido->getDataError();
+                    error_log('Error de validación: ' . $pedido->getDataError());
+                } elseif ($pedido->createValoracion()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Valoracion creada correctamente';
+                } else {
+                    // Error general al crear la venta
+                    $result['error'] = 'Ocurrió un problema al crear la valoracion';
+                    error_log('Error al crear la venta: Ocurrió un problema al crear la valoracion');
+                }
+                break;
+            case 'updateValoracion':
+                if ($result['dataset'] = $pedido->getProductosComprados()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Existen ' . count($result['dataset']) . ' registros';
+                } else {
+                    $result['error'] = 'No existen productos para mostrar';
+                }
+                break;
+            case 'getValoracionByProducto':
+                if (isset($_POST['productoValoracion']) && is_numeric($_POST['productoValoracion'])) {
+                    if ($result['dataset'] = $pedido->getValoracionByProducto($_POST['productoValoracion'])) {
+                        $result['status'] = 1;
+                    } else {
+                        $result['status'] = 0;
+                        $result['error'] = 'No has valorado este producto.';
+                    }
+                } else {
+                    $result['error'] = 'Producto no válido.';
+                }
+
+                break;
+
             default:
                 $result['error'] = 'Acción no disponible dentro de la sesión';
         }

@@ -6,7 +6,6 @@ CREATE TABLE cargo (
     cargo VARCHAR(100) NOT NULL
 );
 
- SELECT * FROM empleado
 CREATE TABLE empleado (
     empleado_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_empleado VARCHAR(100) NOT NULL,
@@ -16,7 +15,9 @@ CREATE TABLE empleado (
     cargo_id INT,
     CONSTRAINT fk_cargo_empleado FOREIGN KEY (cargo_id) REFERENCES cargo(cargo_id)
 );
-
+SELECT cliente_id, correo_cliente, clave_cliente, estado_cliente
+                FROM cliente
+                WHERE correo_cliente = 1
 CREATE TABLE cliente (
     cliente_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_cliente VARCHAR(100) NOT NULL,
@@ -26,8 +27,13 @@ CREATE TABLE cliente (
     nacimiento_cliente DATE NOT NULL CHECK(),
     correo_cliente VARCHAR(100) UNIQUE NOT NULL,
     direccion_cliente VARCHAR(255) NOT NULL,
-    clave_cliente VARCHAR(255) NOT NULL
+    clave_cliente VARCHAR(255) NOT NULL,
+  	 estado_cliente tinyint(1) NOT NULL DEFAULT 1
 );
+SELECT cliente_id, correo_cliente, clave_cliente, estado_cliente
+                FROM cliente
+                WHERE correo_cliente = 1
+/*ALTER TABLE cliente ADD estado_cliente tinyint(1) NOT NULL DEFAULT 1; */
  
 CREATE TABLE proveedor (
     proveedor_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -37,20 +43,23 @@ CREATE TABLE proveedor (
 );
  
 
-CREATE TABLE marca (
+CREATE TABLE marca(
     marca_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_marca VARCHAR(100) UNIQUE NOT NULL,
     imagen_marca VARCHAR(255) NOT NULL
 );
-INSERT INTO categoria(nombre_categoria, descuento_categoria, imagen_categoria)
-                VALUES('badddd', '12', 'null')
-SELECT * FROM producto
+SELECT * FROM categoria
 CREATE TABLE categoria (
     categoria_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre_categoria VARCHAR(100) UNIQUE NOT NULL,
     descuento_categoria DECIMAL(5, 2) DEFAULT 0 CHECK (descuento_categoria >= 0 AND descuento_categoria <= 100),
     imagen_categoria VARCHAR(255) NOT NULL
 );
+SELECT producto_id, imagen_producto, nombre_producto, descripcion_producto, precio_producto, existencias_producto
+                FROM producto
+                INNER JOIN categoria USING(categoria_id)
+                WHERE categoria_id = 37 AND estado_producto = true
+                ORDER BY nombre_producto
  
 CREATE TABLE producto (
     producto_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -71,7 +80,11 @@ CREATE TABLE producto (
     CONSTRAINT chk_precio_positive CHECK (precio_producto >= 0),
     CONSTRAINT chk_existencias_positive CHECK (existencias_producto >= 0)
 );
-
+SELECT detalle_pedido_id, nombre_producto, detalle_pedido.precio_producto, cantidad, subtotal, estado_pedido
+                FROM detalle_pedido
+                INNER JOIN pedido USING(pedido_id)
+                INNER JOIN producto USING(producto_id)
+                WHERE cliente_id =1
 
 CREATE TABLE pedido (
     pedido_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -81,26 +94,18 @@ CREATE TABLE pedido (
     fecha_registro DATE NOT NULL DEFAULT CURRENT_TIMESTAMP() CHECK (YEAR(fecha_registro) >= 2016),
     CONSTRAINT fk_cliente_pedido FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
 );
- 
+SELECT * FROM cliente
 CREATE TABLE valoracion (
     valoracion_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     producto_id INT,
     cliente_id INT,
-    calificacion DECIMAL(3, 1) NOT NULL,
+    calificacion DECIMAL(2, 1) CHECK (calificacion <= 5.0) NOT NULL,
     comentario TEXT,
     fecha_valoracion DATE NOT NULL,
     CONSTRAINT fk_producto_valoracion FOREIGN KEY (producto_id) REFERENCES producto(producto_id),
     CONSTRAINT fk_cliente_valoracion FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
 );
-
- 
-SELECT detalle_pedido_id, pedido.cliente_id,  nombre_cliente, nombre_producto, cantidad, 
-        detalle_pedido.precio_producto, subtotal, direccion_pedido, pedido.pedido_id AS pedido_id
-        FROM detalle_pedido
-        INNER JOIN pedido ON detalle_pedido.pedido_id = pedido.pedido_id
-        INNER JOIN producto ON detalle_pedido.producto_id = producto.producto_id
-        INNER JOIN cliente ON pedido.cliente_id = cliente.cliente_id WHERE pedido.pedido_id = 1
-
+                
 CREATE TABLE detalle_pedido (
     detalle_pedido_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     pedido_id INT,
@@ -111,7 +116,24 @@ CREATE TABLE detalle_pedido (
     CONSTRAINT fk_pedido_detalle FOREIGN KEY (pedido_id) REFERENCES pedido(pedido_id),
     CONSTRAINT fk_producto_detalle FOREIGN KEY (producto_id) REFERENCES producto(producto_id)
 );  
- 
+SELECT DISTINCT dp.producto_id, producto.nombre_producto
+                FROM pedido
+                INNER JOIN detalle_pedido dp USING(pedido_id)
+                INNER JOIN producto USING(producto_id)
+                LEFT JOIN valoracion USING(producto_id)
+                WHERE pedido.cliente_id = 7 AND pedido.estado_pedido = "Finalizado"
+
+
+SELECT dp.producto_id, p.nombre_producto, IFNULL(v.valoracion_id, 'No valorado') AS estado_valoracion
+FROM pedido ped
+INNER JOIN detalle_pedido dp ON ped.pedido_id = dp.pedido_id
+INNER JOIN producto p ON dp.producto_id = p.producto_id
+LEFT JOIN valoracion v ON dp.producto_id = v.producto_id AND ped.cliente_id = v.cliente_id
+WHERE ped.cliente_id = 7 AND ped.estado_pedido = 'Finalizado';
+
+SELECT * FROM pedido
+
+SELECT * FROM pedido
 INSERT INTO cargo
 VALUES
 (1, 'Administrador'),
