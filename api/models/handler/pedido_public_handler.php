@@ -76,7 +76,7 @@ class PedidoPublicHandler
     }
     public function readDetail()
     {
-        $sql = 'SELECT detalle_pedido_id, nombre_producto, detalle_pedido.precio_producto, detalle_pedido.cantidad
+        $sql = 'SELECT detalle_pedido_id, nombre_producto, detalle_pedido.precio_producto, detalle_pedido.cantidad AS cantidad , detalle_pedido.producto_id AS producto_id
                 FROM detalle_pedido
                 INNER JOIN pedido USING(pedido_id)
                 INNER JOIN producto USING(producto_id)
@@ -84,6 +84,17 @@ class PedidoPublicHandler
         $params = array($_SESSION['idPedido']);
         return Database::getRows($sql, $params);
     }
+    public function readOne()
+    {
+        $sql = 'SELECT detalle_pedido_id, nombre_producto, detalle_pedido.precio_producto, cantidad, producto_id
+                FROM detalle_pedido
+                INNER JOIN producto USING(producto_id)
+                WHERE detalle_pedido_id = ? AND pedido_id = ?';
+    
+        $params = array($this->id_detalle, $_SESSION['idPedido']);
+        return Database::getRow($sql, $params);
+    }
+    
 
     public function readCantidad()
     {
@@ -105,26 +116,47 @@ class PedidoPublicHandler
         return Database::executeRow($sql, $params);
     }
 
-    // Método para finalizar un pedido por parte del cliente.
-    public function finishOrder()
-    {
-        $this->estado = 'Finalizado';
-        $sql = 'UPDATE pedido
-                SET estado_pedido = ?
-                WHERE pedido_id = ?';
-        $params = array($this->estado, $_SESSION['idPedido']);
-        return Database::executeRow($sql, $params);
-    }
-
     // Método para actualizar la cantidad de un producto agregado al carrito de compras.
     public function updateDetail()
     {
         $sql = 'UPDATE detalle_pedido
                 SET cantidad = ?
                 WHERE detalle_pedido_id = ? AND pedido_id = ?';
+    
         $params = array($this->cantidad, $this->id_detalle, $_SESSION['idPedido']);
         return Database::executeRow($sql, $params);
     }
+    
+
+    // Método para finalizar un pedido por parte del cliente.
+    public function finishOrder()
+    {
+        $this->estado = 'Finalizado';
+
+        $sql = 'SELECT producto_id, cantidad FROM detalle_pedido WHERE pedido_id = ?';
+        $params = array($_SESSION['idPedido']);
+        $orderDetails = Database::getRows($sql, $params);
+
+        foreach ($orderDetails as $detail) {
+            // Fetch current stock
+            $sql = 'SELECT existencias_producto FROM producto WHERE producto_id = ?';
+            $params = array($detail['producto_id']);
+            $currentStock = Database::getRow($sql, $params);
+
+            $newStock = $currentStock['existencias_producto'] - $detail['cantidad'];
+
+            $sql = 'UPDATE producto SET existencias_producto = ? WHERE producto_id = ?';
+            $params = array($newStock, $detail['producto_id']);
+            Database::executeRow($sql, $params);
+        }
+
+        $sql = 'UPDATE pedido SET estado_pedido = ? WHERE pedido_id = ?';
+        $params = array($this->estado, $_SESSION['idPedido']);
+        return Database::executeRow($sql, $params);
+    }
+
+
+
 
     // Método para eliminar un producto que se encuentra en el carrito de compras.
     public function deleteDetail()
@@ -167,7 +199,7 @@ class PedidoPublicHandler
         return Database::executeRow($sql, $params);
     }
 
-    
+
 
     public function getValoracionByProducto($producto_id)
     {

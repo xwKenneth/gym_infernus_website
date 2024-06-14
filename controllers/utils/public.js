@@ -41,6 +41,7 @@ const loadTemplate = async () => {
                                     <a class="nav-link" href="clasificacion.html"><i class="bi bi-shop"></i> Catálogo</a>
                                     <a class="nav-link" href="carrito.html"><i class="bi bi-cart"></i> Carrito</a>
                                     <a class="nav-link" href="historial.html"><i class="bi bi-clock-history"></i> Historial</a>
+                                    <a class="nav-link" href="contraseña.html"><i class="bi bi-person-fill"></i> Perfil</a>
                                     <a class="nav-link" href="#" onclick="logOut()"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</a>
                                 </div>
                             </div>

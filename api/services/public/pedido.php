@@ -42,12 +42,22 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'No existen productos en el carrito';
                 }
                 break;
+            case 'readOne':
+                if (!$pedido->setIdDetalle($_POST['idDetalle'])) {
+                    $result['error'] = 'Pedido incorrecto';
+                } elseif ($result['dataset'] = $pedido->readOne()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'Pedido inexistente';
+                }
+                break;
                 // Acción para actualizar la cantidad de un producto en el carrito de compras.
             case 'updateDetail':
                 $_POST = Validator::validateForm($_POST);
                 if (
-                    !$pedido->setIdDetalle($_POST['idDetalle']) or
-                    !$pedido->setCantidad($_POST['cantidadProducto'])
+                    !$pedido->setProducto($_POST['idProducto']) ||
+                    !$pedido->setCantidad($_POST['cantidadProducto']) ||
+                    !$pedido->setIdDetalle($_POST['idDetalle'])
                 ) {
                     $result['error'] = $pedido->getDataError();
                 } elseif ($pedido->updateDetail()) {
@@ -57,6 +67,8 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Ocurrió un problema al modificar la cantidad';
                 }
                 break;
+
+
                 // Acción para remover un producto del carrito de compras.
             case 'deleteDetail':
                 if (!$pedido->setIdDetalle($_POST['idDetalle'])) {
@@ -124,6 +136,7 @@ if (isset($_GET['action'])) {
             case 'getValoracionByProducto':
                 if (isset($_POST['productoValoracion']) && is_numeric($_POST['productoValoracion'])) {
                     if ($result['dataset'] = $pedido->getValoracionByProducto($_POST['productoValoracion'])) {
+
                         $result['status'] = 1;
                     } else {
                         $result['status'] = 0;

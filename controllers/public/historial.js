@@ -10,7 +10,7 @@ const SAVE_MODAL = new bootstrap.Modal('#itemModal'),
 const SAVE_FORM = document.getElementById('itemForm'),
     ID_VALORACION = document.getElementById('idValoracion'),
     PRODUCTO = document.getElementById('productoValoracion'),
-    CALIFICACION = document.getElementById('calificacionValoracion'),
+    CALIFICACION = document.getElementsByName('calificacionValoracion'),
     COMENTARIO = document.getElementById('comentarioValoracion'),
     IMAGEN_PRODUCTO = document.getElementById('imagenProducto');
 MAIN_TITLE.textContent = 'Historial de compra';
@@ -23,24 +23,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fillTable();
     addProductChangeListener();
 });
+
 // Método del evento para cuando se envía el formulario de guardar.
 SAVE_FORM.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     try {
         const productoId = PRODUCTO.value;
+        const calificacion = getSelectedCalificacion();
+        const comentario = COMENTARIO.value;
 
         // Enviar datos como FormData para asegurar que se envíen como POST
         const formData = new FormData();
         formData.append('productoValoracion', productoId);
+        formData.append('calificacionValoracion', calificacion);
+        formData.append('comentarioValoracion', comentario);
 
         const valoracionResponse = await fetchData(PEDIDO_API, 'getValoracionByProducto', formData);
 
         if (!valoracionResponse.status) {
-            console.log('Producto ID:', productoId);
-            console.log('Valoración Response:', valoracionResponse);
-
-            // If the product has not been rated yet, proceed with the form submission
             const action = ID_VALORACION.value ? 'updateValoracion' : 'createValoracion';
             const DATA = await fetchData(PEDIDO_API, action, formData);
 
@@ -52,7 +53,6 @@ SAVE_FORM.addEventListener('submit', async (event) => {
                 sweetAlert(2, DATA.error, false);
             }
         } else {
-            // If the product has already been rated
             sweetAlert(2, 'Ya has valorado este producto.', false);
         }
     } catch (error) {
@@ -61,14 +61,12 @@ SAVE_FORM.addEventListener('submit', async (event) => {
     }
 });
 
-
 /*
-*   Función para obtener el detalle de los pedidos realizados
-*   Parámetros: ninguno.
-*   Retorno: ninguno.
-*/
+ *   Función para obtener el detalle de los pedidos realizados
+ *   Parámetros: ninguno.
+ *   Retorno: ninguno.
+ */
 async function fillTable() {
-
     const DATA = await fetchData(PEDIDO_API, 'getHistory');
     await fillSelect(PEDIDO_API, 'getProductosComprados', 'productoValoracion');
 
@@ -113,10 +111,10 @@ const openCreate = () => {
 }
 
 /*
-*   Función para añadir el evento change al ComboBox productoValoracion
-*   Parámetros: ninguno.
-*   Retorno: ninguno.
-*/
+ *   Función para añadir el evento change al ComboBox productoValoracion
+ *   Parámetros: ninguno.
+ *   Retorno: ninguno.
+ */
 function addProductChangeListener() {
     const productoValoracion = document.getElementById('productoValoracion');
     const imagenProducto = document.getElementById('imagenProducto');
@@ -131,4 +129,14 @@ function addProductChangeListener() {
             imagenProducto.src = '../../api/images/productos/default.png';
         }
     });
+}
+
+/*
+ *   Función auxiliar para obtener la calificación seleccionada.
+ *   Parámetros: ninguno.
+ *   Retorno: el valor de la calificación seleccionada.
+ */
+function getSelectedCalificacion() {
+    const calificacionElement = document.querySelector('input[name="calificacionValoracion"]:checked');
+    return calificacionElement ? calificacionElement.value : null;
 }

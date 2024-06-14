@@ -39,22 +39,10 @@ class ClienteHandler
             return false;
         }
     }
-
-    public function checkStatus()
-    {
-        if ($this->estado) {
-            $_SESSION['idCliente'] = $this->id;
-            $_SESSION['correoCliente'] = $this->correo;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function changePassword()
     {
         $sql = 'UPDATE cliente
-                SET contrasena = ?
+                SET clave_cliente = ?
                 WHERE cliente_id = ?';
         $params = array($this->clave, $this->id);
         return Database::executeRow($sql, $params);
@@ -62,13 +50,27 @@ class ClienteHandler
 
     public function checkPassword($password)
     {
-        $sql = 'SELECT contrasena
-                FROM empleado
-                WHERE empleado_id = ?';
-        $params = array($_SESSION['empleado_id']);
+        $sql = 'SELECT clave_cliente
+                FROM cliente
+                WHERE cliente_id = ?';
+        $params = array($_SESSION['idCliente']);
         $data = Database::getRow($sql, $params);
-        // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
-        if (password_verify($password, $data['contrasena'])) {
+        
+        // Verificar si se obtuvo un resultado válido
+        if ($data !== false) {
+            // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
+            if (password_verify($password, $data['clave_cliente'])) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function checkStatus()
+    {
+        if ($this->estado) {
+            $_SESSION['idCliente'] = $this->id;
+            $_SESSION['correoCliente'] = $this->correo;
             return true;
         } else {
             return false;

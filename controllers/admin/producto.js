@@ -1,175 +1,113 @@
-// Constantes para completar las rutas de la API.
-const PRODUCTO_API = 'services/admin/producto.php';
-const CATEGORIA_API = 'services/admin/categoria.php';
-const MARCA_API = 'services/admin/marca.php';
-const PROVEEDOR_API = 'services/admin/proveedor.php';
-// Constante para establecer el formulario de buscar.
-const SEARCH_FORM = document.getElementById('searchForm');
-// Constantes para establecer el contenido de la tabla.
-const TABLE_BODY = document.getElementById('tableBody'),
-    ROWS_FOUND = document.getElementById('rowsFound');
-// Constantes para establecer los elementos del componente Modal.
-const SAVE_MODAL = new bootstrap.Modal('#saveModal'),
-    MODAL_TITLE = document.getElementById('modalTitle');
-// Constantes para establecer los elementos del formulario de guardar.
-const SAVE_FORM = document.getElementById('saveForm'),
-    ID_PRODUCTO = document.getElementById('idProducto'),
-    NOMBRE_PRODUCTO = document.getElementById('nombreProducto'),
-    DESCRIPCION_PRODUCTO = document.getElementById('descripcionProducto'),
-    PRECIO_PRODUCTO = document.getElementById('precioProducto'),
-    EXISTENCIAS_PRODUCTO = document.getElementById('existenciasProducto'),
-    CATEGORIA_PRODUCTO = document.getElementById('categoriaProducto'),
-    MARCA_PRODUCTO = document.getElementById('marcaProducto'),
-    PROVEEDOR_PRODUCTO = document.getElementById('proveedorProducto'),
-    IMAGEN_PRODUCTO = document.getElementById('imagenProducto'),
-    FECHA_REGISTRO_PRODUCTO = document.getElementById('fechaDeRegistro'),
-    ESTADO_PRODUCTO = document.getElementById('estadoProducto');
+// Constante para completar la ruta de la API.
+const PEDIDO_API = 'services/public/pedido.php';
+// Constante para establecer el cuerpo de la tabla.
+const TABLE_BODY = document.getElementById('tableBody');
+// Constante para establecer la caja de diálogo de cambiar producto.
+const ITEM_MODAL = new bootstrap.Modal(document.getElementById('itemModal'));
+// Constante para establecer el formulario de cambiar producto.
+const ITEM_FORM = document.getElementById('itemForm');
+// Variables globales para los campos del formulario de cambiar producto.
+let ID_DETALLE, CANTIDAD, ID_PRODUCTO;
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', () => {
+    // Asignación de los campos del formulario a las variables globales.
+    ID_DETALLE = document.getElementById('idDetalle');
+    CANTIDAD = document.getElementById('cantidadProducto');
+    ID_PRODUCTO = document.getElementById('idProducto');
+
     // Llamada a la función para mostrar el encabezado y pie del documento.
     loadTemplate();
     // Se establece el título del contenido principal.
-    MAIN_TITLE.textContent = 'Gestionar productos';
-    // Llamada a la función para llenar la tabla con los registros existentes.
-    fillTable();
+    MAIN_TITLE.textContent = 'Carrito de compras';
+    // Llamada a la función para mostrar los productos del carrito de compras.
+    readDetail();
 });
 
-// Método del evento para cuando se envía el formulario de buscar.
-SEARCH_FORM.addEventListener('submit', (event) => {
+// Método del evento para cuando se envía el formulario de cambiar cantidad de producto.
+ITEM_FORM.addEventListener('submit', async (event) => {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
     // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SEARCH_FORM);
-    // Llamada a la función para llenar la tabla con los resultados de la búsqueda.
-    fillTable(FORM);
-});
-
-// Método del evento para cuando se envía el formulario de guardar.
-SAVE_FORM.addEventListener('submit', async (event) => {
-    // Se evita recargar la página web después de enviar el formulario.
-    event.preventDefault();
-    // Se verifica la acción a realizar.
-    (ID_PRODUCTO.value) ? action = 'updateRow' : action = 'createRow';
-    // Constante tipo objeto con los datos del formulario.
-    const FORM = new FormData(SAVE_FORM);
-    // Petición para guardar los datos del formulario.
-    const DATA = await fetchData(PRODUCTO_API, action, FORM);
+    const FORM = new FormData(ITEM_FORM);
+    // Petición para actualizar la cantidad de producto.
+    const DATA = await fetchData(PEDIDO_API, 'updateDetail', FORM);
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
-        // Se cierra la caja de diálogo.
-        SAVE_MODAL.hide();
+        // Se actualiza la tabla para visualizar los cambios.
+        readDetail();
+        // Se cierra la caja de diálogo del formulario.
+        ITEM_MODAL.hide();
         // Se muestra un mensaje de éxito.
         sweetAlert(1, DATA.message, true);
-        // Se carga nuevamente la tabla para visualizar los cambios.
-        fillTable();
     } else {
         sweetAlert(2, DATA.error, false);
     }
 });
 
 /*
-*   Función asíncrona para llenar la tabla con los registros disponibles.
-*   Parámetros: form (objeto opcional con los datos de búsqueda).
+*   Función para obtener el detalle del carrito de compras.
+*   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-const fillTable = async (form = null) => {
-    // Se inicializa el contenido de la tabla.
-    ROWS_FOUND.textContent = '';
-    TABLE_BODY.innerHTML = '';
-    // Se verifica la acción a realizar.
-    (form) ? action = 'searchRows' : action = 'readAll';
-    // Petición para obtener los registros disponibles.
-    const DATA = await fetchData(PRODUCTO_API, action, form);
+async function readDetail() {
+    // Petición para obtener los datos del pedido en proceso.
+    const DATA = await fetchData(PEDIDO_API, 'readDetail');
     // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
     if (DATA.status) {
-        // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+        // Se inicializa el cuerpo de la tabla.
+        TABLE_BODY.innerHTML = '';
+        // Se declara e inicializa una variable para calcular el importe por cada producto.
+        let subtotal = 0;
+        // Se declara e inicializa una variable para sumar cada subtotal y obtener el monto final a pagar.
+        let total = 0;
+        // Se recorre el conjunto de registros fila por fila a través del objeto row.
         DATA.dataset.forEach(row => {
-            // Se establece un icono para el estado del producto.
-             icon = (row.estado_producto == 1) ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill';
-
+            subtotal = row.precio_producto * row.cantidad;
+            total += subtotal;
+            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
             TABLE_BODY.innerHTML += `
                 <tr>
-                    <td><img src="${SERVER_URL}images/productos/${row.imagen_producto}" height="50"></td>
                     <td>${row.nombre_producto}</td>
                     <td>${row.precio_producto}</td>
-                    <td>${row.nombre_categoria}</td>
-                    <td>${row.existencias_producto}</td>                          
-                    <td><i class="${icon}" style="color: black;"></i></td>
+                    <td>${row.cantidad}</td>
+                    <td>${subtotal.toFixed(2)}</td>
                     <td>
-                        <button type="button" class="btn btn-info" onclick="openUpdate(${row.producto_id})">
-                            <i class="bi bi-pencil-fill"></i>
+                        <button type="button" onclick="openUpdate(${row.detalle_pedido_id})" class="btn btn-info">
+                            <i class="bi bi-plus-slash-minus"></i>
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="openDelete(${row.producto_id})">
-                            <i class="bi bi-trash-fill"></i>
+                        <button type="button" onclick="openDelete(${row.detalle_pedido_id})" class="btn btn-danger">
+                            <i class="bi bi-cart-dash"></i>
                         </button>
                     </td>
                 </tr>
             `;
         });
-        // Se muestra un mensaje de acuerdo con el resultado.
-        ROWS_FOUND.textContent = DATA.message;
+        // Se muestra el total a pagar con dos decimales.
+        document.getElementById('pago').textContent = total.toFixed(2);
     } else {
-        sweetAlert(4, DATA.error, true);
+        sweetAlert(4, DATA.error, false, 'index.html');
     }
 }
 
 /*
-*   Función para preparar el formulario al momento de insertar un registro.
-*   Parámetros: ninguno.
-*   Retorno: ninguno.
-*/
-const openCreate = () => {
-    // Se muestra la caja de diálogo con su título.
-    SAVE_MODAL.show();
-    MODAL_TITLE.textContent = 'Crear producto';
-    // Se prepara el formulario.
-    SAVE_FORM.reset();
-    // EXISTENCIAS_PRODUCTO.disabled = true;
-    fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto');
-    fillSelect(MARCA_API, 'readAll', 'marcaProducto');
-    fillSelect(PROVEEDOR_API, 'readAll', 'proveedorProducto');
-}
-
-/*
-*   Función asíncrona para preparar el formulario al momento de actualizar un registro.
-*   Parámetros: id (identificador del registro seleccionado).
+*   Función para abrir la caja de diálogo con el formulario de cambiar cantidad de producto.
+*   Parámetros: id (identificador del producto) y quantity (cantidad actual del producto).
 *   Retorno: ninguno.
 */
 const openUpdate = async (id) => {
-    // Se define un objeto con los datos del registro seleccionado.
     const FORM = new FormData();
-    FORM.append('idProducto', id);
+    FORM.append('idDetalle', id);
     // Petición para obtener los datos del registro solicitado.
-    const DATA = await fetchData(PRODUCTO_API, 'readOne', FORM);
-    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+    const DATA = await fetchData(PEDIDO_API, 'readDetail', FORM);
     if (DATA.status) {
         // Se muestra la caja de diálogo con su título.
-        SAVE_MODAL.show();
-        MODAL_TITLE.textContent = 'Actualizar producto';
-        // Se prepara el formulario.
-        SAVE_FORM.reset();
-        //  EXISTENCIAS_PRODUCTO.disabled = false;
-        // Se inicializan los campos con los datos.
+        ITEM_MODAL.show();
+        ITEM_FORM.reset();
         const ROW = DATA.dataset;
+        ID_DETALLE.value = ROW.detalle_pedido_id;
+        CANTIDAD.value = ROW.cantidad; 
         ID_PRODUCTO.value = ROW.producto_id;
-        NOMBRE_PRODUCTO.value = ROW.nombre_producto;
-        DESCRIPCION_PRODUCTO.value = ROW.descripcion_producto;
-        PRECIO_PRODUCTO.value = ROW.precio_producto;
-        if (ROW.estado == 0) {
-            ESTADO_PRODUCTO.checked = false;
-        } else if (ROW.estado == 1) {
-            ESTADO_PRODUCTO.checked = true;
-        } else (
-            console.log(ROW.estado)
-        )
-        EXISTENCIAS_PRODUCTO.value = ROW.existencias_producto;
-        FECHA_REGISTRO_PRODUCTO.value = ROW.fecha_registro;
-        ESTADO_PRODUCTO.value =  ROW.estado_producto;
-        fillSelect(MARCA_API, 'readAll', 'marcaProducto', ROW.marca_id);
-        fillSelect(PROVEEDOR_API, 'readAll', 'proveedorProducto', ROW.proveedor_id);
-        fillSelect(CATEGORIA_API, 'readAll', 'categoriaProducto', ROW.categoria_id);
-
 
     } else {
         sweetAlert(2, DATA.error, false);
@@ -177,26 +115,20 @@ const openUpdate = async (id) => {
 }
 
 /*
-*   Función asíncrona para eliminar un registro.
-*   Parámetros: id (identificador del registro seleccionado).
+*   Función asíncrona para mostrar un mensaje de confirmación al momento de finalizar el pedido.
+*   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
-const openDelete = async (id) => {
+async function finishOrder() {
     // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
-    const RESPONSE = await confirmAction('¿Desea eliminar el producto de forma permanente?');
+    const RESPONSE = await confirmAction('¿Está seguro de finalizar el pedido?');
     // Se verifica la respuesta del mensaje.
     if (RESPONSE) {
-        // Se define una constante tipo objeto con los datos del registro seleccionado.
-        const FORM = new FormData();
-        FORM.append('idProducto', id);
-        // Petición para eliminar el registro seleccionado.
-        const DATA = await fetchData(PRODUCTO_API, 'deleteRow', FORM);
+        // Petición para finalizar el pedido en proceso.
+        const DATA = await fetchData(PEDIDO_API, 'finishOrder');
         // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
         if (DATA.status) {
-            // Se muestra un mensaje de éxito.
-            await sweetAlert(1, DATA.message, true);
-            // Se carga nuevamente la tabla para visualizar los cambios.
-            fillTable();
+            sweetAlert(1, DATA.message, true, 'index.html');
         } else {
             sweetAlert(2, DATA.error, false);
         }
@@ -204,13 +136,27 @@ const openDelete = async (id) => {
 }
 
 /*
-*   Función para abrir un reporte automático de productos por categoría.
-*   Parámetros: ninguno.
+*   Función asíncrona para mostrar un mensaje de confirmación al momento de eliminar un producto del carrito.
+*   Parámetros: id (identificador del producto).
 *   Retorno: ninguno.
 */
-const openReport = () => {
-    // Se declara una constante tipo objeto con la ruta específica del reporte en el servidor.
-    const PATH = new URL(`${SERVER_URL}reports/admin/productos.php`);
-    // Se abre el reporte en una nueva pestaña.
-    window.open(PATH.href);
+async function openDelete(id) {
+    // Llamada a la función para mostrar un mensaje de confirmación, capturando la respuesta en una constante.
+    const RESPONSE = await confirmAction('¿Está seguro de remover el producto?');
+    // Se verifica la respuesta del mensaje.
+    if (RESPONSE) {
+        // Se define un objeto con los datos del producto seleccionado.
+        const FORM = new FormData();
+        FORM.append('idDetalle', id);
+        // Petición para eliminar un producto del carrito de compras.
+        const DATA = await fetchData(PEDIDO_API, 'deleteDetail', FORM);
+        // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+        if (DATA.status) {
+            await sweetAlert(1, DATA.message, true);
+            // Se carga nuevamente la tabla para visualizar los cambios.
+            readDetail();
+        } else {
+            sweetAlert(2, DATA.error, false);
+        }
+    }
 }
