@@ -44,7 +44,7 @@ class ClienteHandler
         $sql = 'UPDATE cliente
                 SET clave_cliente = ?
                 WHERE cliente_id = ?';
-        $params = array($this->clave, $this->id);
+        $params = array($this->clave, $_SESSION['idCliente']);
         return Database::executeRow($sql, $params);
     }
 
@@ -58,7 +58,6 @@ class ClienteHandler
         
         // Verificar si se obtuvo un resultado válido
         if ($data !== false) {
-            // Se verifica si la contraseña coincide con el hash almacenado en la base de datos.
             if (password_verify($password, $data['clave_cliente'])) {
                 return true;
             }

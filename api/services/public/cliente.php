@@ -25,6 +25,14 @@ if (isset($_GET['action'])) {
                     $result['error'] = 'Correo de usuario indefinido';
                 }
                 break;
+            case 'readUsers':
+                if ($cliente->readAll()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Debe autenticarse para ingresar';
+                } else {
+                    $result['error'] = 'Debe crear un administrador para comenzar';
+                }
+                break;
             case 'changePassword':
                 $_POST = Validator::validateForm($_POST);
                 if (!$cliente->checkPassword($_POST['claveActual'])) {

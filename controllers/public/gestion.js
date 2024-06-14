@@ -1,7 +1,28 @@
+// gestion.js
+
 // Constante para la URL de la API del cliente
 const CLIENTE_API = 'services/public/cliente.php';
 
-// Función asíncrona para cambiar la contraseña del usuario
+// Método asíncrono para verificar la autenticación del usuario
+const checkAuthentication = async () => {
+    try {
+        // Realizar la solicitud utilizando la función fetchData
+        const data = await fetchData(CLIENTE_API, 'readUsers', new FormData());
+
+        if (data.status !== 1) {
+            await sweetAlert(2, 'No has iniciado sesión'); // Error type = 2
+            // No autenticado, redirigir a login.html después de mostrar el mensaje
+            setTimeout(() => {
+            window.location.href = 'login.html';
+            }, 600); // Redirigir después de 2 segundos (2000 milisegundos)
+        }
+    } catch (error) {
+        // Mostrar mensaje de error utilizando SweetAlert
+        await sweetAlert(2, 'No se pudo verificar la autenticación'); // Error type = 2
+    }
+};
+
+// Método asíncrono para cambiar la contraseña del usuario
 const changePassword = async (currentPassword, newPassword, repeatPassword) => {
     try {
         // Validación básica del formulario en el lado del cliente
@@ -23,33 +44,22 @@ const changePassword = async (currentPassword, newPassword, repeatPassword) => {
         const data = await fetchData(CLIENTE_API, 'changePassword', formData);
 
         if (data.status === 1) {
-            // Éxito al cambiar la contraseña
-            swal({
-                title: 'Contraseña cambiada',
-                text: data.message,
-                icon: 'success',
-                button: 'Aceptar'
-            }).then(() => {
-                // Redireccionar a una página o realizar otras acciones necesarias
-                window.location.href = 'index.html';
-            });
+            // Éxito al cambiar la contraseña, mostrar SweetAlert de éxito
+            await sweetAlert(1, data.message, true, 'index.html'); // Success type = 1
         } else {
             // Mostrar mensaje de error si no se pudo cambiar la contraseña
-            throw new Error(data.error || 'No se pudo cambiar la contraseña');
+            await sweetAlert(2, data.error || 'No se pudo cambiar la contraseña'); // Error type = 2
         }
     } catch (error) {
-        // Mostrar mensaje de error utilizando SweetAlert o cualquier otro método
-        swal({
-            title: 'Error',
-            text: error.message,
-            icon: 'error',
-            button: 'Aceptar'
-        });
+        // Mostrar mensaje de error utilizando SweetAlert
+        await sweetAlert(2, error.message || 'Ocurrió un problema al cambiar la contraseña'); // Error type = 2
     }
 };
 
 // Método del evento para cuando el documento ha cargado
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await checkAuthentication(); // Llamada a la función para verificar la autenticación
+
     loadTemplate(); // Llamada a la función para cargar el encabezado y pie de página
 
     const form = document.querySelector('form#changePasswordForm'); // Obtener el formulario por su ID
