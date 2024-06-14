@@ -78,7 +78,7 @@ const loadTemplate = async () => {
     // Se agrega el pie de la página web después del contenido principal.
     MAIN.insertAdjacentHTML('afterend', `
     <footer id="footer">
-        <nav class="navbar fixed-bottom" style="background-color: rgb(201 88 88 / 46%)">
+        <nav class="navbar sticky-bottom" style="background-color: rgb(201 88 88 / 46%)">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-6">
@@ -97,7 +97,7 @@ const loadTemplate = async () => {
 `);
 
     //ocultar el pie de pagina al cargar la pagina
-    toggleFooterVisibility();
+    // toggleFooterVisibility();
 
 }
 
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     //loadTemplate();
 
     // Event listener for scroll event to toggle footer visibility
-    window.addEventListener('scroll', toggleFooterVisibility);
+   // window.addEventListener('scroll', toggleFooterVisibility);
 });
 
 // Function to toggle footer visibility based on scroll position
@@ -117,10 +117,10 @@ function toggleFooterVisibility() {
     const windowHeight = window.innerHeight;
     const documentHeight = document.body.clientHeight;
 
-    // Calculate the maximum scroll position for the scrollbar
+    
     const maxScroll = documentHeight - windowHeight;
 
-    // Show footer only when scrollbar is at the bottom or at the top
+    
     if (scrollPosition >= maxScroll || scrollPosition === 0) {
         footer.style.display = 'block';
     } else {

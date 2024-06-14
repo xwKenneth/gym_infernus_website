@@ -89,15 +89,15 @@ async function readDetail() {
 const openUpdate = async (id) => {
     const FORM = new FormData();
     FORM.append('idDetalle', id);
- 
+
     const DATA = await fetchData(PEDIDO_API, 'readOne', FORM);
 
     if (DATA.status) {
-        const ROW = DATA.dataset; 
+        const ROW = DATA.dataset;
         ITEM_MODAL.show();
         ID_DETALLE.value = ROW.detalle_pedido_id;
-        CANTIDAD.value = ROW.cantidad;
         ID_PRODUCTO.value = ROW.producto_id;
+        CANTIDAD.value = ROW.cantidad;
     } else {
         sweetAlert(2, DATA.error, false);
     }

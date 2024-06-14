@@ -12,11 +12,11 @@
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/bootstrap-icons.min.css">
     <link type="text/css" rel="stylesheet" href="../../resources/css/style-index.css">
- 
+
 </head>
 
 <body>
- 
+
     <main class="container">
         <!-- Sección principal -->
         <h4 id="mainTitle"></h4>
@@ -25,7 +25,8 @@
                 <div class="row">
                     <div class="col-lg-6 order-1 order-lg-1" data-aos="fade-left">
                         <div class="image-container d-flex align-items-center justify-content-center">
-                            <img src="../../resources/img/icon.png" width="300px" height="100px" class="img-fluid" alt="About Us Image">
+                            <img src="../../resources/img/icon.png" width="300px" height="100px" class="img-fluid"
+                                alt="About Us Image">
                         </div>
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-2 content" data-aos="fade-right">
@@ -42,35 +43,37 @@
             </div>
         </section>
 
-<!-- Sección de soporte -->
-<section id="Support" class="p-5 custom-section mb-0">
-    <!-- Formulario para soporte -->
-    <div class="form-container">
-        <form class="row g-3 border w-50" style="background-color: #D9D9D9; opacity: 0.8;">
-            <div class="col-sm-12">
-                <label for="nombre" class="form-label">
-                    <i class="bi bi-person-fill"></i> Nombre
-                </label>
-                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
+        <!-- Sección de soporte -->
+        <section id="Support" class="p-5 custom-section mb-0">
+            <!-- Formulario para soporte -->
+            <div class="form-container">
+                <form class="row g-3 border w-50" style="background-color: #D9D9D9; opacity: 0.8;">
+                    <div class="col-sm-12">
+                        <label for="nombre" class="form-label">
+                            <i class="bi bi-person-fill"></i> Nombre
+                        </label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="correo" class="form-label">
+                            <i class="bi bi-envelope-fill"></i> Correo
+                        </label>
+                        <input type="email" id="correo" name="correo" class="form-control"
+                            placeholder="Correo electrónico" required>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="descripcion" class="form-label">
+                            <i class="bi bi-chat-left-text-fill"></i> Descripción
+                        </label>
+                        <textarea id="descripcion" name="descripcion" class="form-control" rows="5"
+                            placeholder="Escribe tu mensaje aquí.." required></textarea>
+                    </div>
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary rounded-pill">Enviar</button>
+                    </div>
+                </form>
             </div>
-            <div class="col-sm-12">
-                <label for="correo" class="form-label">
-                    <i class="bi bi-envelope-fill"></i> Correo
-                </label>
-                <input type="email" id="correo" name="correo" class="form-control" placeholder="Correo electrónico" required>
-            </div>
-            <div class="col-sm-12">
-                <label for="descripcion" class="form-label">
-                    <i class="bi bi-chat-left-text-fill"></i> Descripción
-                </label>
-                <textarea id="descripcion" name="descripcion" class="form-control" rows="5" placeholder="Escribe tu mensaje aquí.." required></textarea>
-            </div>
-            <div class="col-sm-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary rounded-pill">Enviar</button>
-            </div>
-        </form>
-    </div>
-</section>
+        </section>
 
 
     </main>

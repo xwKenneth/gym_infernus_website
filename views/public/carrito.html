@@ -61,8 +61,6 @@
         <div class="modal fade" id="itemModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="modalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <!-- Contenido del componente Modal -->
-                <input type="text" class="d-none" id="idProducto" name="idProducto">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="modalTitle">Cambiar cantidad</h1>
@@ -70,6 +68,8 @@
                     </div>
                     <!-- Formulario para actualizar cantidad -->
                     <form id="itemForm">
+                        <!-- Contenido del componente Modal -->
+                        <input type="text" class="d-none" id="idProducto" name="idProducto">
                         <div class="modal-body row">
                             <input type="number" class="d-none" id="idDetalle" name="idDetalle">
                             <div class="col-sm-12">
