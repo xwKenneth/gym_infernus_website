@@ -118,6 +118,7 @@ const openCreate = async (id) => {
     // Se restauran los elementos del formulario.
 
     SAVE_FORM.reset();
+    ID_DETALLE_P.value = '';
     fillSelect(PEDIDO_API, 'readAll', 'pedidoDetalleP');
     fillSelect(PRODUCTO_API, 'getProductos', 'productoDetalleP');
  

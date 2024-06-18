@@ -160,7 +160,7 @@ class ProductoHandler
         $sql = 'SELECT v.valoracion_id, v.producto_id, v.cliente_id, v.calificacion, v.comentario, v.fecha_valoracion, c.nombre_cliente, c.apellido_cliente
         FROM valoracion v
         JOIN cliente c ON v.cliente_id = c.cliente_id
-        WHERE v.producto_id = ?';
+        WHERE v.producto_id = ? AND v.estado_valoracion = true';
         $params = array($this->id);
         return Database::getRows($sql, $params);
     }

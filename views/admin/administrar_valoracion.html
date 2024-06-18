@@ -19,7 +19,8 @@
             <form class="col-sm-12 col-md-6" id="searchForm">
                 <div class="row">
                     <div class="col-6">
-                        <input type="search" class="form-control" name="search" placeholder="Buscar por nombre..." required>
+                        <input type="search" class="form-control" name="search" placeholder="Buscar por nombre..."
+                            required>
                     </div>
                     <div class="col-6">
                         <button type="submit" class="btn btn-success">
@@ -42,7 +43,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td colspan="6" id="rowsFound"></td>
+                    <td colspan="7" id="rowsFound"></td>
                 </tr>
                 <tr>
                     <th>Producto</th>
@@ -50,6 +51,7 @@
                     <th>Calificacion</th>
                     <th>Comentario</th>
                     <th>Fecha Valoracion</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -75,7 +77,7 @@
                             <div class="col-sm-12 col-md-6">
                                 <label for="calificacionValoracion" class="form-label">Calificación</label>
                                 <input id="calificacionValoracion" type="number" name="calificacionValoracion" min="0"
-                                    max="10" step="0.1" class="form-control" required>
+                                    max="5.0" step="0.1" class="form-control" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="comentarioValoracion">Comentario</label>
@@ -96,6 +98,11 @@
                                 <label for="productoValoracion" class="form-label">Producto</label>
                                 <select id="productoValoracion" name="productoValoracion" class="form-select" required>
                                 </select>
+                            </div>
+                            <div class="form-check form-switch form-check-reverse">
+                                <input class="form-check-input" type="checkbox" id="estadoValoracion"
+                                    name="estadoValoracion" checked>
+                                <label class="form-check-label" for="estadoValoracion">Estado</label>
                             </div>
                         </div>
                         <div class="modal-footer">

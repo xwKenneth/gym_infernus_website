@@ -191,8 +191,8 @@ class PedidoPublicHandler
 
     public function createValoracion()
     {
-        $sql = 'INSERT INTO valoracion(producto_id, cliente_id, calificacion, comentario, fecha_valoracion)
-                VALUES(?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO valoracion(producto_id, cliente_id, calificacion, comentario, fecha_valoracion, estado_valoracion)
+                VALUES(?, ?, ?, ?, ?, 1)';
 
         $params = array($this->producto, $_SESSION['idCliente'], $this->calificacion, $this->comentario, date('Y-m-d'));
 

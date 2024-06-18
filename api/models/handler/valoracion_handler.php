@@ -17,7 +17,7 @@ class ValoracionHandler
     protected $calificacion = null;
     protected $comentario = null;
     protected $total = null;
-
+    protected $estado = null;
     // Constante para establecer la ruta de las imágenes.
 
     public function searchRows()
@@ -36,8 +36,8 @@ class ValoracionHandler
 
     public function createRow()
     {
-        $sql = 'INSERT INTO valoracion(producto_id, cliente_id, calificacion, comentario, fecha_valoracion)
-                VALUES(?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO valoracion(producto_id, cliente_id, calificacion, comentario, fecha_valoracion, estado_valoracion)
+                VALUES(?, ?, ?, ?, ?, 1)';
 
         $params = array($this->producto, $this->cliente, $this->calificacion, $this->comentario, $this->fecha);
         return Database::executeRow($sql, $params);
@@ -47,7 +47,7 @@ class ValoracionHandler
     {
         $sql = 'SELECT valoracion_id, nombre_producto,  
         CONCAT_WS(" ", nombre_cliente, apellido_cliente) AS "nombre_cliente", 
-        calificacion ,comentario, fecha_valoracion
+        calificacion ,comentario, fecha_valoracion, estado_valoracion
         FROM valoracion 
 		  INNER JOIN cliente USING(cliente_id)
 		INNER JOIN producto USING(producto_id)';
@@ -58,9 +58,9 @@ class ValoracionHandler
     {
         $sql = 'SELECT valoracion_id, cliente_id, producto_id, nombre_producto,  
         CONCAT_WS(" ",nombre_cliente, apellido_cliente) AS "nombre_cliente", 
-        calificacion ,comentario, fecha_valoracion
+        calificacion ,comentario, fecha_valoracion, estado_valoracion
         FROM valoracion 
-		  INNER JOIN cliente USING(cliente_id)
+		INNER JOIN cliente USING(cliente_id)
 		INNER JOIN producto USING(producto_id)
                 WHERE valoracion_id = ?';
         $params = array($this->id);
@@ -70,10 +70,10 @@ class ValoracionHandler
     public function updateRow()
     {
         $sql = 'UPDATE valoracion
-                SET producto_id = ?, cliente_id = ?, calificacion = ?, comentario = ?, fecha_valoracion = ?
+                SET producto_id = ?, cliente_id = ?, calificacion = ?, comentario = ?, fecha_valoracion = ?, estado_valoracion = ?
                 WHERE valoracion_id = ?';
         $params = array(
-            $this->producto, $this->cliente, $this->calificacion, $this->comentario, $this->fecha, $this->id
+            $this->producto, $this->cliente, $this->calificacion, $this->comentario, $this->fecha, $this->estado, $this->id
         );
         return Database::executeRow($sql, $params);
     }

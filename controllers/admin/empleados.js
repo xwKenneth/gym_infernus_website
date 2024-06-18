@@ -113,6 +113,7 @@ const openCreate = () => {
     SAVE_FORM.reset();
     CLAVE_ADMINISTRADOR.disabled = false;
     CONFIRMAR_CLAVE.disabled = false;
+    ID_ADMINISTRADOR.value = '';
 }
 
 /*

@@ -66,6 +66,17 @@ class ValoracionData extends ValoracionHandler
             return false;
         }
     }
+    
+    public function setEstado($value)
+    {
+        if (Validator::validateBoolean($value)) {
+            $this->estado = $value;
+            return true;
+        } else {
+            $this->data_error = 'Estado incorrecto';
+            return false;
+        }
+    }
 
     public function setCalificacion($value)
     {

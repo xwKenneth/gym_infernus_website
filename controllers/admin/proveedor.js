@@ -133,6 +133,7 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear proveedor';
     // Se prepara el formulario.
     SAVE_FORM.reset();
+    ID_PROVEEDOR.value = '';
 
 }
 

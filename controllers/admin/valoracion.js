@@ -18,7 +18,9 @@ const SAVE_FORM = document.getElementById('saveForm'),
 COMENTARIO_VALORACION = document.getElementById('comentarioValoracion'),
     FECHA_VALORACION = document.getElementById('fechaValoracion'),
     CLIENTE_VALORACION = document.getElementById('clienteValoracion'),
-    PRODUCTO_VALORACION = document.getElementById('productoValoracion');
+    PRODUCTO_VALORACION = document.getElementById('productoValoracion'),
+    ESTADO_VALORACION =  document.getElementById('estadoValoracion');
+
 document.addEventListener('DOMContentLoaded', async () => {
     loadTemplate();
     MAIN_TITLE.textContent = 'Gestionar valoración';
@@ -79,6 +81,7 @@ const fillTable = async (form = null) => {
         // Se recorre el conjunto de registros fila por fila.
         DATA.dataset.forEach(row => {
             // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+            icon = (row.estado_valoracion == 1) ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill';
             TABLE_BODY.innerHTML += `
                 <tr>
                     <td>${row.nombre_producto}</td>
@@ -86,6 +89,7 @@ const fillTable = async (form = null) => {
                     <td>${row.calificacion}</td>
                     <td>${row.comentario}</td>
                     <td>${row.fecha_valoracion}</td>
+                    <td><i class="${icon}" style="color: black;"></i></td>
                     <td>
                         <button type="button" class="btn btn-info" onclick="openUpdate(${row.valoracion_id})">
                             <i class="bi bi-pencil-fill"></i>
@@ -114,6 +118,7 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear valoración';
     // Se restauran los elementos del formulario.
     SAVE_FORM.reset();
+    ID_VALORACION.value = '';
     fillSelect(CLIENTE_API, 'getClientes', 'clienteValoracion');
     fillSelect(PRODUCTO_API, 'getProductos', 'productoValoracion');
     const fechaActual = new Date();
@@ -145,6 +150,14 @@ const openUpdate = async (id) => {
         CALIFICACION_VALORACION.value = ROW.calificacion;
         COMENTARIO_VALORACION.value = ROW.comentario;
         FECHA_VALORACION.value = ROW.fecha_valoracion;
+        if (ROW.estado_valoracion == 0) {
+            ESTADO_VALORACION.checked = false;
+        } else if (ROW.estado_valoracion == 1) {
+            ESTADO_VALORACION.checked = true;
+        } else (
+            console.log(ROW.estado_valoracion)
+        )
+        ESTADO_VALORACION.value =  ROW.estado_valoracion;
         fillSelect(CLIENTE_API, 'getClientes', 'clienteValoracion', ROW.cliente_id);
         fillSelect(PRODUCTO_API, 'getProductos', 'productoValoracion', ROW.producto_id);
     } else {

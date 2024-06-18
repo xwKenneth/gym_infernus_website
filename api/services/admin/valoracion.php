@@ -75,12 +75,13 @@
                         !$valoracion->setCalificacion($_POST['calificacionValoracion']) or
                         !$valoracion->setComentario($_POST['comentarioValoracion']) or
                         !$valoracion->setFechaValoracion($_POST['fechaValoracion']) or
+                        !$valoracion->setEstado(isset($_POST['estadoValoracion']) ? 1 : 0) or 
                         !$valoracion->setId($_POST['idValoracion'])
                     ) {
                         $result['error'] = $valoracion->getDataError();
                     } elseif ($valoracion->updateRow()) {
                         $result['status'] = 1;
-                        $result['message'] = 'Venta modificada correctamente';
+                        $result['message'] = 'Valoración modificada correctamente';
                     } else {
                         $result['error'] = 'Ocurrió un problema al modificar la venta';
                     }

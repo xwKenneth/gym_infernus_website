@@ -155,6 +155,7 @@ const openCreate = () => {
     MODAL_TITLE.textContent = 'Crear cliente';
     // Se prepara el formulario.
     SAVE_FORM.reset();
+    ID_CLIENTE.value = '';
 
 }
 
