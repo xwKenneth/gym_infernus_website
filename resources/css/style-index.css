@@ -88,11 +88,11 @@
 .custom-section {
     background-size: cover;
     background-position: center;
-    padding: 50px;
+    padding: 70px;
 }
 
 #MainSection {
-    background-image: url('../../resources/img/index1.jpg');
+    background-image: url('../../resources/img/index1.png');
 }
 
 #Support {

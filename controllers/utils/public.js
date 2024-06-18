@@ -1,28 +1,44 @@
-/*
-*   Controlador es de uso general en las páginas web del sitio público.
-*   Sirve para manejar las plantillas del encabezado y pie del documento.
-*/
-
 // Constante para completar la ruta de la API.
 const USER_API = 'services/public/cliente.php';
+
 // Constante para establecer el elemento del contenido principal.
 const MAIN = document.querySelector('main');
 MAIN.style.paddingTop = '75px';
 MAIN.style.paddingBottom = '100px';
 MAIN.classList.add('container');
+
 // Se establece el título de la página web.
 document.querySelector('title').textContent = 'InfernusGym - Shop';
+
 // Constante para establecer el elemento del título principal.
 const MAIN_TITLE = document.getElementById('mainTitle');
 MAIN_TITLE.classList.add('text-center');
 
-/*  Función asíncrona para cargar el encabezado y pie del documento.
+// Función para agregar el CSS por defecto al documento.
+function addDefaultCSS() {
+    const style = document.createElement('style');
+    style.textContent = `
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+/* Función asíncrona para cargar el encabezado y pie del documento.
 *   Parámetros: ninguno.
 *   Retorno: ninguno.
 */
 const loadTemplate = async () => {
-    // Petición para obtener en nombre del usuario que ha iniciado sesión.
+    // Petición para obtener el nombre del usuario que ha iniciado sesión.
     const DATA = await fetchData(USER_API, 'getUser');
+    
     // Se comprueba si el usuario está autenticado para establecer el encabezado respectivo.
     if (DATA.session) {
         // Se verifica si la página web no es el inicio de sesión, de lo contrario se direcciona a la página web principal.
@@ -75,6 +91,7 @@ const loadTemplate = async () => {
         </header>
         `);
     }
+    
     // Se agrega el pie de la página web después del contenido principal.
     MAIN.insertAdjacentHTML('afterend', `
     <footer id="footer">
@@ -95,19 +112,12 @@ const loadTemplate = async () => {
         </nav>
     </footer>
 `);
-
-    //ocultar el pie de pagina al cargar la pagina
-    // toggleFooterVisibility();
-
 }
 
 // Método del evento para cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', async () => {
-    // Llamada a la función para mostrar el encabezado y pie del documento.
-    //loadTemplate();
-
-    // Event listener for scroll event to toggle footer visibility
-   // window.addEventListener('scroll', toggleFooterVisibility);
+    addDefaultCSS();
+    
 });
 
 // Function to toggle footer visibility based on scroll position
@@ -117,10 +127,8 @@ function toggleFooterVisibility() {
     const windowHeight = window.innerHeight;
     const documentHeight = document.body.clientHeight;
 
-    
     const maxScroll = documentHeight - windowHeight;
 
-    
     if (scrollPosition >= maxScroll || scrollPosition === 0) {
         footer.style.display = 'block';
     } else {
