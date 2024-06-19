@@ -11,8 +11,6 @@
     color: white;
 }
 
-
-/* ################################ */
 .direccion3 {
     margin-top: -5%;
     font-size: 80%;
@@ -91,19 +89,43 @@
     padding: 70px;
 }
 
+/* Estilo para el header */
+.fixed-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.custom-section {
+    background-size: cover;
+    background-position: center;
+    padding: 70px;
+    margin-top: 75px; /* Ajustar según la altura del header */
+}
+
+/* Ajustar la opacidad del fondo */
 #MainSection {
     background-image: url('../../resources/img/index1.png');
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
 }
 
 #Support {
-    background-image: url('../../resources/img//index2.png');
+    background-image: url('../../resources/img/index2.png');
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
 }
 
-/* Additional CSS to center the form */
 .form-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
- 
+.form-container form {
+    background-color: rgba(217, 217, 217, 0.8); /* Ajustar la opacidad del formulario */
+}
+
+/* Para asegurar que el main no quede debajo del header */
+main {
+    padding-top: 100px; /* Ajustar según la altura del header */
+}

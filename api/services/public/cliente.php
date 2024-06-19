@@ -30,7 +30,14 @@ if (isset($_GET['action'])) {
                     $result['status'] = 1;
                     $result['message'] = 'Debe autenticarse para ingresar';
                 } else {
-                    $result['error'] = 'Debe crear un administrador para comenzar';
+                    $result['error'] = 'Inicie sesión para comenzar';
+                }
+                break;
+            case 'readCliente':
+                if ($result['dataset'] = $cliente->readCliente()) {
+                    $result['status'] = 1;
+                } else {
+                    $result['error'] = 'Debe crear una cuenta para comenzar';
                 }
                 break;
             case 'changePassword':
@@ -46,6 +53,25 @@ if (isset($_GET['action'])) {
                     $result['message'] = 'Contraseña cambiada correctamente';
                 } else {
                     $result['error'] = 'Ocurrió un problema al cambiar la contraseña';
+                }
+                break;
+            case 'editProfile':
+                $_POST = Validator::validateForm($_POST);
+                if (
+                    !$cliente->setNombre($_POST['nombreCliente']) or
+                    !$cliente->setApellido($_POST['apellidoCliente']) or
+                    !$cliente->setCorreo($_POST['correoCliente'], 8, 100, false) or
+                    !$cliente->setDUI($_POST['duiCliente'], false) or
+                    !$cliente->setTelefono($_POST['telefonoCliente']) or
+                    !$cliente->setNacimiento($_POST['fechaNacimientoCliente']) or
+                    !$cliente->setDireccion($_POST['direccionCliente'])
+                ) {
+                    $result['error'] = $cliente->getDataError();
+                } elseif ($cliente->editProfile()) {
+                    $result['status'] = 1;
+                    $result['message'] = 'Perfil modificado correctamente';
+                } else {
+                    $result['error'] = 'Ocurrió un problema al modificar el perfil';
                 }
                 break;
             case 'logOut':
