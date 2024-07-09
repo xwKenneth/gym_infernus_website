@@ -147,6 +147,8 @@ class PedidoData extends PedidoHandler
         return true;
     }
 
+    
+
     // Nuevo método para establecer la fecha de la venta
     public function setFechaVenta($value)
     {

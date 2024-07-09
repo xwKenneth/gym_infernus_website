@@ -45,7 +45,7 @@ const loadTemplate = async () => {
         if (!location.pathname.endsWith('login.html')) {
             // Se agrega el encabezado de la página web antes del contenido principal.
             MAIN.insertAdjacentHTML('beforebegin', `
-                <header class="fixed-header">
+                <header>
                     <nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(201 88 88 / 46%)">
                         <div class="container">
                             <a class="navbar-brand" href="index.html"><img src="../../resources/img/logo.png" height="50" alt="GymInfernus"></a>
