@@ -76,6 +76,15 @@ class ClienteHandler
         }
     }
 
+    public function readOneCorreo($correo)
+    {
+        $sql = 'SELECT cliente_id, nombre, apellido, correo_electronico, dui_cliente, telefono_cliente, nacimiento_cliente, direccion_cliente, estado_cliente
+                FROM cliente
+                WHERE correo_electronico = ?';
+        $params = array($correo);
+        return Database::getRow($sql, $params);
+    }
+    
     public function editProfile()
     {
         $sql = 'UPDATE cliente
